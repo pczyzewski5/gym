@@ -15,3 +15,9 @@ doctrine:
         auto_generate_proxy_classes: '%kernel.debug%'
         auto_mapping: false
         mappings:
+            Station:
+                type: xml
+                prefix: Gym\Infrastructure\Station
+                dir: '%kernel.project_dir%/config/common/orm/Station'
+                is_bundle: false
+                alias: Station
