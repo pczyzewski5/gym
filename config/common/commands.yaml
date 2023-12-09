@@ -1,1 +1,8 @@
 services:
+  User\Domain\Command\RegisterUserHandler:
+    class: User\Domain\Command\RegisterUserHandler
+    arguments:
+      - '@security.user_password_hasher'
+      - '@User\Domain\User\UserPersister'
+    tags:
+      - { name: tactician.handler, command: User\Domain\Command\RegisterUser, bus: command }

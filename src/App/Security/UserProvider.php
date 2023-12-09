@@ -2,9 +2,9 @@
 
 namespace App\Security;
 
-use Gym\Domain\User\Exception\UserException;
-use Gym\Domain\User\User;
-use Gym\Domain\User\UserRepository;
+use User\Domain\Exception\UserException;
+use User\Domain\User\User;
+use User\Domain\User\UserRepository;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;

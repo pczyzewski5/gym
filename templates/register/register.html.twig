@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <nav class="level">
+        <div class="level-item has-text-centered">
+            {{ form_start(register_form) }}
+            <div class="field">
+                <div class="control has-icons-left">
+                    {{ form_widget(register_form.email) }}
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                </div>
+                <p class="help is-danger">{{ form_errors(register_form.email) }}</p>
+            </div>
+
+            <div class="field">
+                <div class="control has-icons-left">
+                    {{ form_widget(register_form.username) }}
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                    </span>
+                </div>
+                <p class="help is-danger">{{ form_errors(register_form.username) }}</p>
+            </div>
+
+            <div class="field">
+                <div class="control has-icons-left">
+                    {{ form_widget(register_form.password) }}
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-key"></i>
+                    </span>
+                </div>
+                <p class="help is-danger">{{ form_errors(register_form.password) }}</p>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    {{ form_widget(register_form.zarejestruj) }}
+                </div>
+            </div>
+            {{ form_end(register_form) }}
+        </div>
+    </nav>
+{% endblock %}

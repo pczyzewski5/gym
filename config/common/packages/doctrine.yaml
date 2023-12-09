@@ -21,3 +21,10 @@ doctrine:
                 dir: '%kernel.project_dir%/config/common/orm/Station'
                 is_bundle: false
                 alias: Station
+
+            User:
+                type: xml
+                prefix: User\Infrastructure\User
+                dir: '%kernel.project_dir%/config/common/orm/User'
+                is_bundle: false
+                alias: User

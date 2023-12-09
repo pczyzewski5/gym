@@ -1,1 +1,5 @@
 services:
+  User\Infrastructure\User\UserPersister:
+    class: User\Infrastructure\User\UserPersister
+    arguments:
+      - '@doctrine.orm.entity_manager'

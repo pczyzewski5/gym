@@ -18,7 +18,7 @@ services:
     App\Security\UserProvider:
         class: App\Security\UserProvider
         arguments:
-            - '@Gym\Domain\User\UserRepository'
+            - '@User\Domain\User\UserRepository'
 
 imports:
     - { resource: 'infrastructure/services.yaml' }

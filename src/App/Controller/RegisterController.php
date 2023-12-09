@@ -5,12 +5,12 @@ namespace App\Controller;
 use App\CommandBus\CommandBus;
 use App\Form\RegisterUserForm;
 use App\QueryBus\QueryBus;
-use Gym\Domain\Command\RegisterUser;
-use Gym\Domain\User\Exception\UserAlreadyExistsException;
+use User\Domain\Command\RegisterUser;
+use User\Domain\Exception\UserAlreadyExistsException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class RegistrationController extends BaseController
+class RegisterController extends BaseController
 {
     private QueryBus $queryBus;
     private CommandBus $commandBus;
@@ -40,7 +40,7 @@ class RegistrationController extends BaseController
                     )
                 );
             } catch (UserAlreadyExistsException $e) {
-                return $this->renderForm('registration/register.html.twig', [
+                return $this->renderForm('register/register.html.twig', [
                     'register_form' => $form,
                     'error_message' => 'Account already exists.'
                 ]);
@@ -49,13 +49,13 @@ class RegistrationController extends BaseController
             return $this->redirectToRoute('register_info');
         }
 
-        return $this->renderForm('registration/register.html.twig', [
+        return $this->renderForm('register/register.html.twig', [
             'register_form' => $form
         ]);
     }
 
     public function registerInfo()
     {
-        return $this->renderForm('registration/register_info.html.twig');
+        return $this->renderForm('register/register_info.html.twig');
     }
 }

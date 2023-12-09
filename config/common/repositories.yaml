@@ -1,1 +1,3 @@
 services:
+  User\Domain\User\UserRepository:
+    alias: User\Infrastructure\User\UserRepository

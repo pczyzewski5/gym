@@ -1,1 +1,3 @@
 services:
+  User\Domain\User\UserPersister:
+    alias: User\Infrastructure\User\UserPersister

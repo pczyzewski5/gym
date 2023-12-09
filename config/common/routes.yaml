@@ -19,10 +19,10 @@ logout:
 
 register:
     path: /register
-    controller: App\Controller\RegistrationController::register
+    controller: App\Controller\RegisterController::register
     methods: [ GET, POST ]
 
 register_info:
     path: /register/info
-    controller: App\Controller\RegistrationController::registerInfo
+    controller: App\Controller\RegisterController::registerInfo
     methods: [ GET ]

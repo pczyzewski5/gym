@@ -1,1 +1,5 @@
 services:
+  User\Infrastructure\User\UserRepository:
+    class: User\Infrastructure\User\UserRepository
+    arguments:
+      - '@doctrine.orm.entity_manager'

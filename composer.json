@@ -63,7 +63,8 @@
     "autoload": {
         "psr-4": {
             "App\\": "src/App",
-            "Gym\\": "src/Gym"
+            "Gym\\": "src/Gym",
+            "User\\": "src/User"
         }
     },
     "autoload-dev": {
