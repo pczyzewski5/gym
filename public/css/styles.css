@@ -1,0 +1,29 @@
+.navbar-burger {
+    height: inherit;
+    width: 5rem;
+}
+.navbar-burger:hover {
+    background-color: transparent;
+}
+.navbar-burger span {
+    width: 32px;
+    left: calc(50% - 14px);
+}
+.navbar-burger span:first-child {
+    top: calc(50% - 12px);
+}
+.navbar-burger span:nth-child(2) {
+    top: calc(50% - 1px);
+}
+.navbar-burger span:nth-child(3) {
+    top: calc(50% + 9px);
+}
+.navbar-burger.is-active span:first-child {
+    transform: translateY(10px) rotate(45deg);
+}
+.navbar-burger.is-active span:nth-child(3) {
+    transform: translateY(-10px) rotate(-45deg);
+}
+.navbar {
+    margin-bottom: 0.5em;
+}

@@ -1,0 +1,18 @@
+{% block quill_type_label %}
+    <label>{{ label }}</label>
+{% endblock %}
+
+{% block quill_type_errors %}
+    {{ errors }}
+{% endblock %}
+
+{% block quill_type_widget %}
+    <div id="quill-editor-container"></div>
+    <input id="quill-data-container"
+           type="text"
+           name="{{ full_name }}"
+           value="{{ data }}"
+           required
+           hidden
+    >
+{% endblock %}

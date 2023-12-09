@@ -1,0 +1,24 @@
+services:
+  App\Controller\BaseController:
+    class: App\Controller\BaseController
+    arguments:
+      - '@App\QueryBus\QueryBus'
+      - '@App\CommandBus\CommandBus'
+
+  App\Controller\IndexController:
+    parent: App\Controller\BaseController
+    calls:
+      - [ setContainer, [ '@Psr\Container\ContainerInterface' ] ]
+    tags: [ 'controller.service_arguments', 'container.service_subscriber' ]
+
+  App\Controller\LoginController:
+    parent: App\Controller\BaseController
+    calls:
+      - [ setContainer, [ '@Psr\Container\ContainerInterface' ] ]
+    tags: [ 'controller.service_arguments', 'container.service_subscriber' ]
+
+  App\Controller\RegistrationController:
+    parent: App\Controller\BaseController
+    calls:
+      - [ setContainer, [ '@Psr\Container\ContainerInterface' ] ]
+    tags: [ 'controller.service_arguments', 'container.service_subscriber' ]

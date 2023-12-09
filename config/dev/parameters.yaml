@@ -1,0 +1,6 @@
+parameters:
+  gym.mysql_host: mysql
+  gym.mysql_port: 3306
+  gym.mysql_database: gym
+  gym.mysql_user: gym_management
+  gym.mysql_password: password123

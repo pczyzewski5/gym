@@ -1,0 +1,35 @@
+version: '3.7'
+services:
+  php-upstream:
+    build: ./docker/php
+    expose:
+      - 9000
+    volumes:
+      - ./:/data/application:delegated
+    links:
+      - mysql
+    working_dir: /data/application
+
+  nginx:
+    image: nginx
+    depends_on:
+      - php-upstream
+    ports:
+      - '8080:80'
+    links:
+      - php-upstream
+    volumes:
+      - ./public:/data/application/public:delegated
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+
+  mysql:
+    image: mysql:8.0
+    expose:
+      - 3306
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: gym
+      MYSQL_USER: gym_management
+      MYSQL_PASSWORD: password123

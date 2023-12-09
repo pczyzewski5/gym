@@ -1,0 +1,13 @@
+services:
+  App\Command\ImportSQL:
+    class: App\Command\ImportSQL
+    arguments:
+      - '@doctrine.orm.entity_manager'
+    tags: [ 'console.command' ]
+
+  App\Command\CreateEntity:
+    class: App\Command\CreateEntity
+    arguments:
+      - '%kernel.project_dir%'
+    tags: [ 'console.command' ]
+

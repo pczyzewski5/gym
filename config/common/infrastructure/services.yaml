@@ -1,0 +1,14 @@
+services:
+  App\Tactician\QueryBus:
+    class: App\Tactician\QueryBus
+    arguments:
+      - '@tactician.commandbus.query'
+
+  App\Tactician\CommandBus:
+    class: App\Tactician\CommandBus
+    arguments:
+      - '@tactician.commandbus.command'
+
+imports:
+  - { resource: 'repositories.yaml' }
+  - { resource: 'persisters.yaml' }

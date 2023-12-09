@@ -1,0 +1,47 @@
+<nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand uc">
+        <a class="navbar-item" href="{{ path('home') }}">
+            <img style="max-height: 4rem;" src="{{ asset('images/logo.jpg') }}">
+        </a>
+
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+        {% if null != app.user %}
+            <div class="navbar-start">
+                <a class="navbar-item" href="{{ path('home') }}">Home</a>
+            </div>
+
+            <div class="navbar-end">
+                <div class="navbar-item">{{ app.user.getUsername() }}</div>
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-light" href="{{ path('logout') }}">Wyloguj</a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="navbar-start">
+            </div>
+
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-primary" href="{{ path('register') }}">
+                            <strong>Zarejestruj</strong>
+                        </a>
+                        <a class="button is-light" href="{{ path('login') }}">Zaloguj</a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</nav>
+<div style="height: 0.5em;"></div>
+
+<script src="{{ asset('js/navbar_burger_helper.js') }}"></script>

@@ -1,0 +1,6 @@
+parameters:
+  gym.mysql_host: '%env(gym_mysql_host)%'
+  gym.mysql_port: '%env(gym_mysql_port)%'
+  gym.mysql_database: '%env(gym_mysql_database)%'
+  gym.mysql_user: '%env(gym_mysql_user)%'
+  gym.mysql_password: '%env(gym_mysql_password)%'

@@ -1,0 +1,17 @@
+doctrine:
+    dbal:
+        driver: 'pdo_mysql'
+        host: '%gym.mysql_host%'
+        port: '%gym.mysql_port%'
+        dbname: '%gym.mysql_database%'
+        user: '%gym.mysql_user%'
+        password: '%gym.mysql_password%'
+        charset: 'UTF8'
+        server_version: '8.0'
+        options:
+          {1002: "SET NAMES utf8mb4;"}
+
+    orm:
+        auto_generate_proxy_classes: '%kernel.debug%'
+        auto_mapping: false
+        mappings:

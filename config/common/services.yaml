@@ -1,0 +1,31 @@
+services:
+    _defaults:
+        autowire: false
+        autoconfigure: false
+
+    App\QueryBus\QueryBus:
+        alias: App\Tactician\QueryBus
+
+    App\CommandBus\CommandBus:
+        alias: App\Tactician\CommandBus
+
+    App\Twig\QuillDeltaParser:
+        class: App\Twig\QuillDeltaParser
+        arguments:
+            - '@twig'
+        tags: [ 'twig.extension' ]
+
+    App\Security\UserProvider:
+        class: App\Security\UserProvider
+        arguments:
+            - '@Gym\Domain\User\UserRepository'
+
+imports:
+    - { resource: 'infrastructure/services.yaml' }
+    - { resource: 'repositories.yaml' }
+    - { resource: 'cli_commands.yaml' }
+    - { resource: 'controllers.yaml' }
+    - { resource: 'persisters.yaml' }
+    - { resource: 'commands.yaml' }
+    - { resource: 'queries.yaml' }
+    - { resource: 'forms.yaml' }
