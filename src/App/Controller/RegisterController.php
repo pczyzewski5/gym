@@ -34,7 +34,7 @@ class RegisterController extends BaseController
                     new RegisterUser(
                         $data[RegisterUserForm::EMAIL_FIELD],
                         $data[RegisterUserForm::USERNAME_FIELD],
-                        'ROLE_PLAYER',
+                        'ROLE_USER',
                         $data[RegisterUserForm::PASSWORD_FIELD],
                         false
                     )
