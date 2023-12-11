@@ -26,3 +26,29 @@ register_info:
     path: /register/info
     controller: App\Controller\RegisterController::registerInfo
     methods: [ GET ]
+
+# station_controller
+station_list:
+    path: /station/list
+    controller: App\Controller\StationController::list
+    methods: [ GET ]
+
+station_create:
+    path: /station/create
+    controller: App\Controller\StationController::create
+    methods: [ GET, POST ]
+
+station_read:
+    path: /station/read
+    controller: App\Controller\StationController::read
+    methods: [ GET ]
+
+station_update:
+    path: /station/read
+    controller: App\Controller\StationController::update
+    methods: [ GET, POST ]
+
+station_delete:
+    path: /station/{id}/delete
+    controller: App\Controller\StationController::delete
+    methods: [ GET ]
