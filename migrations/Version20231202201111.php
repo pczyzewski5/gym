@@ -23,11 +23,10 @@ final class Version20231202201111 extends AbstractMigration
 CREATE TABLE exercises
 (
     id                VARCHAR(36) NOT NULL,
-    name              VARCHAR(36) NOT NULL,
     status            VARCHAR(36) NOT NULL,
-    station_id        VARCHAR(36) NOT NULL,
-    repetition_target INTEGER(1) NOT NULL,
-    kilogram_target   VARCHAR(3) NOT NULL,
+    station_id        VARCHAR(36),
+    repetition_target INTEGER(2) NOT NULL,
+    kilogram_target   INTEGER(3) NOT NULL,
     created_at DATETIME NOT NULL,
     UNIQUE (id)
 ) DEFAULT CHARACTER SET UTF8

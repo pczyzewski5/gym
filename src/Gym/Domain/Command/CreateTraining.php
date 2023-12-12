@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace Gym\Domain\Command;
 
-use Gym\Domain\Enum\TrainingStatusEnum;
+use Gym\Domain\Enum\StatusEnum;
 
 class CreateTraining
 {
-    private TrainingStatusEnum $status;
+    private StatusEnum $status;
     private \DateTimeImmutable $date;
 
     public function __construct(
-        TrainingStatusEnum $status,
+        StatusEnum         $status,
         \DateTimeImmutable $date,
     ) {
         $this->status = $status;
         $this->date = $date;
     }
 
-    public function getStatus(): TrainingStatusEnum
+    public function getStatus(): StatusEnum
     {
         return $this->status;
     }

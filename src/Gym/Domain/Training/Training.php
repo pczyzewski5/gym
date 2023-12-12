@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Gym\Domain\Training;
 
 use App\MergerTrait;
-use Gym\Domain\Enum\TrainingStatusEnum;
+use Gym\Domain\Enum\StatusEnum;
 use Symfony\Component\Uid\UuidV1;
 use Gym\Domain\Exception\ValidationException;
 
@@ -14,7 +14,7 @@ class Training
     use MergerTrait;
 
     private string $id;
-    private TrainingStatusEnum $status;
+    private StatusEnum $status;
     private \DateTimeImmutable $date;
     private \DateTimeImmutable $createdAt;
 
@@ -53,7 +53,7 @@ class Training
         return $this->id;
     }
 
-    public function getStatus(): TrainingStatusEnum
+    public function getStatus(): StatusEnum
     {
         return $this->status;
     }

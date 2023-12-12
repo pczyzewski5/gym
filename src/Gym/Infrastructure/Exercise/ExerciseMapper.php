@@ -15,7 +15,6 @@ class ExerciseMapper
     {
         $dto = new ExerciseDTO();
         $dto->id = $entity->id;
-        $dto->name = $entity->name;
         $dto->status = $entity->status;
         $dto->stationId = $entity->stationId;
         $dto->repetitionTarget = $entity->repetitionTarget;
@@ -31,8 +30,7 @@ class ExerciseMapper
     {
         $entity = new Exercise();
         $entity->id = $domainEntity->getId();
-        $entity->name = $domainEntity->getName();
-        $entity->status = $domainEntity->getStatus();
+        $entity->status = $domainEntity->getStatus()->getValue();
         $entity->stationId = $domainEntity->getStationId();
         $entity->repetitionTarget = $domainEntity->getRepetitionTarget();
         $entity->kilogramTarget = $domainEntity->getKilogramTarget();

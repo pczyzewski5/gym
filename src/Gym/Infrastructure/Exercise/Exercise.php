@@ -7,7 +7,6 @@ namespace Gym\Infrastructure\Exercise;
 class Exercise
 {
     public ?string $id;
-    public ?string $name;
     public ?string $status;
     public ?string $stationId;
     public ?int $repetitionTarget;

@@ -4,3 +4,6 @@ services:
 
   Gym\Domain\Training\TrainingPersister:
     alias: Gym\Infrastructure\Training\TrainingPersister
+
+  Gym\Domain\Exercise\ExercisePersister:
+    alias: Gym\Infrastructure\Exercise\ExercisePersister

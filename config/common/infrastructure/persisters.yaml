@@ -8,3 +8,8 @@ services:
     class: Gym\Infrastructure\Training\TrainingPersister
     arguments:
       - '@doctrine.orm.entity_manager'
+
+  Gym\Infrastructure\Exercise\ExercisePersister:
+    class: Gym\Infrastructure\Exercise\ExercisePersister
+    arguments:
+      - '@doctrine.orm.entity_manager'

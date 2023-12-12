@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Gym\Domain\Exercise;
 
+use Gym\Domain\Enum\StatusEnum;
+
 class ExerciseDTO
 {
     public ?string $id = null;
-    public ?string $name = null;
-    public ?string $status = null;
+    public ?StatusEnum $status = null;
     public ?string $stationId = null;
     public ?int $repetitionTarget = null;
     public ?int $kilogramTarget = null;

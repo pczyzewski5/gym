@@ -65,7 +65,7 @@ training_create:
     methods: [ GET, POST ]
 
 training_read:
-    path: /training/read
+    path: /training/{id}/read
     controller: App\Controller\TrainingController::read
     methods: [ GET ]
 
@@ -77,4 +77,30 @@ training_update:
 training_delete:
     path: /training/{id}/delete
     controller: App\Controller\TrainingController::delete
+    methods: [ GET ]
+
+# exercise_controller
+exercise_list:
+    path: /exercise/list
+    controller: App\Controller\ExerciseController::list
+    methods: [ GET ]
+
+exercise_create:
+    path: /exercise/create
+    controller: App\Controller\ExerciseController::create
+    methods: [ GET, POST ]
+
+exercise_read:
+    path: /exercise/{id}/read
+    controller: App\Controller\ExerciseController::read
+    methods: [ GET ]
+
+exercise_update:
+    path: /exercise/read
+    controller: App\Controller\ExerciseController::update
+    methods: [ GET, POST ]
+
+exercise_delete:
+    path: /exercise/{id}/delete
+    controller: App\Controller\ExerciseController::delete
     methods: [ GET ]

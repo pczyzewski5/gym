@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Gym\Infrastructure\Training;
 
 use DateTime;
-use Gym\Domain\Enum\TrainingStatusEnum;
+use Gym\Domain\Enum\StatusEnum;
 use Gym\Domain\Training\Training as DomainEntity;
 use App\DateTimeNormalizer;
 use Gym\Domain\Training\TrainingDTO;
@@ -16,7 +16,7 @@ class TrainingMapper
     {
         $dto = new TrainingDTO();
         $dto->id = $entity->id;
-        $dto->status = TrainingStatusEnum::from($entity->status);
+        $dto->status = StatusEnum::from($entity->status);
         $dto->date = DateTimeNormalizer::normalizeToImmutable(
             $entity->date
         );

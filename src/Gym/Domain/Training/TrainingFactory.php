@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Gym\Domain\Training;
 
-use Gym\Domain\Enum\TrainingStatusEnum;
+use Gym\Domain\Enum\StatusEnum;
 use Symfony\Component\Uid\Uuid;
 
 class TrainingFactory
 {
     public static function create(
-        TrainingStatusEnum $status,
+        StatusEnum         $status,
         \DateTimeImmutable $date,
     ): Training {
         $dto = new TrainingDTO();

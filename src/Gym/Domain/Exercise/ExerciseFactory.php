@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Gym\Domain\Exercise;
 
+use Gym\Domain\Enum\StatusEnum;
+use Symfony\Component\Uid\Uuid;
+
 class ExerciseFactory
 {
     public static function create(
-        string $id,
-        string $name,
-        string $status,
-        string $stationId,
+        StatusEnum $status,
         int $repetitionTarget,
         int $kilogramTarget,
+        ?string $stationId = null,
     ): Exercise {
         $dto = new ExerciseDTO();
-        $dto->id = $id;
-        $dto->name = $name;
+        $dto->id = Uuid::v1()->toRfc4122();
         $dto->status = $status;
         $dto->stationId = $stationId;
         $dto->repetitionTarget = $repetitionTarget;

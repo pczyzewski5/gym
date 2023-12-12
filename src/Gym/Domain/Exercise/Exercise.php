@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Gym\Domain\Exercise;
 
 use App\MergerTrait;
+use Gym\Domain\Enum\StatusEnum;
 use Symfony\Component\Uid\UuidV1;
 use Gym\Domain\Exception\ValidationException;
 
@@ -13,9 +14,8 @@ class Exercise
     use MergerTrait;
 
     private string $id;
-    private string $name;
-    private string $status;
-    private string $stationId;
+    private StatusEnum $status;
+    private ?string $stationId = null;
     private int $repetitionTarget;
     private int $kilogramTarget;
     private \DateTimeImmutable $createdAt;
@@ -37,23 +37,19 @@ class Exercise
             throw ValidationException::missingProperty('id');
         }
 
-        if (!isset($this->name) || '' === $this->name) {
-            throw ValidationException::missingProperty('name');
-        }
-
-        if (!isset($this->status) || '' === $this->status) {
+        if (!isset($this->status)) {
             throw ValidationException::missingProperty('status');
         }
 
-        if (!isset($this->stationId) && UuidV1::isValid($this->stationId)) {
-            throw ValidationException::missingProperty('photoId');
+        if (isset($this->stationId) && false === UuidV1::isValid($this->stationId)) {
+            throw ValidationException::missingProperty('stationId');
         }
 
-        if (!isset($this->repetitionTarget) && \is_int($this->repetitionTarget)) {
+        if (!isset($this->repetitionTarget)) {
             throw ValidationException::missingProperty('repetitionTarget');
         }
 
-        if (!isset($this->kilogramTarget) && \is_int($this->kilogramTarget)) {
+        if (!isset($this->kilogramTarget)) {
             throw ValidationException::missingProperty('kilogramTarget');
         }
 
@@ -67,21 +63,15 @@ class Exercise
         return $this->id;
     }
 
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    public function getStatus(): string
+    public function getStatus(): StatusEnum
     {
         return $this->status;
     }
 
-    public function getStationId(): string
+    public function getStationId(): ?string
     {
         return $this->stationId;
     }
-
     public function getRepetitionTarget(): int
     {
         return $this->repetitionTarget;
