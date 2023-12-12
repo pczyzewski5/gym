@@ -15,7 +15,7 @@ class StationFactory
         $dto = new StationDTO();
         $dto->id = Uuid::v1()->toRfc4122();
         $dto->name = $name;
-        $dto->photoId = $photoId;
+        $dto->photo = $photoId;
         $dto->createdAt = new \DateTimeImmutable();
 
         return new Station($dto);

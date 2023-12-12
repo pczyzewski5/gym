@@ -16,7 +16,7 @@ class StationMapper
         $dto = new StationDTO();
         $dto->id = $entity->id;
         $dto->name = $entity->name;
-        $dto->photoId = $entity->photoId;
+        $dto->photo = $entity->photo;
         $dto->createdAt = DateTimeNormalizer::normalizeToImmutable(
             $entity->createdAt
         );
@@ -29,7 +29,7 @@ class StationMapper
         $entity = new Station();
         $entity->id = $domainEntity->getId();
         $entity->name = $domainEntity->getName();
-        $entity->photoId = $domainEntity->getPhotoId();
+        $entity->photo = $domainEntity->getPhoto();
         $entity->createdAt = DateTime::createFromImmutable(
             $domainEntity->getCreatedAt()
         );

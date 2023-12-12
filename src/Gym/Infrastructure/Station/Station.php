@@ -8,6 +8,6 @@ class Station
 {
     public ?string $id;
     public ?string $name;
-    public ?string $photoId;
+    public ?string $photo;
     public ?\DateTime $createdAt;
 }

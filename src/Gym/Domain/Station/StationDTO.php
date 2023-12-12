@@ -8,6 +8,6 @@ class StationDTO
 {
     public ?string $id = null;
     public ?string $name = null;
-    public ?string $photoId = null;
+    public ?string $photo = null;
     public ?\DateTimeImmutable $createdAt = null;
 }
