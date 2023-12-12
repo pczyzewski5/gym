@@ -11,6 +11,7 @@ use App\QueryBus\QueryBus;
 use Gym\Domain\Command\CreateStation;
 use Gym\Domain\Command\CreateTags;
 use Gym\Domain\Enum\TagOwnerEnum;
+use Gym\Domain\Query\GetStation;
 use Gym\Domain\Query\GetStations;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -75,8 +76,16 @@ class StationController extends BaseController
 
     public function read(Request $request): Response
     {
+        $station = $this->queryBus->handle(
+            new GetStation($request->get('id'))
+        );
 
+        return $this->renderForm('station/read.html.twig', [
+            'station' => $station
+        ]);
     }
+
+
     public function update(Request $request): Response
     {
 

@@ -15,6 +15,12 @@ services:
             - '@twig'
         tags: [ 'twig.extension' ]
 
+    App\Twig\Photo:
+        class: App\Twig\Photo
+        arguments:
+            - '%photos_directory%'
+        tags: [ 'twig.extension' ]
+
     App\Security\UserProvider:
         class: App\Security\UserProvider
         arguments:

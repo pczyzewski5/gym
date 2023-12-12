@@ -15,7 +15,7 @@
         </thead>
         <tbody>
         {% for key, station in stations %}
-            <tr class="table-item">
+            <tr class="table-item" href="{{ path('station_read', {'id': station['id']}) }}">
                 <td>{{ key + 1 }}</td>
                 <td>{{ station['name'] }}</td>
                 <td>
