@@ -6,3 +6,10 @@ services:
       - '@User\Domain\User\UserPersister'
     tags:
       - { name: tactician.handler, command: User\Domain\Command\RegisterUser, bus: command }
+
+  Gym\Domain\Command\CreateTrainingHandler:
+    class: Gym\Domain\Command\CreateTrainingHandler
+    arguments:
+      - '@Gym\Domain\Training\TrainingPersister'
+    tags:
+      - { name: tactician.handler, command: Gym\Domain\Command\CreateTraining, bus: command }

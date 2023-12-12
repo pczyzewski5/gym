@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Gym\Domain\Training;
 
 use App\MergerTrait;
+use Gym\Domain\Enum\TrainingStatusEnum;
 use Symfony\Component\Uid\UuidV1;
 use Gym\Domain\Exception\ValidationException;
 
@@ -13,7 +14,7 @@ class Training
     use MergerTrait;
 
     private string $id;
-    private string $status;
+    private TrainingStatusEnum $status;
     private \DateTimeImmutable $date;
     private \DateTimeImmutable $createdAt;
 
@@ -34,7 +35,7 @@ class Training
             throw ValidationException::missingProperty('id');
         }
 
-        if (!isset($this->status) || '' === $this->status) {
+        if (!isset($this->status)) {
             throw ValidationException::missingProperty('status');
         }
 
@@ -52,7 +53,7 @@ class Training
         return $this->id;
     }
 
-    public function getStatus(): string
+    public function getStatus(): TrainingStatusEnum
     {
         return $this->status;
     }

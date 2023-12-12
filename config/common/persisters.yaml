@@ -1,3 +1,6 @@
 services:
   User\Domain\User\UserPersister:
     alias: User\Infrastructure\User\UserPersister
+
+  Gym\Domain\Training\TrainingPersister:
+    alias: Gym\Infrastructure\Training\TrainingPersister

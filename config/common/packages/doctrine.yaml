@@ -31,14 +31,14 @@ doctrine:
 
             Exercise:
                 type: xml
-                prefix: Exercise\Infrastructure\Exercise
+                prefix: Gym\Infrastructure\Exercise
                 dir: '%kernel.project_dir%/config/common/orm/Exercise'
                 is_bundle: false
                 alias: Exercise
 
             Training:
                 type: xml
-                prefix: Training\Infrastructure\Training
+                prefix: Gym\Infrastructure\Training
                 dir: '%kernel.project_dir%/config/common/orm/Training'
                 is_bundle: false
                 alias: Training

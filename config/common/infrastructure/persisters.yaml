@@ -3,3 +3,8 @@ services:
     class: User\Infrastructure\User\UserPersister
     arguments:
       - '@doctrine.orm.entity_manager'
+
+  Gym\Infrastructure\Training\TrainingPersister:
+    class: Gym\Infrastructure\Training\TrainingPersister
+    arguments:
+      - '@doctrine.orm.entity_manager'

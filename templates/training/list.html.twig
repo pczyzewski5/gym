@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <style>
+        .table-item {
+            cursor: pointer;
+        }
+    </style>
+    <table class="table is-striped is-hoverable is-fullwidth">
+        <thead>
+        <tr>
+            <th>#</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for key, character in trainings %}
+            <tr class="table-item">
+                <td>{{ key + 1 }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <script src="{{ asset('js/list_helper.js') }}"></script>
+{% endblock %}
