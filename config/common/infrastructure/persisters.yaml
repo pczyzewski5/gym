@@ -13,3 +13,8 @@ services:
     class: Gym\Infrastructure\Exercise\ExercisePersister
     arguments:
       - '@doctrine.orm.entity_manager'
+
+  Gym\Infrastructure\Tag\TagPersister:
+    class: Gym\Infrastructure\Tag\TagPersister
+    arguments:
+      - '@doctrine.orm.entity_manager'

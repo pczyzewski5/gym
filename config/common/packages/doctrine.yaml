@@ -42,3 +42,10 @@ doctrine:
                 dir: '%kernel.project_dir%/config/common/orm/Training'
                 is_bundle: false
                 alias: Training
+
+            Tag:
+                type: xml
+                prefix: Gym\Infrastructure\Tag
+                dir: '%kernel.project_dir%/config/common/orm/Tag'
+                is_bundle: false
+                alias: Tag
