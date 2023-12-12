@@ -9,12 +9,20 @@
         <thead>
         <tr>
             <th>#</th>
+            <th>nazwa</th>
+            <th>tagi</th>
         </tr>
         </thead>
         <tbody>
-        {% for key, character in stations %}
+        {% for key, station in stations %}
             <tr class="table-item">
                 <td>{{ key + 1 }}</td>
+                <td>{{ station['name'] }}</td>
+                <td>
+                    {% for tag in station['tags'] %}
+                        <span class="button is-small">{{ tag }}</span>
+                    {% endfor %}
+                </td>
             </tr>
         {% endfor %}
         </tbody>

@@ -3,3 +3,8 @@ services:
     class: User\Infrastructure\User\UserRepository
     arguments:
       - '@doctrine.orm.entity_manager'
+
+  Gym\Infrastructure\Station\StationRepository:
+    class: Gym\Infrastructure\Station\StationRepository
+    arguments:
+      - '@doctrine.orm.entity_manager'

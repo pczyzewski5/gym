@@ -1,3 +1,6 @@
 services:
   User\Domain\User\UserRepository:
     alias: User\Infrastructure\User\UserRepository
+
+  Gym\Domain\Station\StationRepository:
+    alias: Gym\Infrastructure\Station\StationRepository

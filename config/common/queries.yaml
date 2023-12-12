@@ -1,1 +1,7 @@
 services:
+  Gym\Domain\Query\GetStationsHandler:
+    class: Gym\Domain\Query\GetStationsHandler
+    arguments:
+      - '@Gym\Domain\Station\StationRepository'
+    tags:
+      - { name: tactician.handler, command: Gym\Domain\Query\GetStations, bus: query }

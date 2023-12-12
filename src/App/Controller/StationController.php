@@ -11,6 +11,7 @@ use App\QueryBus\QueryBus;
 use Gym\Domain\Command\CreateStation;
 use Gym\Domain\Command\CreateTags;
 use Gym\Domain\Enum\TagOwnerEnum;
+use Gym\Domain\Query\GetStations;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -27,8 +28,12 @@ class StationController extends BaseController
 
     public function list(Request $request): Response
     {
+        $stations = $this->queryBus->handle(
+            new GetStations()
+        );
+
         return $this->renderForm('station/list.html.twig', [
-            'stations' => []
+            'stations' => $stations
         ]);
     }
 

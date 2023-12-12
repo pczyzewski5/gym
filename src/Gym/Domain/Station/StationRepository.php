@@ -18,4 +18,6 @@ interface StationRepository
      * @return Station[]
      */
     public function findAll(): array;
+
+    public function findAllForList(): array;
 }
