@@ -9,6 +9,8 @@ use App\CommandBus\CommandBus;
 use App\Form\StationForm;
 use App\QueryBus\QueryBus;
 use Gym\Domain\Command\CreateStation;
+use Gym\Domain\Command\CreateTags;
+use Gym\Domain\Enum\TagOwnerEnum;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -42,10 +44,18 @@ class StationController extends BaseController
                 new UploadFile($data[StationForm::PHOTO_FIELD])
             );
 
-            $this->commandBus->handle(
+            $id = $this->commandBus->handle(
                 new CreateStation(
                     $data[StationForm::NAME_FIELD],
                     $photo,
+                    $data[StationForm::TAGS_FIELD]
+                )
+            );
+
+            $this->commandBus->handle(
+                new CreateTags(
+                    $id,
+                    TagOwnerEnum::STATION(),
                     $data[StationForm::TAGS_FIELD]
                 )
             );

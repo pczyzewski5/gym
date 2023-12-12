@@ -36,3 +36,10 @@ services:
       - '@Gym\Domain\Station\StationPersister'
     tags:
       - { name: tactician.handler, command: Gym\Domain\Command\CreateStation, bus: command }
+
+  Gym\Domain\Command\CreateTagsHandler:
+    class: Gym\Domain\Command\CreateTagsHandler
+    arguments:
+      - '@Gym\Domain\Tag\TagPersister'
+    tags:
+      - { name: tactician.handler, command: Gym\Domain\Command\CreateTags, bus: command }
