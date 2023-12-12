@@ -1,0 +1,13 @@
+<doctrine-mapping xmlns="https://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Gym\Infrastructure\Training\Training" table="trainings">
+        <id name="id" type="string" column="id"/>
+        <field name="status" type="string" column="status"/>
+        <field name="date" type="datetime" column="date"/>
+        <field name="createdAt" type="datetime" column="created_at"/>
+    </entity>
+
+</doctrine-mapping>
