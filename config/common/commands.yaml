@@ -1,4 +1,13 @@
 services:
+  App\Command\UploadFileHandler:
+    class: App\Command\UploadFileHandler
+    arguments:
+      - '@slugger'
+      - '%photo_allowed_mime%'
+      - '%photos_directory%'
+    tags:
+      - { name: tactician.handler, command: App\Command\UploadFile, bus: command }
+
   User\Domain\Command\RegisterUserHandler:
     class: User\Domain\Command\RegisterUserHandler
     arguments:
@@ -20,3 +29,10 @@ services:
       - '@Gym\Domain\Exercise\ExercisePersister'
     tags:
       - { name: tactician.handler, command: Gym\Domain\Command\CreateExercise, bus: command }
+
+  Gym\Domain\Command\CreateStationHandler:
+    class: Gym\Domain\Command\CreateStationHandler
+    arguments:
+      - '@Gym\Domain\Station\StationPersister'
+    tags:
+      - { name: tactician.handler, command: Gym\Domain\Command\CreateStation, bus: command }

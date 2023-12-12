@@ -34,3 +34,9 @@ services:
     calls:
       - [ setContainer, [ '@Psr\Container\ContainerInterface' ] ]
     tags: [ 'controller.service_arguments', 'container.service_subscriber' ]
+
+  App\Controller\StationController:
+    parent: App\Controller\BaseController
+    calls:
+      - [ setContainer, [ '@Psr\Container\ContainerInterface' ] ]
+    tags: [ 'controller.service_arguments', 'container.service_subscriber' ]

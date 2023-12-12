@@ -10,3 +10,6 @@ services:
 
   Gym\Domain\Tag\TagPersister:
     alias: Gym\Infrastructure\Tag\TagPersister
+
+  Gym\Domain\Station\StationPersister:
+    alias: Gym\Infrastructure\Station\StationPersister

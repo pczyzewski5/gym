@@ -18,3 +18,8 @@ services:
     class: Gym\Infrastructure\Tag\TagPersister
     arguments:
       - '@doctrine.orm.entity_manager'
+
+  Gym\Infrastructure\Station\StationPersister:
+    class: Gym\Infrastructure\Station\StationPersister
+    arguments:
+      - '@doctrine.orm.entity_manager'
