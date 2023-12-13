@@ -21,6 +21,7 @@ class CreateTrainingHandler
         $entity = TrainingFactory::create(
             $command->getStatus(),
             $command->getDate(),
+            $command->isRepeated()
         );
 
         $this->persister->save($entity);

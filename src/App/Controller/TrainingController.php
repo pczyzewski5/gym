@@ -9,6 +9,7 @@ use App\Form\TrainingForm;
 use App\QueryBus\QueryBus;
 use Gym\Domain\Command\CreateTraining;
 use Gym\Domain\Enum\StatusEnum;
+use Gym\Domain\Query\GetTrainings;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -25,8 +26,12 @@ class TrainingController extends BaseController
 
     public function list(Request $request): Response
     {
+        $trainings = $this->queryBus->handle(
+            new GetTrainings()
+        );
+
         return $this->renderForm('training/list.html.twig', [
-            'trainings' => []
+            'trainings' => $trainings
         ]);
     }
 
@@ -39,7 +44,8 @@ class TrainingController extends BaseController
             $id = $this->commandBus->handle(
                 new CreateTraining(
                     StatusEnum::PLANNED(),
-                    $form->getData()[TrainingForm::DATE_FIELD]
+                    $form->getData()[TrainingForm::DATE_FIELD],
+                    $form->getData()[TrainingForm::REPEATED_FIELD]
                 )
             );
 

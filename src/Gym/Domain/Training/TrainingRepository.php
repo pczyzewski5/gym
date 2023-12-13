@@ -18,4 +18,6 @@ interface TrainingRepository
      * @return Training[]
      */
     public function findAll(): array;
+
+    public function findAllForList(): array;
 }

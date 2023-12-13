@@ -13,3 +13,8 @@ services:
     class: Gym\Infrastructure\Exercise\ExerciseRepository
     arguments:
       - '@doctrine.orm.entity_manager'
+
+  Gym\Infrastructure\Training\TrainingRepository:
+    class: Gym\Infrastructure\Training\TrainingRepository
+    arguments:
+      - '@doctrine.orm.entity_manager'
