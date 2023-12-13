@@ -67,10 +67,14 @@ class StationForm extends AbstractType
             self::TAGS_FIELD,
             ChoiceType::class,
             [
-                'label' => false,
-                'required' => true,
+                'label' => 'Tagi',
+                'choices' => MuscleTagEnum::toArray(),
                 'multiple' => true,
-                'choices' => MuscleTagEnum::toArray()
+                'required' => false,
+                'attr' => [
+                    'data-type' => 'tags',
+                    'data-free-input' => 'false'
+                ],
             ]
         );
 
