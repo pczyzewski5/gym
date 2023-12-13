@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Form;
 
+use App\Form\ModelTransformer\TagModelTransformer;
 use Gym\Domain\Enum\MuscleTagEnum;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -21,33 +21,22 @@ class ExerciseForm extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->addModelTransformer(new CallbackTransformer(
-            function (mixed $value) {
-                return $value;
-            },
-            function (mixed $value) {
-                $value[self::TAGS_FIELD] = array_map(
-                    fn (string $tag) => MuscleTagEnum::from($tag),
-                    $value[self::TAGS_FIELD]
-                );
-
-                return $value;
-            }
-        ));
-
         $builder->add(
             self::TAGS_FIELD,
             ChoiceType::class,
             [
                 'label' => 'Tagi',
-                'choices' => MuscleTagEnum::toArray(),
-                'multiple' => true,
+                'choices' => \array_combine(MuscleTagEnum::toArray(), MuscleTagEnum::toArray()),
                 'required' => false,
                 'attr' => [
                     'data-type' => 'tags',
-                    'data-free-input' => 'false'
+                    'data-free-input' => 'false',
+                    'data-selectable' => 'false'
                 ],
             ]
+        );
+        $builder->get(self::TAGS_FIELD)->addModelTransformer(
+            new TagModelTransformer()
         );
 
         $builder->add(
