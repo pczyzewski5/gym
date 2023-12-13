@@ -9,5 +9,6 @@ class Training
     public ?string $id;
     public ?string $status;
     public ?\DateTime $date;
+    public ?bool $repeated;
     public ?\DateTime $createdAt;
 }

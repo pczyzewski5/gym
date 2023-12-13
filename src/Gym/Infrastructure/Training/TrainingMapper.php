@@ -20,6 +20,7 @@ class TrainingMapper
         $dto->date = DateTimeNormalizer::normalizeToImmutable(
             $entity->date
         );
+        $dto->repeated = $entity->repeated;
         $dto->createdAt = DateTimeNormalizer::normalizeToImmutable(
             $entity->createdAt
         );
@@ -35,6 +36,7 @@ class TrainingMapper
         $entity->date = DateTime::createFromImmutable(
             $domainEntity->getDate()
         );
+        $entity->repeated = $domainEntity->isRepeated();
         $entity->createdAt = DateTime::createFromImmutable(
             $domainEntity->getCreatedAt()
         );

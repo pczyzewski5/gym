@@ -25,6 +25,7 @@ CREATE TABLE trainings
     id         VARCHAR(36) NOT NULL,
     status     VARCHAR(36) NOT NULL,
     date       DATETIME NOT NULL,
+    repeated   BOOLEAN NOT NULL,
     created_at DATETIME NOT NULL,
     UNIQUE (id)
 ) DEFAULT CHARACTER SET UTF8

@@ -46,7 +46,7 @@ class ExerciseForm extends AbstractType
                 'label' => 'Ilość serii',
                 'required' => true,
                 'attr' => [
-                    'value' => '3',
+                    'value' => '4',
                     'class' => 'input'
                 ],
             ],

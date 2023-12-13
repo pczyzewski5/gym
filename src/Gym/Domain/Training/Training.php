@@ -16,6 +16,7 @@ class Training
     private string $id;
     private StatusEnum $status;
     private \DateTimeImmutable $date;
+    private bool $repeated;
     private \DateTimeImmutable $createdAt;
 
     public function __construct(TrainingDTO $dto)
@@ -43,6 +44,10 @@ class Training
             throw ValidationException::missingProperty('date');
         }
 
+        if (!isset($this->repeated)) {
+            throw ValidationException::missingProperty('repeated');
+        }
+
         if (!isset($this->createdAt)) {
             throw ValidationException::missingProperty('createdAt');
         }
@@ -61,6 +66,11 @@ class Training
     public function getDate(): \DateTimeImmutable
     {
         return $this->date;
+    }
+
+    public function isRepeated(): bool
+    {
+        return $this->repeated;
     }
 
     public function getCreatedAt(): \DateTimeImmutable
