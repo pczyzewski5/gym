@@ -12,3 +12,10 @@ services:
       - '@Gym\Domain\Station\StationRepository'
     tags:
       - { name: tactician.handler, command: Gym\Domain\Query\GetStation, bus: query }
+
+  Gym\Domain\Query\GetExercisesHandler:
+    class: Gym\Domain\Query\GetExercisesHandler
+    arguments:
+      - '@Gym\Domain\Exercise\ExerciseRepository'
+    tags:
+      - { name: tactician.handler, command: Gym\Domain\Query\GetExercises, bus: query }

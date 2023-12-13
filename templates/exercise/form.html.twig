@@ -1,0 +1,33 @@
+{{ form_start(form) }}
+<div class="field">
+    <label class="label">{{ form_label(form.repetition_target) }}</label>
+    <div class="control">
+        {{ form_widget(form.repetition_target) }}
+    </div>
+    <p class="help is-danger">{{ form_errors(form.repetition_target) }}</p>
+</div>
+
+<div class="field">
+    <label class="label">{{ form_label(form.kilogram_target) }}</label>
+    <div class="control">
+        {{ form_widget(form.kilogram_target) }}
+    </div>
+    <p class="help is-danger">{{ form_errors(form.kilogram_target) }}</p>
+</div>
+
+<div class="field">
+    <label class="label">{{ form_label(form.tags) }}</label>
+    <div class="control">
+        {{ form_widget(form.tags) }}
+    </div>
+    <p class="help is-danger">{{ form_errors(form.tags) }}</p>
+</div>
+
+<div class="field">
+    <div class="control">
+        {{ form_widget(form.zapisz) }}
+    </div>
+</div>
+{{ form_end(form) }}
+
+<script src="{{ asset('js/tags_helper.js') }}"></script>

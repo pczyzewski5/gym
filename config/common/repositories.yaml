@@ -4,3 +4,6 @@ services:
 
   Gym\Domain\Station\StationRepository:
     alias: Gym\Infrastructure\Station\StationRepository
+
+  Gym\Domain\Exercise\ExerciseRepository:
+    alias: Gym\Infrastructure\Exercise\ExerciseRepository

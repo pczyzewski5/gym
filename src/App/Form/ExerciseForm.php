@@ -16,7 +16,7 @@ class ExerciseForm extends AbstractType
 {
     public const REPETITION_TARGET_FIELD = 'repetition_target';
     public const KILOGRAM_TARGET_FIELD = 'kilogram_target';
-    public const MUSCLE_TAG_FIELD = 'muscle_tag';
+    public const TAGS_FIELD = 'tags';
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -25,8 +25,9 @@ class ExerciseForm extends AbstractType
                 return $value;
             },
             function (mixed $value) {
-                $value[self::MUSCLE_TAG_FIELD] = MuscleTagEnum::from(
-                    $value[self::MUSCLE_TAG_FIELD]
+                $value[self::TAGS_FIELD] = array_map(
+                    fn (string $tag) => MuscleTagEnum::from($tag),
+                    $value[self::TAGS_FIELD]
                 );
 
                 return $value;
@@ -34,13 +35,18 @@ class ExerciseForm extends AbstractType
         ));
 
         $builder->add(
-            self::MUSCLE_TAG_FIELD,
+            self::TAGS_FIELD,
             ChoiceType::class,
             [
-                'label' => 'Obszar',
-                'required' => true,
+                'label' => 'Tagi',
                 'choices' => MuscleTagEnum::toArray(),
-            ],
+                'multiple' => true,
+                'required' => false,
+                'attr' => [
+                    'data-type' => 'tags',
+                    'data-free-input' => 'false'
+                ],
+            ]
         );
 
         $builder->add(
@@ -49,7 +55,10 @@ class ExerciseForm extends AbstractType
             [
                 'label' => 'Ilość powtórzeń',
                 'required' => true,
-                'attr' => ['value' => '10']
+                'attr' => [
+                    'value' => '10',
+                    'class' => 'input'
+                ],
             ],
         );
 
@@ -59,7 +68,10 @@ class ExerciseForm extends AbstractType
             [
                 'label' => 'Ciężar',
                 'required' => true,
-                'attr' => ['value' => '10']
+                'attr' => [
+                    'value' => '10',
+                    'class' => 'input'
+                ]
             ],
         );
 

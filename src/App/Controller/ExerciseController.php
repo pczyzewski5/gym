@@ -6,9 +6,13 @@ namespace App\Controller;
 
 use App\CommandBus\CommandBus;
 use App\Form\ExerciseForm;
+use App\Form\StationForm;
 use App\QueryBus\QueryBus;
 use Gym\Domain\Command\CreateExercise;
+use Gym\Domain\Command\CreateTags;
 use Gym\Domain\Enum\StatusEnum;
+use Gym\Domain\Enum\TagOwnerEnum;
+use Gym\Domain\Query\GetExercises;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -25,8 +29,12 @@ class ExerciseController extends BaseController
 
     public function list(Request $request): Response
     {
+        $exercises = $this->queryBus->handle(
+            new GetExercises()
+        );
+
         return $this->renderForm('exercise/list.html.twig', [
-            'exercises' => []
+            'exercises' => $exercises
         ]);
     }
 
@@ -36,16 +44,25 @@ class ExerciseController extends BaseController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->commandBus->handle(
+            $data = $form->getData();
+
+            $id = $this->commandBus->handle(
                 new CreateExercise(
-                    $form->getData()[ExerciseForm::MUSCLE_TAG_FIELD],
                     StatusEnum::PLANNED(),
-                    $form->getData()[ExerciseForm::REPETITION_TARGET_FIELD],
-                    $form->getData()[ExerciseForm::KILOGRAM_TARGET_FIELD]
+                    $data[ExerciseForm::REPETITION_TARGET_FIELD],
+                    $data[ExerciseForm::KILOGRAM_TARGET_FIELD]
                 )
             );
 
-            return $this->redirectToRoute('training_list');
+            $this->commandBus->handle(
+                new CreateTags(
+                    $id,
+                    TagOwnerEnum::EXERCISE(),
+                    $data[StationForm::TAGS_FIELD]
+                )
+            );
+
+            return $this->redirectToRoute('exercise_list');
         }
 
         return $this->renderForm('exercise/create.html.twig', [

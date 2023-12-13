@@ -9,26 +9,18 @@ use Gym\Domain\Enum\StatusEnum;
 
 class CreateExercise
 {
-    private MuscleTagEnum $muscleTag;
     private StatusEnum $status;
     private int $targetRepetitions;
     private int $targetKilograms;
 
     public function __construct(
-        MuscleTagEnum $muscleTag,
         StatusEnum $status,
         int $targetRepetitions,
         int $targetKilograms
     ) {
-        $this->muscleTag = $muscleTag;
         $this->status = $status;
         $this->targetRepetitions = $targetRepetitions;
         $this->targetKilograms = $targetKilograms;
-    }
-
-    public function getMuscleTag(): MuscleTagEnum
-    {
-        return $this->muscleTag;
     }
 
     public function getStatus(): StatusEnum

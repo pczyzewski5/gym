@@ -18,4 +18,6 @@ interface ExerciseRepository
      * @return Exercise[]
      */
     public function findAll(): array;
+
+    public function findAllForList(): array;
 }
