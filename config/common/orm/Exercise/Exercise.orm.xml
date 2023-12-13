@@ -7,6 +7,7 @@
         <id name="id" type="string" column="id"/>
         <field name="status" type="string" column="status"/>
         <field name="stationId" type="string" column="station_id"/>
+        <field name="seriesTarget" type="string" column="series_target"/>
         <field name="repetitionTarget" type="string" column="repetition_target"/>
         <field name="kilogramTarget" type="string" column="kilogram_target"/>
         <field name="createdAt" type="datetime" column="created_at"/>

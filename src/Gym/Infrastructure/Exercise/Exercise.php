@@ -9,6 +9,7 @@ class Exercise
     public ?string $id;
     public ?string $status;
     public ?string $stationId;
+    public ?int $seriesTarget;
     public ?int $repetitionTarget;
     public ?int $kilogramTarget;
     public ?\DateTime $createdAt;

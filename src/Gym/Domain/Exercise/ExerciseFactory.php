@@ -11,6 +11,7 @@ class ExerciseFactory
 {
     public static function create(
         StatusEnum $status,
+        int $seriesTarget,
         int $repetitionTarget,
         int $kilogramTarget,
         ?string $stationId = null,
@@ -19,6 +20,7 @@ class ExerciseFactory
         $dto->id = Uuid::v1()->toRfc4122();
         $dto->status = $status;
         $dto->stationId = $stationId;
+        $dto->seriesTarget = $seriesTarget;
         $dto->repetitionTarget = $repetitionTarget;
         $dto->kilogramTarget = $kilogramTarget;
         $dto->createdAt = new \DateTimeImmutable();

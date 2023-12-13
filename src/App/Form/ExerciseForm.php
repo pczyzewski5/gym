@@ -14,6 +14,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class ExerciseForm extends AbstractType
 {
+    public const SERIES_TARGET_FIELD = 'series_target';
     public const REPETITION_TARGET_FIELD = 'repetition_target';
     public const KILOGRAM_TARGET_FIELD = 'kilogram_target';
     public const TAGS_FIELD = 'tags';
@@ -50,13 +51,26 @@ class ExerciseForm extends AbstractType
         );
 
         $builder->add(
+            self::SERIES_TARGET_FIELD,
+            IntegerType::class,
+            [
+                'label' => 'Ilość serii',
+                'required' => true,
+                'attr' => [
+                    'value' => '3',
+                    'class' => 'input'
+                ],
+            ],
+        );
+
+        $builder->add(
             self::REPETITION_TARGET_FIELD,
             IntegerType::class,
             [
                 'label' => 'Ilość powtórzeń',
                 'required' => true,
                 'attr' => [
-                    'value' => '10',
+                    'value' => '12',
                     'class' => 'input'
                 ],
             ],

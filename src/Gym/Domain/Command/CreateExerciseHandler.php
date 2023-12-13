@@ -20,6 +20,7 @@ class CreateExerciseHandler
     {
         $entity = ExerciseFactory::create(
             $command->getStatus(),
+            $command->getSeriesTarget(),
             $command->getTargetRepetitions(),
             $command->getTargetKilograms(),
         );

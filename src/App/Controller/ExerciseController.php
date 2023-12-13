@@ -49,6 +49,7 @@ class ExerciseController extends BaseController
             $id = $this->commandBus->handle(
                 new CreateExercise(
                     StatusEnum::PLANNED(),
+                    $data[ExerciseForm::SERIES_TARGET_FIELD],
                     $data[ExerciseForm::REPETITION_TARGET_FIELD],
                     $data[ExerciseForm::KILOGRAM_TARGET_FIELD]
                 )

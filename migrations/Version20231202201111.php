@@ -25,6 +25,7 @@ CREATE TABLE exercises
     id                VARCHAR(36) NOT NULL,
     status            VARCHAR(36) NOT NULL,
     station_id        VARCHAR(36),
+    series_target     INTEGER(1) NOT NULL,
     repetition_target INTEGER(2) NOT NULL,
     kilogram_target   INTEGER(3) NOT NULL,
     created_at DATETIME NOT NULL,

@@ -70,7 +70,7 @@ training_read:
     methods: [ GET ]
 
 training_update:
-    path: /training/read
+    path: /training/{id}/update
     controller: App\Controller\TrainingController::update
     methods: [ GET, POST ]
 
@@ -96,7 +96,7 @@ exercise_read:
     methods: [ GET ]
 
 exercise_update:
-    path: /exercise/read
+    path: /exercise/{id}/update
     controller: App\Controller\ExerciseController::update
     methods: [ GET, POST ]
 

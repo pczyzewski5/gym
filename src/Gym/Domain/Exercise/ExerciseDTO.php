@@ -11,6 +11,7 @@ class ExerciseDTO
     public ?string $id = null;
     public ?StatusEnum $status = null;
     public ?string $stationId = null;
+    public ?int $seriesTarget = null;
     public ?int $repetitionTarget = null;
     public ?int $kilogramTarget = null;
     public ?\DateTimeImmutable $createdAt = null;

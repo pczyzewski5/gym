@@ -16,6 +16,7 @@ class Exercise
     private string $id;
     private StatusEnum $status;
     private ?string $stationId = null;
+    private int $seriesTarget;
     private int $repetitionTarget;
     private int $kilogramTarget;
     private \DateTimeImmutable $createdAt;
@@ -45,6 +46,10 @@ class Exercise
             throw ValidationException::missingProperty('stationId');
         }
 
+        if (!isset($this->seriesTarget)) {
+            throw ValidationException::missingProperty('seriesTarget');
+        }
+
         if (!isset($this->repetitionTarget)) {
             throw ValidationException::missingProperty('repetitionTarget');
         }
@@ -72,6 +77,12 @@ class Exercise
     {
         return $this->stationId;
     }
+
+    public function getSeriesTarget(): int
+    {
+        return $this->seriesTarget;
+    }
+
     public function getRepetitionTarget(): int
     {
         return $this->repetitionTarget;

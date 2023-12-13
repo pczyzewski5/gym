@@ -8,6 +8,14 @@
 </div>
 
 <div class="field">
+    <label class="label">{{ form_label(form.series_target) }}</label>
+    <div class="control">
+        {{ form_widget(form.series_target) }}
+    </div>
+    <p class="help is-danger">{{ form_errors(form.series_target) }}</p>
+</div>
+
+<div class="field">
     <label class="label">{{ form_label(form.kilogram_target) }}</label>
     <div class="control">
         {{ form_widget(form.kilogram_target) }}

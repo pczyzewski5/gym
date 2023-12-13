@@ -10,15 +10,18 @@ use Gym\Domain\Enum\StatusEnum;
 class CreateExercise
 {
     private StatusEnum $status;
+    private int $seriesTarget;
     private int $targetRepetitions;
     private int $targetKilograms;
 
     public function __construct(
         StatusEnum $status,
+        int $seriesTarget,
         int $targetRepetitions,
         int $targetKilograms
     ) {
         $this->status = $status;
+        $this->seriesTarget = $seriesTarget;
         $this->targetRepetitions = $targetRepetitions;
         $this->targetKilograms = $targetKilograms;
     }
@@ -26,6 +29,11 @@ class CreateExercise
     public function getStatus(): StatusEnum
     {
         return $this->status;
+    }
+
+    public function getSeriesTarget(): int
+    {
+        return $this->seriesTarget;
     }
 
     public function getTargetRepetitions(): int
