@@ -9,6 +9,8 @@ use App\Form\TrainingForm;
 use App\QueryBus\QueryBus;
 use Gym\Domain\Command\CreateTags;
 use Gym\Domain\Command\CreateTraining;
+use Gym\Domain\Command\DeleteTags;
+use Gym\Domain\Command\DeleteTraining;
 use Gym\Domain\Enum\StatusEnum;
 use Gym\Domain\Enum\TagOwnerEnum;
 use Gym\Domain\Query\GetTrainings;
@@ -71,6 +73,19 @@ class TrainingController extends BaseController
 
     public function delete(Request $request): Response
     {
+        $this->commandBus->handle(
+            new DeleteTags(
+                $request->get('id'),
+                TagOwnerEnum::TRAINING()
+            )
+        );
 
+        $this->commandBus->handle(
+            new DeleteTraining(
+                $request->get('id')
+            )
+        );
+
+        return $this->redirectToRoute('training_list');
     }
 }

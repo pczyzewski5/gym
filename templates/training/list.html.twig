@@ -11,7 +11,9 @@
             <th>#</th>
             <th>data treningu</th>
             <th>co tydzień</th>
+            <th>status</th>
             <th>tagi</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -20,10 +22,14 @@
                 <td>{{ key + 1 }}</td>
                 <td>{{ training['date'].format('d') }} {{ training['date'].format('M') }}</td>
                 <td>{{ training['repeated'] == 1 ? 'tak' : 'nie' }}</td>
+                <td>{{ training['status'] }}</td>
                 <td>
                     {% for tag in training['tags'] %}
                         <span class="button is-small is-rounded is-outlined">{{ tag }}</span>
                     {% endfor %}
+                </td>
+                <td>
+                    <a href="{{ path('training_delete', {'id': training['id']}) }}" class="button is-small is-danger">usuń</a>
                 </td>
             </tr>
         {% endfor %}

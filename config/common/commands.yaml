@@ -43,3 +43,17 @@ services:
       - '@Gym\Domain\Tag\TagPersister'
     tags:
       - { name: tactician.handler, command: Gym\Domain\Command\CreateTags, bus: command }
+
+  Gym\Domain\Command\DeleteTrainingHandler:
+    class: Gym\Domain\Command\DeleteTrainingHandler
+    arguments:
+      - '@Gym\Domain\Training\TrainingPersister'
+    tags:
+      - { name: tactician.handler, command: Gym\Domain\Command\DeleteTraining, bus: command }
+
+  Gym\Domain\Command\DeleteTagsHandler:
+    class: Gym\Domain\Command\DeleteTagsHandler
+    arguments:
+      - '@Gym\Domain\Tag\TagPersister'
+    tags:
+      - { name: tactician.handler, command: Gym\Domain\Command\DeleteTags, bus: command }
