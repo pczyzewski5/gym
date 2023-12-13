@@ -25,7 +25,7 @@ class ExerciseForm extends AbstractType
             self::TAGS_FIELD,
             ChoiceType::class,
             [
-                'label' => 'Tagi',
+                'label' => 'Mięsień',
                 'choices' => \array_combine(MuscleTagEnum::toArray(), MuscleTagEnum::toArray()),
                 'required' => false,
                 'attr' => [

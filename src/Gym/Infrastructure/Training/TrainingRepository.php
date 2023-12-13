@@ -43,24 +43,22 @@ class TrainingRepository implements DomainRepository
 
     public function findAllForList(): array
     {
-        return [];
         $sql = <<<SQL
-SELECT t.id as id, t.date as date, t.repeated as repeated, GROUP_CONCAT(t.tag) as tags FROM trainings t
-    LEFT JOIN tags t ON e.id = t.owner_id AND t.owner = :owner
-GROUP BY e.id
+SELECT tr.id as id, tr.date as date, tr.repeated as repeated, GROUP_CONCAT(t.tag) as tags FROM trainings tr
+    LEFT JOIN tags t ON tr.id = t.owner_id AND t.owner = :owner
+GROUP BY tr.id
 SQL;
         $stmt = $this->entityManager->getConnection()->executeQuery(
             $sql,
-            ['owner' => TagOwnerEnum::EXERCISE],
+            ['owner' => TagOwnerEnum::TRAINING],
             ['owner' => Types::STRING]
         );
 
         return \array_map(
             fn (array $item) => [
                 'id' => $item['id'],
-                'series_target' => $item['series_target'],
-                'repetition_target' => $item['repetition_target'],
-                'kilogram_target' => $item['kilogram_target'],
+                'date' => \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $item['date']),
+                'repeated' => $item['repeated'],
                 'tags' => \explode(',', $item['tags']),
             ],
             $stmt->fetchAllAssociative()

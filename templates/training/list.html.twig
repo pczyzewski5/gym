@@ -15,12 +15,16 @@
         </tr>
         </thead>
         <tbody>
-        {% for key, character in trainings %}
+        {% for key, training in trainings %}
             <tr class="table-item">
                 <td>{{ key + 1 }}</td>
-                <td>{14 lut pon</td>
-                <td>tak</td>
-                <td>tagi</td>
+                <td>{{ training['date'].format('d') }} {{ training['date'].format('M') }}</td>
+                <td>{{ training['repeated'] == 1 ? 'tak' : 'nie' }}</td>
+                <td>
+                    {% for tag in training['tags'] %}
+                        <span class="button is-small is-rounded is-outlined">{{ tag }}</span>
+                    {% endfor %}
+                </td>
             </tr>
         {% endfor %}
         </tbody>

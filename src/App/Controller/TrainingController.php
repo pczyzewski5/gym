@@ -7,8 +7,10 @@ namespace App\Controller;
 use App\CommandBus\CommandBus;
 use App\Form\TrainingForm;
 use App\QueryBus\QueryBus;
+use Gym\Domain\Command\CreateTags;
 use Gym\Domain\Command\CreateTraining;
 use Gym\Domain\Enum\StatusEnum;
+use Gym\Domain\Enum\TagOwnerEnum;
 use Gym\Domain\Query\GetTrainings;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,7 +26,7 @@ class TrainingController extends BaseController
         $this->commandBus = $commandBus;
     }
 
-    public function list(Request $request): Response
+    public function list(): Response
     {
         $trainings = $this->queryBus->handle(
             new GetTrainings()
@@ -41,31 +43,30 @@ class TrainingController extends BaseController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+
             $id = $this->commandBus->handle(
                 new CreateTraining(
                     StatusEnum::PLANNED(),
-                    $form->getData()[TrainingForm::DATE_FIELD],
-                    $form->getData()[TrainingForm::REPEATED_FIELD]
+                    $data[TrainingForm::DATE_FIELD],
+                    $data[TrainingForm::REPEATED_FIELD]
                 )
             );
 
-            return $this->redirectToRoute('training_read', ['id' => $id]);
+            $this->commandBus->handle(
+                new CreateTags(
+                    $id,
+                    TagOwnerEnum::TRAINING(),
+                    $data[TrainingForm::TAGS_FIELD]
+                )
+            );
+
+            return $this->redirectToRoute('training_list');
         }
 
         return $this->renderForm('training/create.html.twig', [
             'form' => $form
         ]);
-    }
-
-    public function read(Request $request): Response
-    {
-        return $this->renderForm('training/read.html.twig', [
-            'id' => $request->get('id')
-        ]);
-    }
-    public function update(Request $request): Response
-    {
-
     }
 
     public function delete(Request $request): Response
