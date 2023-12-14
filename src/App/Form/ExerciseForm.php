@@ -23,9 +23,9 @@ class ExerciseForm extends AbstractType
             self::TAG_FIELD,
             ChoiceType::class,
             [
-                'label' => 'Mięsień',
-                'choices' => \array_combine(MuscleTagEnum::toArray(), MuscleTagEnum::toArray()),
-                'required' => true,
+                'label' => 'partia',
+                'choices' => MuscleTagEnum::toArray(),
+                'block_prefix' => 'select_type',
             ]
         );
         $builder->get(self::TAG_FIELD)->addModelTransformer(
@@ -36,7 +36,7 @@ class ExerciseForm extends AbstractType
             self::SERIES_TARGET_FIELD,
             IntegerType::class,
             [
-                'label' => 'Ilość serii',
+                'label' => 'serie',
                 'required' => true,
                 'attr' => [
                     'value' => '4',
@@ -49,7 +49,7 @@ class ExerciseForm extends AbstractType
             self::REPETITION_TARGET_FIELD,
             IntegerType::class,
             [
-                'label' => 'Ilość powtórzeń',
+                'label' => 'powtórzenia',
                 'required' => true,
                 'attr' => [
                     'value' => '12',

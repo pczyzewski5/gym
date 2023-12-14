@@ -46,6 +46,9 @@ class TrainingController extends BaseController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
+            echo '<pre>';
+            \var_dump($data);
+            echo '</pre>';exit;
 
             $id = $this->commandBus->handle(
                 new CreateTraining(

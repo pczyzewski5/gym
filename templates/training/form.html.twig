@@ -1,29 +1,65 @@
+<link rel="stylesheet" href="{{ asset('css/checkbox_switch.css') }}">
+<style>
+    .exercises li > div {
+        display: flex;
+        margin-top: 0.5rem;
+    }
+    .exercises li > div > div {
+        width: 180px;
+        margin-right: 0.75rem;
+    }
+    .exercises li:first-child label {
+        display: initial !important;
+    }
+    .exercises label {
+        display: none;
+    }
+    .switch-container {
+        height: 40px;
+    }
+</style>
+
 {{ form_start(form) }}
+
+{% do form.exercises.setRendered() %}
 <div class="field">
-    <label class="label">{{ form_label(form.date) }}</label>
+    <label class="label">{{ form_label(form.exercises) }}</label>
+    <ul class="exercises"
+        data-index="{{ form.exercises|length > 0 ? form.exercises|last.vars.name + 1 : 0 }}"
+        data-prototype="{{ form_widget(form.exercises.vars.prototype)|e('html_attr') }}"
+    ></ul>
+</div>
+
+<div class="field">
+    <button type="button" class="add_exercise button is-small is-success is-outlined">
+        <span class="icon">
+            <i class="fas fa-plus"></i>
+        </span>
+    </button>
+</div>
+
+<div class="field is-grouped">
     <div class="control">
-        <div class="select is-fullwidth">
-            {{ form_widget(form.date) }}
+        <label class="label">{{ form.date.vars['label'] }}</label>
+        {{ form_widget(form.date) }}
+    </div>
+    <div class="control">
+        <label class="label">&nbsp;</label>
+        <div class="switch-container">
+            <label class="switch">
+                <input
+                        type="checkbox"
+                        id="{{ form.repeated.vars.id }}"
+                        name="{{ form.repeated.vars.full_name }}"
+                        value="{{ form.repeated.vars.value }}"
+                >
+                <div class="slider round"></div>
+            </label>
+            <div class="switch-desc">{{ form.repeated.vars.label }}</div>
         </div>
     </div>
-    <p class="help is-danger">{{ form_errors(form.date) }}</p>
 </div>
-
-<div class="field">
-    <label class="label">{{ form_label(form.repeated) }}</label>
-    <div class="control">
-        {{ form_widget(form.repeated) }}
-    </div>
-    <p class="help is-danger">{{ form_errors(form.repeated) }}</p>
-</div>
-
-<div class="field">
-    <label class="label">{{ form_label(form.tags) }}</label>
-    <div class="control">
-        {{ form_widget(form.tags) }}
-    </div>
-    <p class="help is-danger">{{ form_errors(form.tags) }}</p>
-</div>
+{% do form.repeated.setRendered() %}
 
 <div class="field">
     <div class="control">
@@ -32,4 +68,33 @@
 </div>
 {{ form_end(form) }}
 
-<script src="{{ asset('js/tags_helper.js') }}"></script>
+<script src="{{ asset('js/checkbox_switch.js') }}"></script>
+<script>
+    const addFormToCollection = (e) => {
+        const collectionHolder = document.querySelector('.exercises');
+
+        const item = document.createElement('li');
+
+        item.innerHTML = collectionHolder
+            .dataset
+            .prototype
+            .replace(
+                /__name__/g,
+                collectionHolder.dataset.index
+            );
+
+        collectionHolder.appendChild(item);
+
+        collectionHolder.dataset.index++;
+    };
+
+    document.addEventListener("DOMContentLoaded", () => {
+        addFormToCollection();
+    });
+
+    document
+        .querySelectorAll('.add_exercise')
+        .forEach(btn => {
+            btn.addEventListener('click', addFormToCollection)
+        });
+</script>

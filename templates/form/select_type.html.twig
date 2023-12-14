@@ -1,0 +1,17 @@
+{% block select_type_label %}
+    <label>{{ label }}</label>
+{% endblock %}
+
+{% block select_type_errors %}
+    {{ errors }}
+{% endblock %}
+
+{% block select_type_widget %}
+    <div class="select is-fullwidth">
+        <select {{ block('widget_attributes') }}>
+            {% for choice in choices %}
+                <option value="{{ choice.value }}">{{ choice.value }}</option>
+            {% endfor %}
+        </select>
+    </div>
+{% endblock %}
