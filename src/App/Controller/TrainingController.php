@@ -10,6 +10,7 @@ use App\Form\StationForm;
 use App\Form\TrainingForm;
 use App\QueryBus\QueryBus;
 use Gym\Domain\Command\CreateExercise;
+use Gym\Domain\Command\CreateExerciseToTraining;
 use Gym\Domain\Command\CreateTags;
 use Gym\Domain\Command\CreateTraining;
 use Gym\Domain\Command\DeleteTags;
@@ -53,7 +54,7 @@ class TrainingController extends BaseController
 //            \var_dump($data);
 //            echo '</pre>';exit;
 
-            $id = $this->commandBus->handle(
+            $trainingId = $this->commandBus->handle(
                 new CreateTraining(
                     StatusEnum::PLANNED(),
                     $data[TrainingForm::DATE_FIELD],
@@ -62,7 +63,7 @@ class TrainingController extends BaseController
             );
 
             foreach ($data[TrainingForm::EXERCISES_FIELD] as $exercise) {
-                $id = $this->commandBus->handle(
+                $exerciseId = $this->commandBus->handle(
                     new CreateExercise(
                         StatusEnum::PLANNED(),
                         $exercise[ExerciseForm::SERIES_TARGET_FIELD],
@@ -71,9 +72,15 @@ class TrainingController extends BaseController
                 );
                 $this->commandBus->handle(
                     new CreateTags(
-                        $id,
+                        $exerciseId,
                         TagOwnerEnum::EXERCISE(),
                         $exercise[ExerciseForm::TAG_FIELD]
+                    )
+                );
+                $this->commandBus->handle(
+                    new CreateExerciseToTraining(
+                        $exerciseId,
+                        $trainingId
                     )
                 );
             }

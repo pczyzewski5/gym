@@ -8,5 +8,4 @@ class TagOwnerEnum extends Enum
 {
     const STATION = 'station';
     const EXERCISE = 'exercise';
-    const TRAINING = 'training';
 }

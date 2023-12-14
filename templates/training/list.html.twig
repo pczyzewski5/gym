@@ -29,7 +29,7 @@
             <tr class="table-item">
                 <td>{{ key + 1 }}</td>
                 <td> {{ training['date'].format('D') }} {{ training['date'].format('d') }} {{ training['date'].format('M') }}</td>
-                <td>{{ training['repeated'] == 1 ? 'tak' : 'nie' }}</td>
+                <td>{{ training['repeated'] ? 'tak' : 'nie' }}</td>
                 <td>{{ training['status'] }}</td>
                 <td>
                     {% for tag in training['tags'] %}
