@@ -95,6 +95,7 @@ class TrainingController extends BaseController
 
     public function delete(Request $request): Response
     {
+       throw new \Exception('suit me to new behavour');
         $this->commandBus->handle(
             new DeleteTags(
                 $request->get('id'),

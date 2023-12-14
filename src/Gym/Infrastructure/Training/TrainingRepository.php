@@ -55,15 +55,22 @@ SQL;
             ['owner' => Types::STRING]
         );
 
-        return \array_map(
-            fn (array $item) => [
+        return \array_map(function (array $item) {
+            $tags = \explode(',', $item['tags']);
+            $tags = \array_count_values($tags);
+            $countedTags = [];
+
+            foreach ($tags as $tag => $count) {
+                $countedTags[] = $count > 1 ? $count . 'x ' . $tag : $tag;
+            }
+
+            return [
                 'id' => $item['id'],
                 'date' => \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $item['date']),
                 'repeated' => (bool)$item['repeated'],
                 'status' => $item['status'],
-                'tags' => \explode(',', $item['tags']),
-            ],
-            $stmt->fetchAllAssociative()
-        );
+                'tags' => $countedTags
+            ];
+        }, $stmt->fetchAllAssociative());
     }
 }
