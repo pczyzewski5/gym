@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\CommandBus\CommandBus;
+use App\Form\ExerciseForm;
+use App\Form\StationForm;
 use App\Form\TrainingForm;
 use App\QueryBus\QueryBus;
+use Gym\Domain\Command\CreateExercise;
 use Gym\Domain\Command\CreateTags;
 use Gym\Domain\Command\CreateTraining;
 use Gym\Domain\Command\DeleteTags;
@@ -46,9 +49,9 @@ class TrainingController extends BaseController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            echo '<pre>';
-            \var_dump($data);
-            echo '</pre>';exit;
+//            echo '<pre>';
+//            \var_dump($data);
+//            echo '</pre>';exit;
 
             $id = $this->commandBus->handle(
                 new CreateTraining(
@@ -58,13 +61,22 @@ class TrainingController extends BaseController
                 )
             );
 
-            $this->commandBus->handle(
-                new CreateTags(
-                    $id,
-                    TagOwnerEnum::TRAINING(),
-                    $data[TrainingForm::TAGS_FIELD]
-                )
-            );
+            foreach ($data[TrainingForm::EXERCISES_FIELD] as $exercise) {
+                $id = $this->commandBus->handle(
+                    new CreateExercise(
+                        StatusEnum::PLANNED(),
+                        $exercise[ExerciseForm::SERIES_TARGET_FIELD],
+                        $exercise[ExerciseForm::REPETITION_TARGET_FIELD],
+                    )
+                );
+                $this->commandBus->handle(
+                    new CreateTags(
+                        $id,
+                        TagOwnerEnum::EXERCISE(),
+                        $exercise[ExerciseForm::TAG_FIELD]
+                    )
+                );
+            }
 
             return $this->redirectToRoute('training_list');
         }

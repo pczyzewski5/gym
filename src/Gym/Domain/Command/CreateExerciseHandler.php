@@ -22,7 +22,6 @@ class CreateExerciseHandler
             $command->getStatus(),
             $command->getSeriesTarget(),
             $command->getTargetRepetitions(),
-            $command->getTargetKilograms(),
         );
 
         $this->persister->save($entity);

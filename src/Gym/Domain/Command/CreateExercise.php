@@ -12,18 +12,15 @@ class CreateExercise
     private StatusEnum $status;
     private int $seriesTarget;
     private int $targetRepetitions;
-    private int $targetKilograms;
 
     public function __construct(
         StatusEnum $status,
         int $seriesTarget,
         int $targetRepetitions,
-        int $targetKilograms
     ) {
         $this->status = $status;
         $this->seriesTarget = $seriesTarget;
         $this->targetRepetitions = $targetRepetitions;
-        $this->targetKilograms = $targetKilograms;
     }
 
     public function getStatus(): StatusEnum
@@ -39,10 +36,5 @@ class CreateExercise
     public function getTargetRepetitions(): int
     {
         return $this->targetRepetitions;
-    }
-
-    public function getTargetKilograms(): int
-    {
-        return $this->targetKilograms;
     }
 }

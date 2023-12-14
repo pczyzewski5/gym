@@ -43,6 +43,7 @@ class TrainingRepository implements DomainRepository
 
     public function findAllForList(): array
     {
+        return [];
         $sql = <<<SQL
 SELECT tr.id as id, tr.date as date, tr.repeated as repeated, tr.status as status, GROUP_CONCAT(t.tag) as tags FROM trainings tr
     LEFT JOIN tags t ON tr.id = t.owner_id AND t.owner = :owner

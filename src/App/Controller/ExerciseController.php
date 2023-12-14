@@ -51,7 +51,6 @@ class ExerciseController extends BaseController
                     StatusEnum::PLANNED(),
                     $data[ExerciseForm::SERIES_TARGET_FIELD],
                     $data[ExerciseForm::REPETITION_TARGET_FIELD],
-                    $data[ExerciseForm::KILOGRAM_TARGET_FIELD]
                 )
             );
 
