@@ -11,6 +11,5 @@ class Exercise
     public ?string $stationId;
     public ?int $seriesTarget;
     public ?int $repetitionTarget;
-    public ?int $kilogramTarget;
     public ?\DateTime $createdAt;
 }

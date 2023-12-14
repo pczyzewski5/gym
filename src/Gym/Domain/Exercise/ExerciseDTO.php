@@ -13,6 +13,5 @@ class ExerciseDTO
     public ?string $stationId = null;
     public ?int $seriesTarget = null;
     public ?int $repetitionTarget = null;
-    public ?int $kilogramTarget = null;
     public ?\DateTimeImmutable $createdAt = null;
 }

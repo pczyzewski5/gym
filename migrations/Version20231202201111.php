@@ -27,7 +27,6 @@ CREATE TABLE exercises
     station_id        VARCHAR(36),
     series_target     INTEGER(1) NOT NULL,
     repetition_target INTEGER(2) NOT NULL,
-    kilogram_target   INTEGER(3) NOT NULL,
     created_at DATETIME NOT NULL,
     UNIQUE (id)
 ) DEFAULT CHARACTER SET UTF8

@@ -19,7 +19,6 @@ class ExerciseMapper
         $dto->stationId = $entity->stationId;
         $dto->seriesTarget = $entity->seriesTarget;
         $dto->repetitionTarget = $entity->repetitionTarget;
-        $dto->kilogramTarget = $entity->kilogramTarget;
         $dto->createdAt = DateTimeNormalizer::normalizeToImmutable(
             $entity->createdAt
         );
@@ -35,7 +34,6 @@ class ExerciseMapper
         $entity->stationId = $domainEntity->getStationId();
         $entity->seriesTarget = $domainEntity->getSeriesTarget();
         $entity->repetitionTarget = $domainEntity->getRepetitionTarget();
-        $entity->kilogramTarget = $domainEntity->getKilogramTarget();
         $entity->createdAt = DateTime::createFromImmutable(
             $domainEntity->getCreatedAt()
         );

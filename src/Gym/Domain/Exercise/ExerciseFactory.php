@@ -13,7 +13,6 @@ class ExerciseFactory
         StatusEnum $status,
         int $seriesTarget,
         int $repetitionTarget,
-        int $kilogramTarget,
         ?string $stationId = null,
     ): Exercise {
         $dto = new ExerciseDTO();
@@ -22,7 +21,6 @@ class ExerciseFactory
         $dto->stationId = $stationId;
         $dto->seriesTarget = $seriesTarget;
         $dto->repetitionTarget = $repetitionTarget;
-        $dto->kilogramTarget = $kilogramTarget;
         $dto->createdAt = new \DateTimeImmutable();
 
         return new Exercise($dto);

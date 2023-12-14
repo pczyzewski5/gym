@@ -44,7 +44,7 @@ class ExerciseRepository implements DomainRepository
     public function findAllForList(): array
     {
         $sql = <<<SQL
-SELECT e.id as id, e.series_target as series_target, e.repetition_target as repetition_target, e.kilogram_target as kilogram_target, GROUP_CONCAT(t.tag) as tags FROM exercises e
+SELECT e.id as id, e.series_target as series_target, e.repetition_target as repetition_target, GROUP_CONCAT(t.tag) as tags FROM exercises e
     LEFT JOIN tags t ON e.id = t.owner_id AND t.owner = :owner
 GROUP BY e.id
 SQL;
@@ -59,7 +59,6 @@ SQL;
                 'id' => $item['id'],
                 'series_target' => $item['series_target'],
                 'repetition_target' => $item['repetition_target'],
-                'kilogram_target' => $item['kilogram_target'],
                 'tags' => \explode(',', $item['tags']),
             ],
             $stmt->fetchAllAssociative()

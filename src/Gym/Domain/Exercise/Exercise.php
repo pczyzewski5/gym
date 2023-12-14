@@ -18,7 +18,6 @@ class Exercise
     private ?string $stationId = null;
     private int $seriesTarget;
     private int $repetitionTarget;
-    private int $kilogramTarget;
     private \DateTimeImmutable $createdAt;
 
     public function __construct(ExerciseDTO $dto)
@@ -54,10 +53,6 @@ class Exercise
             throw ValidationException::missingProperty('repetitionTarget');
         }
 
-        if (!isset($this->kilogramTarget)) {
-            throw ValidationException::missingProperty('kilogramTarget');
-        }
-
         if (!isset($this->createdAt)) {
             throw ValidationException::missingProperty('createdAt');
         }
@@ -86,11 +81,6 @@ class Exercise
     public function getRepetitionTarget(): int
     {
         return $this->repetitionTarget;
-    }
-
-    public function getKilogramTarget(): int
-    {
-        return $this->kilogramTarget;
     }
 
     public function getCreatedAt(): \DateTimeImmutable
