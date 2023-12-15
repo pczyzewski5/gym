@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Gym\Infrastructure\Exercise;
 
-use DateTime;
 use Gym\Domain\Exercise\Exercise as DomainEntity;
-use App\DateTimeNormalizer;
 use Gym\Domain\Exercise\ExerciseDTO;
 
 class ExerciseMapper
@@ -15,13 +13,9 @@ class ExerciseMapper
     {
         $dto = new ExerciseDTO();
         $dto->id = $entity->id;
-        $dto->status = $entity->status;
-        $dto->stationId = $entity->stationId;
-        $dto->seriesTarget = $entity->seriesTarget;
-        $dto->repetitionTarget = $entity->repetitionTarget;
-        $dto->createdAt = DateTimeNormalizer::normalizeToImmutable(
-            $entity->createdAt
-        );
+        $dto->name = $entity->name;
+        $dto->description = $entity->description;
+        $dto->image = $entity->image;
 
         return new DomainEntity($dto);
     }
@@ -30,13 +24,9 @@ class ExerciseMapper
     {
         $entity = new Exercise();
         $entity->id = $domainEntity->getId();
-        $entity->status = $domainEntity->getStatus()->getValue();
-        $entity->stationId = $domainEntity->getStationId();
-        $entity->seriesTarget = $domainEntity->getSeriesTarget();
-        $entity->repetitionTarget = $domainEntity->getRepetitionTarget();
-        $entity->createdAt = DateTime::createFromImmutable(
-            $domainEntity->getCreatedAt()
-        );
+        $entity->name = $domainEntity->getName();
+        $entity->description = $domainEntity->getDescription();
+        $entity->image = $domainEntity->getImage();
 
         return $entity;
     }

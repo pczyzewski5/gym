@@ -1,34 +1,18 @@
 {{ form_start(form) }}
 <div class="field">
-    <label class="label">{{ form_label(form.repetition_target) }}</label>
+    <label class="label">{{ form_label(form.name) }}</label>
     <div class="control">
-        {{ form_widget(form.repetition_target) }}
+        {{ form_widget(form.name) }}
     </div>
-    <p class="help is-danger">{{ form_errors(form.repetition_target) }}</p>
+    <p class="help is-danger">{{ form_errors(form.name) }}</p>
 </div>
 
 <div class="field">
-    <label class="label">{{ form_label(form.series_target) }}</label>
+    <label class="label">{{ form_label(form.tag) }}</label>
     <div class="control">
-        {{ form_widget(form.series_target) }}
+        {{ form_widget(form.tag) }}
     </div>
-    <p class="help is-danger">{{ form_errors(form.series_target) }}</p>
-</div>
-
-<div class="field">
-    <label class="label">{{ form_label(form.kilogram_target) }}</label>
-    <div class="control">
-        {{ form_widget(form.kilogram_target) }}
-    </div>
-    <p class="help is-danger">{{ form_errors(form.kilogram_target) }}</p>
-</div>
-
-<div class="field">
-    <label class="label">{{ form_label(form.tags) }}</label>
-    <div class="control">
-        {{ form_widget(form.tags) }}
-    </div>
-    <p class="help is-danger">{{ form_errors(form.tags) }}</p>
+    <p class="help is-danger">{{ form_errors(form.tag) }}</p>
 </div>
 
 <div class="field">

@@ -5,32 +5,30 @@
             cursor: pointer;
         }
     </style>
-    <table class="table is-striped is-hoverable is-fullwidth">
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>ilość serii</th>
-            <th>ilość powtórzeń</th>
-            <th>obciążenie</th>
-            <th>tagi</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for key, exercise in exercises %}
-            <tr class="table-item">
-                <td>{{ key + 1 }}</td>
-                <td>{{ exercise['series_target'] }}</td>
-                <td>{{ exercise['repetition_target'] }}</td>
-                <td>{{ exercise['kilogram_target'] }} kg</td>
-                <td>
-                    {% for tag in exercise['tags'] %}
-                        <span class="button is-small is-rounded is-outlined">{{ tag }}</span>
-                    {% endfor %}
-                </td>
+    <div class="container is-max-desktop">
+        <table class="table is-striped is-hoverable is-fullwidth">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>nazwa</th>
+                <th>tagi</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for key, exercise in exercises %}
+                <tr class="table-item">
+                    <td>{{ key + 1 }}</td>
+                    <td>{{ exercise['name'] }}</td>
+                    <td>
+                        {% for tag in exercise['tags'] %}
+                            <span class="button is-small is-rounded is-outlined">{{ tag }}</span>
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
     <script src="{{ asset('js/list_helper.js') }}"></script>
 {% endblock %}

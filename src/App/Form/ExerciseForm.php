@@ -8,22 +8,32 @@ use App\Form\ModelTransformer\TagModelTransformer;
 use Gym\Domain\Enum\MuscleTagEnum;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class ExerciseForm extends AbstractType
 {
-    public const SERIES_TARGET_FIELD = 'series_target';
-    public const REPETITION_TARGET_FIELD = 'repetition_target';
+    public const NAME_FIELD = 'name';
     public const TAG_FIELD = 'tag';
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
+            self::NAME_FIELD,
+            TextType::class,
+            [
+                'label' => 'Nazwa',
+                'attr' => ['class' => 'input'],
+                'required' => true
+            ]
+        );
+
+        $builder->add(
             self::TAG_FIELD,
             ChoiceType::class,
             [
-                'label' => 'partia',
+                'label' => 'Partia mięśni',
                 'choices' => MuscleTagEnum::toArray(),
                 'block_prefix' => 'select_type',
             ]
@@ -33,29 +43,11 @@ class ExerciseForm extends AbstractType
         );
 
         $builder->add(
-            self::SERIES_TARGET_FIELD,
-            IntegerType::class,
+            'zapisz',
+            SubmitType::class,
             [
-                'label' => 'serie',
-                'required' => true,
-                'attr' => [
-                    'value' => '4',
-                    'class' => 'input'
-                ],
-            ],
-        );
-
-        $builder->add(
-            self::REPETITION_TARGET_FIELD,
-            IntegerType::class,
-            [
-                'label' => 'powtórzenia',
-                'required' => true,
-                'attr' => [
-                    'value' => '12',
-                    'class' => 'input'
-                ],
-            ],
+                'attr' => ['class' => 'button is-primary is-fullwidth']
+            ]
         );
     }
 }

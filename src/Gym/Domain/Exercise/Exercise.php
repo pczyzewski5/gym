@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Gym\Domain\Exercise;
 
 use App\MergerTrait;
-use Gym\Domain\Enum\StatusEnum;
 use Symfony\Component\Uid\UuidV1;
 use Gym\Domain\Exception\ValidationException;
 
@@ -14,11 +13,9 @@ class Exercise
     use MergerTrait;
 
     private string $id;
-    private StatusEnum $status;
-    private ?string $stationId = null;
-    private int $seriesTarget;
-    private int $repetitionTarget;
-    private \DateTimeImmutable $createdAt;
+    private string $name;
+    private ?string $description = null;
+    private ?string $image = null;
 
     public function __construct(ExerciseDTO $dto)
     {
@@ -33,28 +30,20 @@ class Exercise
 
     private function validate(): void
     {
-        if (!isset($this->id) && UuidV1::isValid($this->id)) {
+        if (isset($this->id) && false === UuidV1::isValid($this->id)) {
             throw ValidationException::missingProperty('id');
         }
 
-        if (!isset($this->status)) {
-            throw ValidationException::missingProperty('status');
+        if (isset($this->name) && empty($this->name)) {
+            throw ValidationException::missingProperty('name');
         }
 
-        if (isset($this->stationId) && false === UuidV1::isValid($this->stationId)) {
-            throw ValidationException::missingProperty('stationId');
+        if (isset($this->description) && empty($this->description)) {
+            throw ValidationException::missingProperty('description');
         }
 
-        if (!isset($this->seriesTarget)) {
-            throw ValidationException::missingProperty('seriesTarget');
-        }
-
-        if (!isset($this->repetitionTarget)) {
-            throw ValidationException::missingProperty('repetitionTarget');
-        }
-
-        if (!isset($this->createdAt)) {
-            throw ValidationException::missingProperty('createdAt');
+        if (isset($this->image) && empty($this->image)) {
+            throw ValidationException::missingProperty('image');
         }
     }
 
@@ -63,28 +52,18 @@ class Exercise
         return $this->id;
     }
 
-    public function getStatus(): StatusEnum
+    public function getName(): string
     {
-        return $this->status;
+        return $this->name;
     }
 
-    public function getStationId(): ?string
+    public function getDescription(): ?string
     {
-        return $this->stationId;
+        return $this->description;
     }
 
-    public function getSeriesTarget(): int
+    public function getImage(): ?string
     {
-        return $this->seriesTarget;
-    }
-
-    public function getRepetitionTarget(): int
-    {
-        return $this->repetitionTarget;
-    }
-
-    public function getCreatedAt(): \DateTimeImmutable
-    {
-        return $this->createdAt;
+        return $this->image;
     }
 }

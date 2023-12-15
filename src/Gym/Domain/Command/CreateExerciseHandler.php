@@ -19,9 +19,7 @@ class CreateExerciseHandler
     public function handle(CreateExercise $command): string
     {
         $entity = ExerciseFactory::create(
-            $command->getStatus(),
-            $command->getSeriesTarget(),
-            $command->getTargetRepetitions(),
+            $command->getName(),
         );
 
         $this->persister->save($entity);
