@@ -27,3 +27,9 @@
 .navbar {
     margin-bottom: 0.5em;
 }
+hr {
+    margin: 0.5rem 0;
+}
+.content ul {
+    margin-top: 0.5em;
+}

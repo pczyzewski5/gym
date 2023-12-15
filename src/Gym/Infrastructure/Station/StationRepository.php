@@ -46,30 +46,35 @@ SQL;
 
     public function findOneForRead(string $id): array
     {
-        return [];
         $sql = <<<SQL
-SELECT s.id as id, s.name as name, s.photo as photo, GROUP_CONCAT(t.tag) as tags FROM stations s
-    JOIN tags t ON s.id = t.owner_id AND t.owner = :owner
+SELECT s.id as id, s.name as name, s.image as image, GROUP_CONCAT(e.name) as exercises, GROUP_CONCAT(t.tag) as tags FROM stations s
+    LEFT JOIN exercises_to_stations ets ON ets.station_id = s.id
+    LEFT JOIN exercises e ON e.id = ets.exercise_id
+    LEFT JOIN tags t ON t.owner_id = ets.exercise_id AND t.owner = :owner
 WHERE s.id = :id
 SQL;
         $stmt = $this->entityManager->getConnection()->executeQuery(
             $sql,
             [
                 'id' => $id,
-                'owner' => TagOwnerEnum::STATION
+                'owner' => TagOwnerEnum::EXERCISE
             ],
             [
                 'id' => Types::STRING,
                 'owner' => Types::STRING
             ]
         );
+
         $data = $stmt->fetchAssociative();
 
         return [
             'id' => $data['id'],
             'name' => $data['name'],
-            'photo' => $data['photo'],
-            'tags' => \explode(',', $data['tags']),
+            'image' => $data['image'],
+            'exercises' => \explode(',', $data['exercises']),
+            'tags' => \array_unique(
+                \explode(',', $data['tags'])
+            ),
         ];
     }
 }

@@ -1,19 +1,45 @@
 {% extends 'base.html.twig' %}
 {% block body %}
+    <style>
+        .tag-container {
+            display: flex;
+            align-items: baseline;
+        }
+        .tag-container span {
+            margin-right: 5px;
+        }
+        .column {
+            display: flex;
+            flex-direction: column;
+        }
+        .column .content {
+            flex-grow: 1;
+        }
+    </style>
+
     <div class="columns">
         <div class="column">
             <figure class="image">
-                <img src="{{ '/photos/' ~ asset(station['photo']) }}">
+                <img src="{{ '/photos/' ~ asset(station['image']) }}">
             </figure>
 
         </div>
         <div class="column">
             <div class="content">
                 <h1>{{ station['name'] }}</h1>
-                Tagi:
-                {% for tag in station['tags'] %}
-                    <span class="button is-small">{{ tag }}</span>
-                {% endfor %}
+                <div class="tag-container">
+                    <span>Tagi:</span>
+                    {% for tag in station['tags'] %}
+                        <span class="button is-small is-rounded is-outlined">{{ tag }}</span>
+                    {% endfor %}
+                </div>
+                <hr>
+                Przypisane ćwiczenia:
+                <ul>
+                    {% for exercise in station['exercises'] %}
+                        <li>{{ exercise }}</li>
+                    {% endfor %}
+                </ul>
             </div>
             <div class="buttons">
                 <a class="button is-warning is-fullwidth" href="{{ path('station_update', {'id': station['id']}) }}">Edytuj</a>
