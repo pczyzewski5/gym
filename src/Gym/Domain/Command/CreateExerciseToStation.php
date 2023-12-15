@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Gym\Domain\Command;
 
-class CreateExerciseToTraining
+class CreateExerciseToStation
 {
     private string $exerciseId;
-    private string $trainingId;
+    private string $stationId;
 
-    public function __construct(string $exerciseId, string $trainingId)
+    public function __construct(string $exerciseId, string $stationId)
     {
         $this->exerciseId = $exerciseId;
-        $this->trainingId = $trainingId;
+        $this->stationId = $stationId;
     }
 
     public function getExerciseId(): string
@@ -20,8 +20,8 @@ class CreateExerciseToTraining
         return $this->exerciseId;
     }
 
-    public function getTrainingId(): string
+    public function getStationId(): string
     {
-        return $this->trainingId;
+        return $this->stationId;
     }
 }

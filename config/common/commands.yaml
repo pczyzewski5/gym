@@ -30,12 +30,12 @@ services:
     tags:
       - { name: tactician.handler, command: Gym\Domain\Command\CreateExercise, bus: command }
 
-  Gym\Domain\Command\CreateExerciseToTrainingHandler:
-    class: Gym\Domain\Command\CreateExerciseToTrainingHandler
+  Gym\Domain\Command\CreateExerciseToStationHandler:
+    class: Gym\Domain\Command\CreateExerciseToStationHandler
     arguments:
-      - '@Gym\Domain\ExerciseToTraining\ExerciseToTrainingPersister'
+      - '@Gym\Domain\ExerciseToStation\ExerciseToStationPersister'
     tags:
-      - { name: tactician.handler, command: Gym\Domain\Command\CreateExerciseToTraining, bus: command }
+      - { name: tactician.handler, command: Gym\Domain\Command\CreateExerciseToStation, bus: command }
 
   Gym\Domain\Command\CreateStationHandler:
     class: Gym\Domain\Command\CreateStationHandler

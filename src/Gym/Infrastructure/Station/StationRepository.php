@@ -20,15 +20,15 @@ class StationRepository implements DomainRepository
 
     public function findAllForList(): array
     {
-        return [];
         $sql = <<<SQL
 SELECT s.id as id, s.name as name, GROUP_CONCAT(t.tag) as tags FROM stations s
-    LEFT JOIN tags t ON s.id = t.owner_id AND t.owner = :owner
+    LEFT JOIN exercises_to_stations ets ON ets.station_id = s.id
+    LEFT JOIN tags t ON t.owner_id = ets.exercise_id AND t.owner = :owner
 GROUP BY s.id
 SQL;
         $stmt = $this->entityManager->getConnection()->executeQuery(
             $sql,
-            ['owner' => TagOwnerEnum::STATION],
+            ['owner' => TagOwnerEnum::EXERCISE],
             ['owner' => Types::STRING]
         );
 
@@ -36,7 +36,9 @@ SQL;
             fn (array $item) => [
                 'id' => $item['id'],
                 'name' => $item['name'],
-                'tags' => \explode(',', $item['tags']),
+                'tags' => \array_unique(
+                    \explode(',', $item['tags'])
+                )
             ],
             $stmt->fetchAllAssociative()
         );

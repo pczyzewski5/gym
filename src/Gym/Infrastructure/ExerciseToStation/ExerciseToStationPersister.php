@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Gym\Infrastructure\ExerciseToTraining;
+namespace Gym\Infrastructure\ExerciseToStation;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\EntityManagerInterface;
-use Gym\Domain\ExerciseToTraining\ExerciseToTrainingPersister as DomainPersister;
-use Gym\Domain\ExerciseToTraining\ExerciseToTraining as DomainEntity;
+use Gym\Domain\ExerciseToStation\ExerciseToStationPersister as DomainPersister;
+use Gym\Domain\ExerciseToStation\ExerciseToStation as DomainEntity;
 use Gym\Domain\Exception\PersisterException;
 
-class ExerciseToTrainingPersister implements DomainPersister
+class ExerciseToStationPersister implements DomainPersister
 {
     private EntityManagerInterface $entityManager;
 
@@ -34,11 +34,6 @@ class ExerciseToTrainingPersister implements DomainPersister
         }
     }
 
-    public function update(DomainEntity $domainEntity): void
-    {
-
-    }
-
     /**
      * @throws PersisterException
      */
@@ -46,7 +41,7 @@ class ExerciseToTrainingPersister implements DomainPersister
     {
         try {
             $this->entityManager->getConnection()->executeQuery(
-                'DELETE FROM exercises_to_trainings WHERE id = ?',
+                'DELETE FROM exercises_to_stations WHERE id = ?',
                 [$id],
                 [Types::STRING]
             );

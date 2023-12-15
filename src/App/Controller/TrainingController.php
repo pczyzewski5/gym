@@ -10,7 +10,7 @@ use App\Form\StationForm;
 use App\Form\TrainingForm;
 use App\QueryBus\QueryBus;
 use Gym\Domain\Command\CreateExercise;
-use Gym\Domain\Command\CreateExerciseToTraining;
+use Gym\Domain\Command\CreateExerciseToStation;
 use Gym\Domain\Command\CreateTags;
 use Gym\Domain\Command\CreateTraining;
 use Gym\Domain\Command\DeleteTags;
@@ -78,7 +78,7 @@ class TrainingController extends BaseController
                     )
                 );
                 $this->commandBus->handle(
-                    new CreateExerciseToTraining(
+                    new CreateExerciseToStation(
                         $exerciseId,
                         $trainingId
                     )

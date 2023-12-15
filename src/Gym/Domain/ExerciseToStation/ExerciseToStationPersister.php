@@ -1,11 +1,11 @@
 <?php
 
-namespace Gym\Domain\ExerciseToTraining;
+namespace Gym\Domain\ExerciseToStation;
 
 use Gym\Domain\Exception\PersisterException;
-use Gym\Domain\ExerciseToTraining\ExerciseToTraining as DomainEntity;
+use Gym\Domain\ExerciseToStation\ExerciseToStation as DomainEntity;
 
-interface ExerciseToTrainingPersister
+interface ExerciseToStationPersister
 {
     /**
      * @throws PersisterException

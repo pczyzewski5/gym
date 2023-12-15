@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Gym\Domain\ExerciseToTraining;
+namespace Gym\Domain\ExerciseToStation;
 
 use App\MergerTrait;
 use Symfony\Component\Uid\UuidV1;
 use Gym\Domain\Exception\ValidationException;
 
-class ExerciseToTraining
+class ExerciseToStation
 {
     use MergerTrait;
 
     private string $exerciseId;
-    private string $trainingId;
+    private string $stationId;
 
-    public function __construct(ExerciseToTrainingDTO $dto)
+    public function __construct(ExerciseToStationDTO $dto)
     {
         $this->merge($dto);
     }
 
-    public function update(ExerciseToTrainingDTO $dto): void
+    public function update(ExerciseToStationDTO $dto): void
     {
         $this->merge($dto);
         $this->validate();
@@ -28,12 +28,12 @@ class ExerciseToTraining
 
     private function validate(): void
     {
-        if (!isset($this->exerciseId) && UuidV1::isValid($this->exerciseId)) {
+        if (isset($this->exerciseId) && false === UuidV1::isValid($this->exerciseId)) {
             throw ValidationException::missingProperty('exerciseId');
         }
 
-        if (!isset($this->trainingId) && UuidV1::isValid($this->trainingId)) {
-            throw ValidationException::missingProperty('trainingId');
+        if (isset($this->stationId) && false === UuidV1::isValid($this->stationId)) {
+            throw ValidationException::missingProperty('stationId');
         }
     }
 
@@ -42,8 +42,8 @@ class ExerciseToTraining
         return $this->exerciseId;
     }
 
-    public function getTrainingId(): string
+    public function getStationId(): string
     {
-        return $this->trainingId;
+        return $this->stationId;
     }
 }

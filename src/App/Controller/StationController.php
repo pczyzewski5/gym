@@ -8,6 +8,7 @@ use App\Command\UploadFile;
 use App\CommandBus\CommandBus;
 use App\Form\StationForm;
 use App\QueryBus\QueryBus;
+use Gym\Domain\Command\CreateExerciseToStation;
 use Gym\Domain\Command\CreateStation;
 use Gym\Domain\Query\GetStation;
 use Gym\Domain\Query\GetStations;
@@ -48,12 +49,21 @@ class StationController extends BaseController
                 new UploadFile($data[StationForm::IMAGE_FIELD])
             );
 
-            $id = $this->commandBus->handle(
+            $stationId = $this->commandBus->handle(
                 new CreateStation(
                     $data[StationForm::NAME_FIELD],
                     $photo,
                 )
             );
+
+            foreach ($data[StationForm::EXERCISES_FIELD] as $exerciseId) {
+                $this->commandBus->handle(
+                    new CreateExerciseToStation(
+                        $exerciseId,
+                        $stationId
+                    )
+                );
+            }
 
             return $this->redirectToRoute('station_list');
         }
