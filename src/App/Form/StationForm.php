@@ -6,6 +6,8 @@ namespace App\Form;
 
 use App\Form\ModelTransformer\TagModelTransformer;
 use Gym\Domain\Enum\MuscleTagEnum;
+use Gym\Domain\Exercise\Exercise;
+use Gym\Domain\Exercise\ExerciseRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -17,8 +19,15 @@ use Symfony\Component\Validator\Constraints\File;
 class StationForm extends AbstractType
 {
     public const NAME_FIELD = 'name';
-    public const PHOTO_FIELD = 'photo';
-    public const TAGS_FIELD = 'tags';
+    public const IMAGE_FIELD = 'image';
+    public const EXERCISES_FIELD = 'exercises';
+
+    private ExerciseRepository $exerciseRepository;
+
+    public function __construct(ExerciseRepository $exerciseRepository)
+    {
+        $this->exerciseRepository = $exerciseRepository;
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -33,7 +42,7 @@ class StationForm extends AbstractType
         );
 
         $builder->add(
-            self::PHOTO_FIELD,
+            self::IMAGE_FIELD,
             FileType::class,
             [
                 'label' => 'Zdjęcie',
@@ -50,11 +59,11 @@ class StationForm extends AbstractType
         );
 
         $builder->add(
-            self::TAGS_FIELD,
+            self::EXERCISES_FIELD,
             ChoiceType::class,
             [
-                'label' => 'Tagi',
-                'choices' => \array_combine(MuscleTagEnum::toArray(), MuscleTagEnum::toArray()),
+                'label' => 'Ćwiczenia',
+                'choices' => $this->getExercises(),
                 'multiple' => true,
                 'required' => false,
                 'attr' => [
@@ -64,9 +73,6 @@ class StationForm extends AbstractType
                 ],
             ]
         );
-        $builder->get(self::TAGS_FIELD)->addModelTransformer(
-            new TagModelTransformer()
-        );
 
         $builder->add(
             'zapisz',
@@ -75,5 +81,19 @@ class StationForm extends AbstractType
                 'attr' => ['class' => 'button is-primary is-fullwidth']
             ]
         );
+    }
+
+    private function getExercises(): array
+    {
+        $exercises = $this->exerciseRepository->findAll();
+
+        $result = [];
+
+        /** @var Exercise $exercise */
+        foreach ($exercises as $exercise) {
+            $result[$exercise->getName()] = $exercise->getId();
+        }
+
+        return $result;
     }
 }

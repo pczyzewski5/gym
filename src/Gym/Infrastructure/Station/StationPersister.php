@@ -34,11 +34,6 @@ class StationPersister implements DomainPersister
         }
     }
 
-    public function update(DomainEntity $domainEntity): void
-    {
-
-    }
-
     /**
      * @throws PersisterException
      */

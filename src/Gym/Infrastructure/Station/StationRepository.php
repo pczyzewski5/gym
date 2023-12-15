@@ -20,6 +20,7 @@ class StationRepository implements DomainRepository
 
     public function findAllForList(): array
     {
+        return [];
         $sql = <<<SQL
 SELECT s.id as id, s.name as name, GROUP_CONCAT(t.tag) as tags FROM stations s
     LEFT JOIN tags t ON s.id = t.owner_id AND t.owner = :owner
@@ -43,6 +44,7 @@ SQL;
 
     public function findOneForRead(string $id): array
     {
+        return [];
         $sql = <<<SQL
 SELECT s.id as id, s.name as name, s.photo as photo, GROUP_CONCAT(t.tag) as tags FROM stations s
     JOIN tags t ON s.id = t.owner_id AND t.owner = :owner

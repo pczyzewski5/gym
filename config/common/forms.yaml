@@ -1,1 +1,6 @@
 services:
+  App\Form\StationForm:
+    class: App\Form\StationForm
+    arguments:
+      - '@Gym\Domain\Exercise\ExerciseRepository'
+    tags: [ 'form.type' ]

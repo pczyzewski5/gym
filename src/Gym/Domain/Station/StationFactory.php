@@ -10,13 +10,12 @@ class StationFactory
 {
     public static function create(
     string $name,
-    string $photoId
+    string $image
     ): Station {
         $dto = new StationDTO();
         $dto->id = Uuid::v1()->toRfc4122();
         $dto->name = $name;
-        $dto->photo = $photoId;
-        $dto->createdAt = new \DateTimeImmutable();
+        $dto->image = $image;
 
         return new Station($dto);
     }

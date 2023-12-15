@@ -8,6 +8,5 @@ class Station
 {
     public ?string $id;
     public ?string $name;
-    public ?string $photo;
-    public ?\DateTime $createdAt;
+    public ?string $image;
 }

@@ -22,7 +22,7 @@ class CreateStationHandler
     {
         $entity = StationFactory::create(
             $command->getName(),
-            $command->getPhoto(),
+            $command->getImage(),
         );
 
         $this->persister->save($entity);

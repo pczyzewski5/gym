@@ -14,8 +14,7 @@ class Station
 
     private string $id;
     private string $name;
-    private string $photo;
-    private \DateTimeImmutable $createdAt;
+    private string $image;
 
     public function __construct(StationDTO $dto)
     {
@@ -30,20 +29,16 @@ class Station
 
     private function validate(): void
     {
-        if (!isset($this->id) && UuidV1::isValid($this->id)) {
+        if (isset($this->id) && false === UuidV1::isValid($this->id)) {
             throw ValidationException::missingProperty('id');
         }
 
-        if (!isset($this->name) || '' === $this->name) {
+        if (isset($this->name)) {
             throw ValidationException::missingProperty('name');
         }
 
-        if (!isset($this->photo) && UuidV1::isValid($this->photo)) {
-            throw ValidationException::missingProperty('photo');
-        }
-
-        if (!isset($this->createdAt)) {
-            throw ValidationException::missingProperty('createdAt');
+        if (isset($this->image)) {
+            throw ValidationException::missingProperty('image');
         }
     }
 
@@ -57,13 +52,8 @@ class Station
         return $this->name;
     }
 
-    public function getPhoto(): string
+    public function getImage(): string
     {
-        return $this->photo;
-    }
-
-    public function getCreatedAt(): \DateTimeImmutable
-    {
-        return $this->createdAt;
+        return $this->image;
     }
 }

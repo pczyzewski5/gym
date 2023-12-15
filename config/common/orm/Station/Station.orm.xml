@@ -6,8 +6,7 @@
     <entity name="Gym\Infrastructure\Station\Station" table="stations">
         <id name="id" type="string" column="id"/>
         <field name="name" type="string" column="name"/>
-        <field name="photo" type="string" column="photo"/>
-        <field name="createdAt" type="datetime" column="created_at"/>
+        <field name="image" type="string" column="image"/>
     </entity>
 
 </doctrine-mapping>
