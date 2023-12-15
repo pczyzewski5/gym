@@ -2,9 +2,7 @@
 <div class="field">
     <label class="label">{{ form_label(form.name) }}</label>
     <div class="control">
-        <div class="select is-fullwidth">
-            {{ form_widget(form.name) }}
-        </div>
+        {{ form_widget(form.name) }}
     </div>
     <p class="help is-danger">{{ form_errors(form.name) }}</p>
 </div>
