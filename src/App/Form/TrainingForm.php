@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace App\Form;
 
+use App\Form\ModelTransformer\TagModelTransformer;
+use App\Form\ModelTransformer\TagViewTransformer;
+use Gym\Domain\Enum\MuscleTagEnum;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -15,7 +19,7 @@ class TrainingForm extends AbstractType
 {
     public const DATE_FIELD = 'date';
     public const REPEATED_FIELD = 'repeated';
-    public const EXERCISES_FIELD = 'exercises';
+    public const TAGS_FIELD = 'tags';
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -40,14 +44,32 @@ class TrainingForm extends AbstractType
         );
 
         $builder->add(
-            self::EXERCISES_FIELD,
-            CollectionType::class,
+            'tags_placeholder',
+            ChoiceType::class,
             [
-                'label' => 'Cel treningu',
-                'entry_type' => ExerciseForm::class,
-                'allow_add' => true,
-            ],
+                'label' => 'Partie mięśniowe',
+                'choices' => \array_combine(MuscleTagEnum::toArray(), MuscleTagEnum::toArray()),
+                'multiple' => true,
+                'required' => false,
+                'attr' => [
+                    'data-type' => 'tags',
+                    'data-free-input' => 'false',
+                    'data-remove-free-input' => 'true',
+                    'data-selectable' => 'false',
+                    'data-close-dropdown-on-item-select' => 'false',
+                    'data-allow-duplicates' => 'true'
+                ],
+            ]
         );
+
+        $builder->add(
+            self::TAGS_FIELD,
+            HiddenType::class,
+            [
+                'attr' => ['class' => 'input is-fullwidth']
+            ]
+        );
+        $builder->get(self::TAGS_FIELD)->addModelTransformer(new TagModelTransformer());
 
         $builder->add(
             'zapisz',

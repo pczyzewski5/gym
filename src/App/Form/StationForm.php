@@ -69,7 +69,9 @@ class StationForm extends AbstractType
                 'attr' => [
                     'data-type' => 'tags',
                     'data-free-input' => 'false',
-                    'data-selectable' => 'false'
+                    'data-remove-free-input' => 'true',
+                    'data-selectable' => 'false',
+                    'data-close-dropdown-on-item-select' => 'false',
                 ],
             ]
         );

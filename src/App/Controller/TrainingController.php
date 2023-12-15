@@ -50,9 +50,6 @@ class TrainingController extends BaseController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-//            echo '<pre>';
-//            \var_dump($data);
-//            echo '</pre>';exit;
 
             $trainingId = $this->commandBus->handle(
                 new CreateTraining(
@@ -62,28 +59,13 @@ class TrainingController extends BaseController
                 )
             );
 
-            foreach ($data[TrainingForm::EXERCISES_FIELD] as $exercise) {
-                $exerciseId = $this->commandBus->handle(
-                    new CreateExercise(
-                        StatusEnum::PLANNED(),
-                        $exercise[ExerciseForm::SERIES_TARGET_FIELD],
-                        $exercise[ExerciseForm::REPETITION_TARGET_FIELD],
-                    )
-                );
-                $this->commandBus->handle(
-                    new CreateTags(
-                        $exerciseId,
-                        TagOwnerEnum::EXERCISE(),
-                        $exercise[ExerciseForm::TAG_FIELD]
-                    )
-                );
-                $this->commandBus->handle(
-                    new CreateExerciseToStation(
-                        $exerciseId,
-                        $trainingId
-                    )
-                );
-            }
+            $this->commandBus->handle(
+                new CreateTags(
+                    $trainingId,
+                    TagOwnerEnum::TRAINING(),
+                    $data[TrainingForm::TAGS_FIELD]
+                )
+            );
 
             return $this->redirectToRoute('training_list');
         }
@@ -95,7 +77,7 @@ class TrainingController extends BaseController
 
     public function delete(Request $request): Response
     {
-       throw new \Exception('suit me to new behavour');
+        throw new \Exception('suit me to new behavour');
         $this->commandBus->handle(
             new DeleteTags(
                 $request->get('id'),

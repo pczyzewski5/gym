@@ -24,8 +24,7 @@ CREATE TABLE tags
 (
     owner_id VARCHAR(36) NOT NULL,
     owner    VARCHAR(36) NOT NULL,
-    tag      VARCHAR(36) NOT NULL,
-    UNIQUE (owner_id, owner, tag)
+    tag      VARCHAR(36) NOT NULL
 ) DEFAULT CHARACTER SET UTF8
   COLLATE 'UTF8_unicode_ci';
 SQL;

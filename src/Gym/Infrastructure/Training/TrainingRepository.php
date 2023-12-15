@@ -45,13 +45,12 @@ class TrainingRepository implements DomainRepository
     {
         $sql = <<<SQL
 SELECT tr.id as id, tr.date as date, tr.repeated as repeated, tr.status as status, GROUP_CONCAT(t.tag) as tags FROM trainings tr
-    LEFT JOIN exercises_to_trainings ett ON tr.id = ett.training_id 
-    LEFT JOIN tags t ON ett.exercise_id = t.owner_id AND t.owner = :owner
+    LEFT JOIN tags t ON t.owner_id = tr.id AND t.owner = :owner
 GROUP BY tr.id
 SQL;
         $stmt = $this->entityManager->getConnection()->executeQuery(
             $sql,
-            ['owner' => TagOwnerEnum::EXERCISE],
+            ['owner' => TagOwnerEnum::TRAINING],
             ['owner' => Types::STRING]
         );
 
