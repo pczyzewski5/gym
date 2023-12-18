@@ -1,25 +1,53 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <style>
-        .tag-container div {
-            border: 1px solid black;
+        .tag-container > div {
+            box-shadow:
+                    1px 0 0 0 rgb(219, 219, 219),
+                    0 1px 0 0 rgb(219, 219, 219),
+                    1px 1px 0 0 rgb(219, 219, 219),
+                    1px 0 0 0 rgb(219, 219, 219) inset,
+                    0 1px 0 0 rgb(219, 219, 219) inset;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+        .tag-name {
+            padding-left: 1rem;
+        }
+        .station-name {
+            padding-left: 2rem;
+        }
+        .exercise-name {
+            padding-left: 4.5rem;
         }
     </style>
-    Cele dzisiejszego treningu: klata, triceps.
-    {% for tag in helper.getTrainingTags() %}
-        <div class="tag-container">
-            <div class="tag-name">{{ tag.getValue() }}</div>
-            {% for station in helper.getStationsForTag(tag) %}
-                <div class="station-container">
-                    <div class="station-name">{{ station.getId() }} {{ station.getName() }} {{ station.getImage() }}</div>
-                    <div class="exercise-container">
-                    {% for exercise in helper.getExercisesForStationAndTag(station, tag) %}
-                        <a href="">{{ exercise.getName() }}</a>
-                    {% endfor %}
+
+    <div class="container is-max-desktop">
+        {% for tag in helper.getTrainingTags() %}
+            <div class="tag-container">
+                <div class="tag-name">{{ tag.getValue()|capitalize }}</div>
+                {% for station in helper.getStationsForTag(tag) %}
+                    <div class="station-container">
+                        <div class="station-name">
+                            <span class="icon">
+                                <i class="fas fa-arrow-right"></i>
+                            </span>
+                            {{ station.getName() }}
+                        </div>
+                        <div class="exercise-container">
+                            {% for exercise in helper.getExercisesForStationAndTag(station, tag) %}
+                                <a class='exercise-name' href="">
+                                    <span class="icon">
+                                        <i class="fas fa-dumbbell"></i>
+                                    </span>
+                                    {{ exercise.getName() }}
+                                </a>
+                            {% endfor %}
+                        </div>
                     </div>
-                </div>
-            {% endfor %}
-        </div>
-    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
 
 {% endblock %}

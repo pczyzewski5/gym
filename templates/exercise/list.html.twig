@@ -10,20 +10,20 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>nazwa</th>
                 <th>tagi</th>
+                <th>nazwa</th>
             </tr>
             </thead>
             <tbody>
             {% for key, exercise in exercises %}
                 <tr class="table-item">
                     <td>{{ key + 1 }}</td>
-                    <td>{{ exercise['name'] }}</td>
                     <td>
                         {% for tag in exercise['tags'] %}
                             <span class="button is-small is-rounded is-outlined">{{ tag }}</span>
                         {% endfor %}
                     </td>
+                    <td>{{ exercise['name'] }}</td>
                 </tr>
             {% endfor %}
             </tbody>
