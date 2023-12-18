@@ -1,31 +1,71 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <style>
+        .tag-name {
+            border: 1px solid rgb(219, 219, 219);
+            font-weight: bolder;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            max-height: 42px;
+        }
+        .ornament-container {
+            display: flex;
+            margin-right: -96px;
+        }
+        .ornament {
+            margin-left: -90px !important;
+            height: 1px;
+            width: 100px;
+            rotate: 50deg;
+            background-color: rgb(219, 219, 219);
+        }
+        .station-container {
+            border-bottom: 1px solid rgb(219, 219, 219);
+            margin-left: 2rem;
+        }
+        .station-container:last-child {
+            border: none;
+        }
+        .tag-container:last-child .station-container:last-child {
+            border-bottom: 1px solid rgb(219, 219, 219) !important;
+        }
         .tag-container > div {
-            box-shadow:
-                    1px 0 0 0 rgb(219, 219, 219),
-                    0 1px 0 0 rgb(219, 219, 219),
-                    1px 1px 0 0 rgb(219, 219, 219),
-                    1px 0 0 0 rgb(219, 219, 219) inset,
-                    0 1px 0 0 rgb(219, 219, 219) inset;
             padding-top: 0.5rem;
             padding-bottom: 0.5rem;
+        }
+        .tag-container div {
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
         }
         .tag-name {
             padding-left: 1rem;
         }
-        .station-name {
-            padding-left: 2rem;
+        .exercise-container {
+            padding-left: 2.5rem;
+            display: flex;
+            align-items: center;
         }
         .exercise-name {
-            padding-left: 4.5rem;
+            margin-left: 0.5rem;
+        }
+        .button .icon {
+            margin-top: 5px;
         }
     </style>
 
     <div class="container is-max-desktop">
         {% for tag in helper.getTrainingTags() %}
             <div class="tag-container">
-                <div class="tag-name">{{ tag.getValue()|capitalize }}</div>
+                <div class="tag-name">
+                    <div>{{ tag.getValue()|capitalize }}</div>
+                    <div class="ornament-container">
+                        {% for i in 0..20 %}
+                            <hr class="ornament">
+                        {% endfor %}
+                    </div>
+                </div>
                 {% for station in helper.getStationsForTag(tag) %}
                     <div class="station-container">
                         <div class="station-name">
@@ -36,12 +76,13 @@
                         </div>
                         <div class="exercise-container">
                             {% for exercise in helper.getExercisesForStationAndTag(station, tag) %}
-                                <a class='exercise-name' href="">
-                                    <span class="icon">
-                                        <i class="fas fa-dumbbell"></i>
-                                    </span>
-                                    {{ exercise.getName() }}
+                                <a href="" class="button is-success is-small">
+                                        <span class="icon">
+                                            <i class="fas fa-dumbbell"></i>
+                                        </span>
+                                    <span>wybierz</span>
                                 </a>
+                                <div class="exercise-name">{{ exercise.getName() }}</div>
                             {% endfor %}
                         </div>
                     </div>
