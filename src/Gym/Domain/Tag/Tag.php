@@ -14,6 +14,7 @@ class Tag
 {
     use MergerTrait;
 
+    private string $id;
     private string $ownerId;
     private TagOwnerEnum $owner;
     private MuscleTagEnum $tag;
@@ -31,6 +32,10 @@ class Tag
 
     private function validate(): void
     {
+        if (!isset($this->id) && UuidV1::isValid($this->id)) {
+            throw ValidationException::missingProperty('id');
+        }
+
         if (!isset($this->ownerId) && UuidV1::isValid($this->ownerId)) {
             throw ValidationException::missingProperty('ownerId');
         }
@@ -42,6 +47,11 @@ class Tag
         if (!isset($this->tag) ) {
             throw ValidationException::missingProperty('tag');
         }
+    }
+
+    public function getId(): string
+    {
+        return $this->id;
     }
 
     public function getOwnerId(): string

@@ -22,9 +22,11 @@ final class Version20231202401111 extends AbstractMigration
         $sql = <<<SQL
 CREATE TABLE tags
 (
+    id       VARCHAR(36) NOT NULL,
     owner_id VARCHAR(36) NOT NULL,
     owner    VARCHAR(36) NOT NULL,
-    tag      VARCHAR(36) NOT NULL
+    tag      VARCHAR(36) NOT NULL,
+    UNIQUE (id)
 ) DEFAULT CHARACTER SET UTF8
   COLLATE 'UTF8_unicode_ci';
 SQL;

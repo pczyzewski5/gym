@@ -6,6 +6,7 @@ namespace Gym\Domain\Tag;
 
 use Gym\Domain\Enum\MuscleTagEnum;
 use Gym\Domain\Enum\TagOwnerEnum;
+use Symfony\Component\Uid\Uuid;
 
 class TagFactory
 {
@@ -15,6 +16,7 @@ class TagFactory
         MuscleTagEnum $tag,
     ): Tag {
         $dto = new TagDTO();
+        $dto->id = Uuid::v1()->toRfc4122();
         $dto->ownerId = $ownerId;
         $dto->owner = $owner;
         $dto->tag = $tag;
