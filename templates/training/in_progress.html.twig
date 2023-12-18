@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <style>
+        .tag-container div {
+            border: 1px solid black;
+        }
+    </style>
+    Cele dzisiejszego treningu: klata, triceps.
+    {% for tag in helper.getTrainingTags() %}
+        <div class="tag-container">
+            <div class="tag-name">{{ tag.getValue() }}</div>
+            {% for station in helper.getStationsForTag(tag) %}
+                <div class="station-container">
+                    <div class="station-name">{{ station.getId() }} {{ station.getName() }} {{ station.getImage() }}</div>
+                    <div class="exercise-container">
+                    {% for exercise in helper.getExercisesForStationAndTag(station, tag) %}
+                        <a href="">{{ exercise.getName() }}</a>
+                    {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+{% endblock %}

@@ -5,11 +5,16 @@ declare(strict_types=1);
 namespace Gym\Infrastructure\Exercise;
 
 use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Query\Expr\Join;
+use Gym\Domain\Enum\MuscleTagEnum;
 use Gym\Domain\Enum\TagOwnerEnum;
 use Gym\Domain\Exception\RepositoryException;
 use Doctrine\ORM\EntityManagerInterface;
 use Gym\Domain\Exercise\Exercise as DomainEntity;
 use Gym\Domain\Exercise\ExerciseRepository as DomainRepository;
+use Gym\Domain\Station\Station;
+use Gym\Infrastructure\ExerciseToStation\ExerciseToStation;
+use Gym\Infrastructure\Tag\Tag;
 
 class ExerciseRepository implements DomainRepository
 {
@@ -61,6 +66,25 @@ SQL;
                 'tags' => \explode(',', $item['tags']),
             ],
             $stmt->fetchAllAssociative()
+        );
+    }
+
+    public function findAllByStationAndTag(Station $station, MuscleTagEnum $tagEnum): array
+    {
+        $qb = $this->entityManager->getRepository(Exercise::class)
+            ->createQueryBuilder('e')
+            ->select('e')
+            ->leftJoin(ExerciseToStation::class, 'ets', Join::WITH, 'ets.exerciseId = e.id')
+            ->leftJoin(Tag::class, 't', Join::WITH, 't.ownerId = e.id')
+            ->where('ets.stationId = :stationId')
+            ->andWhere('t.tag = :tag')
+            ->setParameters([
+                'stationId' => $station->getId(),
+                'tag' => $tagEnum->getValue(),
+            ]);
+
+        return ExerciseMapper::mapArrayToDomain(
+            $qb->getQuery()->getResult()
         );
     }
 }

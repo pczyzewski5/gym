@@ -17,10 +17,19 @@ class TagRepository implements DomainRepository
         $this->entityManager = $entityManager;
     }
 
+    /**
+     * @return DomainEntity[]
+     */
     public function findAllForOwnerId(string $ownerId): array
     {
-        $result = $this->entityManager->getRepository(DomainEntity::class)->find($ownerId);
+        $qb = $this->entityManager->getRepository(Tag::class)
+            ->createQueryBuilder('t')
+            ->where('t.ownerId = :ownerId')
+            ->setParameter('ownerId', $ownerId)
+            ->groupBy('t.tag');
 
-        return TagMapper::mapArrayToDomain($result);
+        return TagMapper::mapArrayToDomain(
+            $qb->getQuery()->getResult()
+        );
     }
 }

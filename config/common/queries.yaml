@@ -26,3 +26,13 @@ services:
       - '@Gym\Domain\Training\TrainingRepository'
     tags:
       - { name: tactician.handler, command: Gym\Domain\Query\GetTrainings, bus: query }
+
+  Gym\Domain\Query\GetTrainingInProgressHelperHandler:
+    class: Gym\Domain\Query\GetTrainingInProgressHelperHandler
+    arguments:
+      - '@Gym\Domain\Training\TrainingRepository'
+      - '@Gym\Domain\Tag\TagRepository'
+      - '@Gym\Domain\Station\StationRepository'
+      - '@Gym\Domain\Exercise\ExerciseRepository'
+    tags:
+      - { name: tactician.handler, command: Gym\Domain\Query\GetTrainingInProgressHelper, bus: query }

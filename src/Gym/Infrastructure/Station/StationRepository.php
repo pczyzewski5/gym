@@ -6,8 +6,12 @@ namespace Gym\Infrastructure\Station;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Query\Expr\Join;
+use Gym\Domain\Enum\MuscleTagEnum;
 use Gym\Domain\Enum\TagOwnerEnum;
 use Gym\Domain\Station\StationRepository as DomainRepository;
+use Gym\Infrastructure\ExerciseToStation\ExerciseToStation;
+use Gym\Infrastructure\Tag\Tag;
 
 class StationRepository implements DomainRepository
 {
@@ -76,5 +80,20 @@ SQL;
                 \explode(',', $data['tags'])
             ),
         ];
+    }
+
+    public function findAllByTag(MuscleTagEnum $tagEnum): array
+    {
+        $qb = $this->entityManager->getRepository(Station::class)
+            ->createQueryBuilder('s')
+            ->select('s')
+            ->leftJoin(ExerciseToStation::class, 'ets', Join::WITH, 'ets.stationId = s.id')
+            ->leftJoin(Tag::class, 't', Join::WITH, 't.ownerId = ets.exerciseId')
+            ->where('t.tag = :tag')
+            ->setParameter('tag', $tagEnum->getValue());
+
+        return StationMapper::mapArrayToDomain(
+            $qb->getQuery()->getResult()
+        );
     }
 }

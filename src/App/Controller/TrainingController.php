@@ -5,19 +5,17 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\CommandBus\CommandBus;
-use App\Form\ExerciseForm;
-use App\Form\StationForm;
 use App\Form\TrainingForm;
 use App\QueryBus\QueryBus;
-use Gym\Domain\Command\CreateExercise;
-use Gym\Domain\Command\CreateExerciseToStation;
 use Gym\Domain\Command\CreateTags;
 use Gym\Domain\Command\CreateTraining;
 use Gym\Domain\Command\DeleteTags;
 use Gym\Domain\Command\DeleteTraining;
 use Gym\Domain\Enum\StatusEnum;
 use Gym\Domain\Enum\TagOwnerEnum;
+use Gym\Domain\Query\GetTrainingInProgressHelper;
 use Gym\Domain\Query\GetTrainings;
+use Gym\Domain\Training\TrainingInProgressHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -30,6 +28,20 @@ class TrainingController extends BaseController
     {
         $this->queryBus = $queryBus;
         $this->commandBus = $commandBus;
+    }
+
+    public function inProgress(Request $request): Response
+    {
+        /** @var TrainingInProgressHelper $trainingInProgressHelper */
+        $trainingInProgressHelper = $this->queryBus->handle(
+            new GetTrainingInProgressHelper(
+                $request->get('id')
+            )
+        );
+
+        return $this->renderForm('training/in_progress.html.twig', [
+            'helper' => $trainingInProgressHelper
+        ]);
     }
 
     public function list(): Response

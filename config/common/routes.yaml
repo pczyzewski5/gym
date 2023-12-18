@@ -57,6 +57,11 @@ station_delete:
     methods: [ GET ]
 
 # training_controller
+training_in_progress:
+    path: /training/{id}/in-progress
+    controller: App\Controller\TrainingController::inProgress
+    methods: [ GET ]
+
 training_list:
     path: /training/list
     controller: App\Controller\TrainingController::list
