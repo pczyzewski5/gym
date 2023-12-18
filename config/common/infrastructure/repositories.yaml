@@ -18,3 +18,8 @@ services:
     class: Gym\Infrastructure\Training\TrainingRepository
     arguments:
       - '@doctrine.orm.entity_manager'
+
+  Gym\Infrastructure\Tag\TagRepository:
+    class: Gym\Infrastructure\Tag\TagRepository
+    arguments:
+      - '@doctrine.orm.entity_manager'

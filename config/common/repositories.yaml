@@ -10,3 +10,6 @@ services:
 
   Gym\Domain\Training\TrainingRepository:
     alias: Gym\Infrastructure\Training\TrainingRepository
+
+  Gym\Domain\Tag\TagRepository:
+    alias: Gym\Infrastructure\Tag\TagRepository
