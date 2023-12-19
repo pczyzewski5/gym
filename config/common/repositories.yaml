@@ -8,6 +8,9 @@ services:
   Gym\Domain\Exercise\ExerciseRepository:
     alias: Gym\Infrastructure\Exercise\ExerciseRepository
 
+  Gym\Domain\ExerciseToTraining\ExerciseToTrainingRepository:
+    alias: Gym\Infrastructure\ExerciseToTraining\ExerciseToTrainingRepository
+
   Gym\Domain\Training\TrainingRepository:
     alias: Gym\Infrastructure\Training\TrainingRepository
 

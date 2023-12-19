@@ -43,6 +43,13 @@ doctrine:
                 is_bundle: false
                 alias: ExerciseToStation
 
+            ExerciseToTraining:
+                type: xml
+                prefix: Gym\Infrastructure\ExerciseToTraining
+                dir: '%kernel.project_dir%/config/common/orm/ExerciseToTraining'
+                is_bundle: false
+                alias: ExerciseToTraining
+
             Training:
                 type: xml
                 prefix: Gym\Infrastructure\Training

@@ -8,6 +8,9 @@ services:
   Gym\Domain\Exercise\ExercisePersister:
     alias: Gym\Infrastructure\Exercise\ExercisePersister
 
+  Gym\Domain\ExerciseToTraining\ExerciseToTrainingPersister:
+    alias: Gym\Infrastructure\ExerciseToTraining\ExerciseToTrainingPersister
+
   Gym\Domain\Tag\TagPersister:
     alias: Gym\Infrastructure\Tag\TagPersister
 
