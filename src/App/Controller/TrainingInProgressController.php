@@ -44,15 +44,21 @@ class TrainingInProgressController extends BaseController
 
     public function exerciseInProgress(Request $request): Response
     {
+        $trainingId = $request->get('trainingId');
+        $stationId = $request->get('stationId');
+        $exerciseId = $request->get('exerciseId');
+
         $exercise = $this->queryBus->handle(
-            new GetExercise( $request->get('exerciseId'))
+            new GetExercise($exerciseId)
         );
         $station = $this->queryBus->handle(
-            new GetStation($request->get('stationId'))
+            new GetStation($stationId)
         );
 
         return $this->renderForm('training_in_progress/exercise_in_progress.html.twig', [
-            'trainingId' => $request->get('trainingId'),
+            'trainingId' => $trainingId,
+            'exerciseId' => $exerciseId,
+            'stationId' => $stationId,
             'exercise' => $exercise,
             'station' => $station,
         ]);

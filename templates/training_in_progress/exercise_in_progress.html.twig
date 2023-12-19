@@ -56,15 +56,15 @@
 
         <div class="series-counter">
             <div class="button-container">
-                <button class="button-add">
+                <button class="button-add" onclick="changeValue('repetition-counter', 'increase')">
                     <i class="fa fa-plus"></i>
                 </button>
-                <button class="button-subtract">
+                <button class="button-subtract" onclick="changeValue('repetition-counter', 'decrease')">
                     <i class="fa fa-minus"></i>
                 </button>
             </div>
             <div class="digit-container">
-                <div class="digit">
+                <div class="digit repetition-counter">
                     12
                 </div>
             </div>
@@ -77,15 +77,15 @@
 
         <div class="weight-counter">
             <div class="button-container">
-                <button class="button-add">
+                <button class="button-add" onclick="changeValue('kilogram-counter', 'increase')">
                     <i class="fa fa-plus"></i>
                 </button>
-                <button class="button-subtract">
+                <button class="button-subtract" onclick="changeValue('kilogram-counter', 'decrease')">
                     <i class="fa fa-minus"></i>
                 </button>
             </div>
             <div class="digit-container">
-                <div class="digit">
+                <div class="digit kilogram-counter">
                     30
                 </div>
             </div>
@@ -96,31 +96,15 @@
             </div>
         </div>
 
-        <button class="button is-primary is-fullwidth">zapisz</button>
+        <button class="button is-primary is-fullwidth" onclick="saveExerciseProgress('{{ trainingId }}', '{{ stationId }}', '{{ exerciseId }}')">zapisz</button>
 
         <table class="table is-fullwidth is-striped mt-2 mb-6">
             <tbody>
-            <tr>
-                <th>#1</th>
-                <td>12 x</td>
-                <td>20 kg</td>
-            </tr>
-            <tr>
-                <th>#2</th>
-                <td>12 x</td>
-                <td>20 kg</td>
-            </tr>
-            <tr>
-                <th>#3</th>
-                <td>12 x</td>
-                <td>20 kg</td>
-            </tr>
-            <tr>
-                <th>#4</th>
-                <td>12 x</td>
-                <td>20 kg</td>
-            </tr>
+            <tr style="display: none;"></tr>
+            <tr style="display: none;"></tr>
             </tbody>
         </table>
     </div>
+
+    <script src="{{ asset('js/exercise_in_progress_helper.js') }}"></script>
 {% endblock %}

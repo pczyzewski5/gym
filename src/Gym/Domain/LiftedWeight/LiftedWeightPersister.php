@@ -12,4 +12,9 @@ interface LiftedWeightPersister
      * @throws PersisterException
      */
     public function save(DomainEntity $domainEntity): void;
+
+    /**
+     * @throws PersisterException
+     */
+    public function delete(string $id): void;
 }

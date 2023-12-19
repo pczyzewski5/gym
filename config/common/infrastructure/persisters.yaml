@@ -33,3 +33,8 @@ services:
     class: Gym\Infrastructure\ExerciseToTraining\ExerciseToTrainingPersister
     arguments:
       - '@doctrine.orm.entity_manager'
+
+  Gym\Infrastructure\LiftedWeight\LiftedWeightPersister:
+    class: Gym\Infrastructure\LiftedWeight\LiftedWeightPersister
+    arguments:
+      - '@doctrine.orm.entity_manager'

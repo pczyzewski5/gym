@@ -19,3 +19,6 @@ services:
 
   Gym\Domain\ExerciseToStation\ExerciseToStationPersister:
     alias: Gym\Infrastructure\ExerciseToStation\ExerciseToStationPersister
+
+  Gym\Domain\LiftedWeight\LiftedWeightPersister:
+    alias: Gym\Infrastructure\LiftedWeight\LiftedWeightPersister

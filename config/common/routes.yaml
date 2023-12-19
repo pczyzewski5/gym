@@ -108,3 +108,14 @@ exercise_delete:
     path: /exercise/{id}/delete
     controller: App\Controller\ExerciseController::delete
     methods: [ GET ]
+
+# lifted_weight_controller
+lifted_weight_create:
+    path: /lifted-weight/create
+    controller: App\Controller\LiftedWeightController::create
+    methods: [ POST ]
+
+lifted_weight_delete:
+    path: /lifted-weight/{id}/delete
+    controller: App\Controller\LiftedWeightController::delete
+    methods: [ GET ]

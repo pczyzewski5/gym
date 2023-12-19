@@ -71,3 +71,17 @@ services:
       - '@Gym\Domain\Tag\TagPersister'
     tags:
       - { name: tactician.handler, command: Gym\Domain\Command\DeleteTags, bus: command }
+
+  Gym\Domain\Command\CreateLiftedWeightHandler:
+    class: Gym\Domain\Command\CreateLiftedWeightHandler
+    arguments:
+      - '@Gym\Domain\LiftedWeight\LiftedWeightPersister'
+    tags:
+      - { name: tactician.handler, command: Gym\Domain\Command\CreateLiftedWeight, bus: command }
+
+  Gym\Domain\Command\DeleteLiftedWeightHandler:
+    class: Gym\Domain\Command\DeleteLiftedWeightHandler
+    arguments:
+      - '@Gym\Domain\LiftedWeight\LiftedWeightPersister'
+    tags:
+      - { name: tactician.handler, command: Gym\Domain\Command\DeleteLiftedWeight, bus: command }
