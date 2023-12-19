@@ -1,14 +1,126 @@
 {% extends 'base.html.twig' %}
 {% block body %}
+    <style>
+        .series-counter, .weight-counter {
+            display: flex;
+            margin: 0 0 1rem 0.5rem;
+        }
+        .button-container, .digit-container {
+            width: 80px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
+            -webkit-tap-highlight-color: transparent;
+        }
+        .digit-container, .desc-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 2rem;
+        }
+        .digit-container .digit, .desc-container .desc {
+            font-size: 100px;
+            line-height: 0;
+        }
+        .button-add, .button-subtract {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 50%;
+            background-color: #f4f4f4;
+            border: 1px solid #dbdbdb;
+            cursor: pointer;
+        }
+        .button-add {
+            border-radius: 10px 10px 0 0;
+        }
+        .button-subtract {
+            border-radius: 0 0 10px 10px;
+        }
+        .button-add:active, .button-subtract:active {
+            background-color: #efefee;
+        }
+    </style>
+
     <div class="container is-max-desktop">
-        <p class="title is-3">{{ station['name']|capitalize }}</p>
-        <p class="subtitle is-5">
+        <p class="title is-4">{{ station['name']|capitalize }}</p>
+        <p class="subtitle is-6">
             <span class="icon">
                 <i class="fas fa-dumbbell"></i>
             </span>
             {{ exercise.getName()|capitalize }}
         </p>
 
-        blah
+        <div class="series-counter">
+            <div class="button-container">
+                <button class="button-add">
+                    <i class="fa fa-plus"></i>
+                </button>
+                <button class="button-subtract">
+                    <i class="fa fa-minus"></i>
+                </button>
+            </div>
+            <div class="digit-container">
+                <div class="digit">
+                    12
+                </div>
+            </div>
+            <div class="desc-container">
+                <div class="desc">
+                    x
+                </div>
+            </div>
+        </div>
+
+        <div class="weight-counter">
+            <div class="button-container">
+                <button class="button-add">
+                    <i class="fa fa-plus"></i>
+                </button>
+                <button class="button-subtract">
+                    <i class="fa fa-minus"></i>
+                </button>
+            </div>
+            <div class="digit-container">
+                <div class="digit">
+                    30
+                </div>
+            </div>
+            <div class="desc-container">
+                <div class="desc">
+                    kg
+                </div>
+            </div>
+        </div>
+
+        <button class="button is-primary is-fullwidth">zapisz</button>
+
+        <table class="table is-fullwidth is-striped mt-2 mb-6">
+            <tbody>
+            <tr>
+                <th>#1</th>
+                <td>12 x</td>
+                <td>20 kg</td>
+            </tr>
+            <tr>
+                <th>#2</th>
+                <td>12 x</td>
+                <td>20 kg</td>
+            </tr>
+            <tr>
+                <th>#3</th>
+                <td>12 x</td>
+                <td>20 kg</td>
+            </tr>
+            <tr>
+                <th>#4</th>
+                <td>12 x</td>
+                <td>20 kg</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 {% endblock %}
