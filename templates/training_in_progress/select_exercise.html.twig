@@ -22,7 +22,7 @@
         }
         .station-container {
             border-bottom: 1px solid rgb(219, 219, 219);
-            margin-left: 2rem;
+            margin-left: 7px;
         }
         .station-container:last-child {
             border: none;
@@ -40,18 +40,24 @@
             user-select: none; /* Standard syntax */
         }
         .tag-name {
-            padding-left: 1rem;
+            padding-left: 0.5rem;
         }
         .exercise-container {
-            padding-left: 2.5rem;
-            display: flex;
-            align-items: center;
+            padding-left: 29px;
         }
         .exercise-name {
             margin-left: 0.5rem;
         }
         .button .icon {
             margin-top: 5px;
+        }
+        .exercise {
+            display: flex;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+        .exercise:last-child {
+            margin-bottom: 0;
         }
     </style>
 
@@ -76,13 +82,12 @@
                         </div>
                         <div class="exercise-container">
                             {% for exercise in helper.getExercisesForStationAndTag(station, tag) %}
-                                <a href="{{ path('training_in_progress_exercise_in_progress', {'trainingId': trainingId, 'stationId': station.getId(), 'exerciseId': exercise.getId()}) }}" class="button is-success is-small">
-                                        <span class="icon">
-                                            <i class="fas fa-dumbbell"></i>
-                                        </span>
-                                    <span>wybierz</span>
-                                </a>
-                                <div class="exercise-name">{{ exercise.getName() }}</div>
+                                <div class="exercise">
+                                    <a href="{{ path('training_in_progress_exercise_in_progress', {'trainingId': trainingId, 'stationId': station.getId(), 'exerciseId': exercise.getId()}) }}" class="button is-success is-small">
+                                        <i class="fas fa-dumbbell"></i>
+                                    </a>
+                                    <div class="exercise-name">{{ exercise.getName() }}</div>
+                                </div>
                             {% endfor %}
                         </div>
                     </div>
