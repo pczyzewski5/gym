@@ -67,6 +67,11 @@ exercise_goals:
     controller: App\Controller\TrainingController::goals
     methods: [ GET, POST ]
 
+exercise_in_progress:
+    path: /training/{trainingId}/exercise/{exerciseToTrainingId}/in-progress
+    controller: App\Controller\TrainingController::exerciseInProgress
+    methods: [ GET, POST ]
+
 training_list:
     path: /training/list
     controller: App\Controller\TrainingController::list

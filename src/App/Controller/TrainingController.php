@@ -16,6 +16,7 @@ use Gym\Domain\Command\DeleteTraining;
 use Gym\Domain\Enum\StatusEnum;
 use Gym\Domain\Enum\TagOwnerEnum;
 use Gym\Domain\Query\GetExercise;
+use Gym\Domain\Query\GetExerciseToTraining;
 use Gym\Domain\Query\GetStation;
 use Gym\Domain\Query\GetTrainingInProgressHelper;
 use Gym\Domain\Query\GetTrainings;
@@ -73,7 +74,10 @@ class TrainingController extends BaseController
                 )
             );
 
-            \var_dump($exerciseToTrainingId);exit;
+            return $this->redirectToRoute('exercise_in_progress', [
+                'trainingId' => $trainingId,
+                'exerciseToTrainingId' => $exerciseToTrainingId,
+            ]);
         }
 
         $exercise = $this->queryBus->handle(
@@ -83,11 +87,36 @@ class TrainingController extends BaseController
             new GetStation($stationId)
         );
 
-        return $this->renderForm('training_exercise_goals.html.twig', [
+        return $this->renderForm('training/training_exercise_goals.html.twig', [
             'trainingId' => $trainingId,
             'exercise' => $exercise,
             'station' => $station,
             'form' => $form
+        ]);
+    }
+
+    public function exerciseInProgress(Request $request): Response
+    {
+        $exerciseToTraining = $this->queryBus->handle(
+            new GetExerciseToTraining(
+                $request->get('exerciseToTrainingId')
+            )
+        );
+        $exercise = $this->queryBus->handle(
+            new GetExercise(
+                $exerciseToTraining->getExerciseId()
+            )
+        );
+        $station = $this->queryBus->handle(
+            new GetStation(
+                $exerciseToTraining->getStationId()
+            )
+        );
+
+        return $this->renderForm('training/training_exercise_in_progress.html.twig', [
+            'exerciseToTraining' => $exerciseToTraining,
+            'exercise' => $exercise,
+            'station' => $station,
         ]);
     }
 
