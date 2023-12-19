@@ -83,7 +83,7 @@ class TrainingController extends BaseController
             new GetStation($stationId)
         );
 
-        return $this->renderForm('training/goals.html.twig', [
+        return $this->renderForm('training_exercise_goals.html.twig', [
             'trainingId' => $trainingId,
             'exercise' => $exercise,
             'station' => $station,
