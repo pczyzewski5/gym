@@ -39,7 +39,7 @@
                         {% endfor %}
                     </td>
                     <td>
-                        <a href="{{ path('training_in_progress', {'id': training['id']}) }}" class="button is-small is-success">rozpocznij trening</a>
+                        <a href="{{ path('training_in_progress_select_exercise', {'trainingId': training['id']}) }}" class="button is-small is-success">rozpocznij trening</a>
                         <span class="button is-small is-warning">zakończ trening</span>
                         <span data-href="{{ path('training_delete', {'id': training['id']}) }}" class="button is-small is-danger modal-launch-button">usuń</span>
                     </td>

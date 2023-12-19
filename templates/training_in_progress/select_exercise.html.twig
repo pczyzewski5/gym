@@ -76,7 +76,7 @@
                         </div>
                         <div class="exercise-container">
                             {% for exercise in helper.getExercisesForStationAndTag(station, tag) %}
-                                <a href="{{ path('exercise_goals', {'trainingId': trainingId, 'stationId': station.getId(), 'exerciseId': exercise.getId()}) }}" class="button is-success is-small">
+                                <a href="{{ path('training_in_progress_exercise_in_progress', {'trainingId': trainingId, 'stationId': station.getId(), 'exerciseId': exercise.getId()}) }}" class="button is-success is-small">
                                         <span class="icon">
                                             <i class="fas fa-dumbbell"></i>
                                         </span>

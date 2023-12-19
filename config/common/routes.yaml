@@ -57,21 +57,6 @@ station_delete:
     methods: [ GET ]
 
 # training_controller
-training_in_progress:
-    path: /training/{id}/in-progress
-    controller: App\Controller\TrainingController::inProgress
-    methods: [ GET ]
-
-exercise_goals:
-    path: /training/{trainingId}/station/{stationId}/exercise/{exerciseId}/goals
-    controller: App\Controller\TrainingController::goals
-    methods: [ GET, POST ]
-
-exercise_in_progress:
-    path: /training/{trainingId}/exercise/{exerciseToTrainingId}/in-progress
-    controller: App\Controller\TrainingController::exerciseInProgress
-    methods: [ GET, POST ]
-
 training_list:
     path: /training/list
     controller: App\Controller\TrainingController::list
@@ -85,6 +70,17 @@ training_create:
 training_delete:
     path: /training/{id}/delete
     controller: App\Controller\TrainingController::delete
+    methods: [ GET ]
+
+# training_in_progress_controller
+training_in_progress_select_exercise:
+    path: /training/{trainingId}/select-exercise
+    controller: App\Controller\TrainingInProgressController::selectExercise
+    methods: [ GET ]
+
+training_in_progress_exercise_in_progress:
+    path: /training/{trainingId}/station/{stationId}/exercise/{exerciseId}/in-progress
+    controller: App\Controller\TrainingInProgressController::exerciseInProgress
     methods: [ GET ]
 
 # exercise_controller

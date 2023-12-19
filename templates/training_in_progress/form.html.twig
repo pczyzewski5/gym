@@ -1,0 +1,31 @@
+{{ form_start(form) }}
+<div class="field">
+    <label class="label">{{ form_label(form.series_goal) }}</label>
+    <div class="control">
+        {{ form_widget(form.series_goal) }}
+    </div>
+    <p class="help is-danger">{{ form_errors(form.series_goal) }}</p>
+</div>
+
+<div class="field">
+    <label class="label">{{ form_label(form.repetition_goal) }}</label>
+    <div class="control">
+        {{ form_widget(form.repetition_goal) }}
+    </div>
+    <p class="help is-danger">{{ form_errors(form.repetition_goal) }}</p>
+</div>
+
+<div class="field">
+    <label class="label">{{ form_label(form.kilogram_goal) }}</label>
+    <div class="control">
+        {{ form_widget(form.kilogram_goal) }}
+    </div>
+    <p class="help is-danger">{{ form_errors(form.kilogram_goal) }}</p>
+</div>
+
+<div class="field">
+    <div class="control">
+        {{ form_widget(form.zapisz) }}
+    </div>
+</div>
+{{ form_end(form) }}
