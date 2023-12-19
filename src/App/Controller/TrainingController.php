@@ -5,14 +5,18 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\CommandBus\CommandBus;
+use App\Form\ExerciseToTrainingForm;
 use App\Form\TrainingForm;
 use App\QueryBus\QueryBus;
+use Gym\Domain\Command\CreateExerciseToTraining;
 use Gym\Domain\Command\CreateTags;
 use Gym\Domain\Command\CreateTraining;
 use Gym\Domain\Command\DeleteTags;
 use Gym\Domain\Command\DeleteTraining;
 use Gym\Domain\Enum\StatusEnum;
 use Gym\Domain\Enum\TagOwnerEnum;
+use Gym\Domain\Query\GetExercise;
+use Gym\Domain\Query\GetStation;
 use Gym\Domain\Query\GetTrainingInProgressHelper;
 use Gym\Domain\Query\GetTrainings;
 use Gym\Domain\Training\TrainingInProgressHelper;
@@ -40,7 +44,50 @@ class TrainingController extends BaseController
         );
 
         return $this->renderForm('training/in_progress.html.twig', [
+            'trainingId' => $request->get('id'),
             'helper' => $trainingInProgressHelper
+        ]);
+    }
+
+    public function goals(Request $request): Response
+    {
+        $trainingId = $request->get('trainingId');
+        $stationId = $request->get('stationId');
+        $exerciseId = $request->get('exerciseId');
+
+        $form = $this->createForm(ExerciseToTrainingForm::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+
+            $exerciseToTrainingId = $this->commandBus->handle(
+                new CreateExerciseToTraining(
+                    $trainingId,
+                    $stationId,
+                    $exerciseId,
+                    StatusEnum::IN_PROGRESS(),
+                    $data[ExerciseToTrainingForm::SERIES_GOAL_FIELD],
+                    $data[ExerciseToTrainingForm::REPETITION_GOAL_FIELD],
+                    $data[ExerciseToTrainingForm::KILOGRAM_GOAL_FIELD]
+                )
+            );
+
+            \var_dump($exerciseToTrainingId);exit;
+        }
+
+        $exercise = $this->queryBus->handle(
+            new GetExercise($exerciseId)
+        );
+        $station = $this->queryBus->handle(
+            new GetStation($stationId)
+        );
+
+        return $this->renderForm('training/goals.html.twig', [
+            'trainingId' => $trainingId,
+            'exercise' => $exercise,
+            'station' => $station,
+            'form' => $form
         ]);
     }
 

@@ -10,6 +10,7 @@ class ExerciseToTrainingDTO
 {
     public ?string $id = null;
     public ?string $trainingId = null;
+    public ?string $stationId = null;
     public ?string $exerciseId = null;
     public ?StatusEnum $status = null;
     public ?int $seriesGoal = null;

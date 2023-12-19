@@ -11,6 +11,7 @@ class ExerciseToTrainingFactory
 {
     public static function create(
         string $trainingId,
+        string $stationId,
         string $exerciseId,
         StatusEnum $status,
         int $seriesGoal,
@@ -20,6 +21,7 @@ class ExerciseToTrainingFactory
         $dto = new ExerciseToTrainingDTO();
         $dto->id = Uuid::v1()->toRfc4122();
         $dto->trainingId = $trainingId;
+        $dto->stationId = $stationId;
         $dto->exerciseId = $exerciseId;
         $dto->status = $status;
         $dto->seriesGoal = $seriesGoal;

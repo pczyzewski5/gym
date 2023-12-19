@@ -16,6 +16,7 @@ class ExerciseToTrainingMapper
         $dto = new ExerciseToTrainingDTO();
         $dto->id = $entity->id;
         $dto->trainingId = $entity->trainingId;
+        $dto->stationId = $entity->stationId;
         $dto->exerciseId = $entity->exerciseId;
         $dto->status = StatusEnum::from($entity->status);
         $dto->seriesGoal = $entity->seriesGoal;
@@ -33,6 +34,7 @@ class ExerciseToTrainingMapper
         $entity = new ExerciseToTraining();
         $entity->id = $domainEntity->getId();
         $entity->trainingId = $domainEntity->getTrainingId();
+        $entity->stationId = $domainEntity->getStationId();
         $entity->exerciseId = $domainEntity->getExerciseId();
         $entity->status = $domainEntity->getStatus()->getValue();
         $entity->seriesGoal = $domainEntity->getSeriesGoal();

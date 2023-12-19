@@ -5,7 +5,8 @@
 
     <entity name="Gym\Infrastructure\ExerciseToTraining\ExerciseToTraining" table="exercises_to_trainings">
         <id name="id" type="string" column="id"/>
-        <field name="trainingId" type="string" column="trainingId"/>
+        <field name="trainingId" type="string" column="training_id"/>
+        <field name="stationId" type="string" column="station_id"/>
         <field name="exerciseId" type="string" column="exercise_id"/>
         <field name="status" type="string" column="status"/>
         <field name="seriesGoal" type="integer" column="series_goal"/>

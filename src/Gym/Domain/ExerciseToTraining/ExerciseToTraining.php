@@ -15,6 +15,7 @@ class ExerciseToTraining
 
     private string $id;
     private string $trainingId;
+    private string $stationId;
     private string $exerciseId;
     private StatusEnum $status;
     private int $seriesGoal;
@@ -41,6 +42,10 @@ class ExerciseToTraining
 
         if (!isset($this->trainingId) || !UuidV1::isValid($this->trainingId)) {
             throw ValidationException::missingProperty('trainingId');
+        }
+
+        if (!isset($this->stationId) || !UuidV1::isValid($this->stationId)) {
+            throw ValidationException::missingProperty('stationId');
         }
 
         if (!isset($this->exerciseId) || !UuidV1::isValid($this->exerciseId)) {
@@ -76,6 +81,11 @@ class ExerciseToTraining
     public function getTrainingId(): string
     {
         return $this->trainingId;
+    }
+
+    public function getStationId(): string
+    {
+        return $this->stationId;
     }
 
     public function getExerciseId(): string

@@ -27,7 +27,7 @@ class ExerciseRepository implements DomainRepository
 
     public function getOneById(string $id): DomainEntity
     {
-        $entity = $this->entityManager->getRepository(Exercise::class)->getOneById($id);
+        $entity = $this->entityManager->getRepository(Exercise::class)->find($id);
 
         if (null === $entity) {
             throw RepositoryException::notFound(Exercise::class, $id);

@@ -8,6 +8,7 @@ class ExerciseToTraining
 {
     public ?string $id;
     public ?string $trainingId;
+    public ?string $stationId;
     public ?string $exerciseId;
     public ?string $status;
     public ?int $seriesGoal;

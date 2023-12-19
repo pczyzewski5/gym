@@ -8,10 +8,6 @@
     <field name="name" type="string" column="name"/>
     <field name="description" type="string" column="description"/>
     <field name="image" type="string" column="image"/>
-<!--    <field name="status" type="string" column="status"/>-->
-<!--    <field name="stationId" type="string" column="station_id"/>-->
-<!--    <field name="seriesTarget" type="string" column="series_target"/>-->
-<!--    <field name="repetitionTarget" type="string" column="repetition_target"/>-->
 </entity>
 
 </doctrine-mapping>

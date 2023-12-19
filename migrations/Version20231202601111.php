@@ -24,6 +24,7 @@ CREATE TABLE exercises_to_trainings
 (
     id              VARCHAR(36) NOT NULL,
     training_id     VARCHAR(36) NOT NULL,
+    station_id      VARCHAR(36) NOT NULL,
     exercise_id     VARCHAR(36) NOT NULL,
     status          VARCHAR(36) NOT NULL,
     series_goal     TINYINT(2) NOT NULL,
