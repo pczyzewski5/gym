@@ -47,6 +47,7 @@ class TrainingRepository implements DomainRepository
 SELECT tr.id as id, tr.date as date, tr.repeated as repeated, tr.status as status, GROUP_CONCAT(t.tag) as tags FROM trainings tr
     LEFT JOIN tags t ON t.owner_id = tr.id AND t.owner = :owner
 GROUP BY tr.id
+ORDER BY tr.date DESC
 SQL;
         $stmt = $this->entityManager->getConnection()->executeQuery(
             $sql,
