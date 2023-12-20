@@ -7,6 +7,7 @@ namespace Gym\Domain\Training;
 use Gym\Domain\Enum\MuscleTagEnum;
 use Gym\Domain\Exercise\Exercise;
 use Gym\Domain\Exercise\ExerciseRepository;
+use Gym\Domain\LiftedWeight\LiftedWeightRepository;
 use Gym\Domain\Station\Station;
 use Gym\Domain\Station\StationRepository;
 use Gym\Domain\Tag\Tag;
@@ -18,19 +19,23 @@ class TrainingInProgressHelper
     private TagRepository $tagRepository;
     private StationRepository $stationRepository;
     private ExerciseRepository $exerciseRepository;
+    private LiftedWeightRepository $liftedWeightRepository;
     private string $trainingId;
 
     public function __construct(
-        TrainingRepository $trainingRepository,
-        TagRepository $tagRepository,
-        StationRepository $stationRepository,
-        ExerciseRepository $exerciseRepository,
-        string $trainingId
-    ) {
+        TrainingRepository     $trainingRepository,
+        TagRepository          $tagRepository,
+        StationRepository      $stationRepository,
+        ExerciseRepository     $exerciseRepository,
+        LiftedWeightRepository $liftedWeightRepository,
+        string                 $trainingId
+    )
+    {
         $this->trainingRepository = $trainingRepository;
         $this->tagRepository = $tagRepository;
         $this->stationRepository = $stationRepository;
         $this->exerciseRepository = $exerciseRepository;
+        $this->liftedWeightRepository = $liftedWeightRepository;
         $this->trainingId = $trainingId;
     }
 
@@ -75,5 +80,16 @@ class TrainingInProgressHelper
             $station,
             $tagEnum
         );
+    }
+
+    public function getSeriesCount($stationId, $exerciseId): int
+    {
+        $result = $this->liftedWeightRepository->findAllBy(
+            $this->trainingId,
+            $stationId,
+            $exerciseId
+        );
+
+        return \count($result);
     }
 }

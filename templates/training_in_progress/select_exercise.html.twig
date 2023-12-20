@@ -86,7 +86,8 @@
                                     <a href="{{ path('training_in_progress_exercise_in_progress', {'trainingId': trainingId, 'stationId': station.getId(), 'exerciseId': exercise.getId()}) }}" class="button is-success is-small">
                                         <i class="fas fa-dumbbell"></i>
                                     </a>
-                                    <div class="exercise-name">{{ exercise.getName() }}</div>
+                                    {% set seriesCount = helper.getSeriesCount(station.getId(), exercise.getId()) %}
+                                    <div class="exercise-name">{{ exercise.getName() }} {{ seriesCount == 0 ? '' : '(' ~ seriesCount ~ ')' }}</div>
                                 </div>
                             {% endfor %}
                         </div>

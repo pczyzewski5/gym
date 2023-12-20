@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\CommandBus\CommandBus;
-use App\Form\ExerciseToTrainingForm;
 use App\QueryBus\QueryBus;
-use Gym\Domain\Command\CreateExerciseToTraining;
-use Gym\Domain\Enum\StatusEnum;
 use Gym\Domain\Query\GetExercise;
 use Gym\Domain\Query\GetLiftedWeights;
 use Gym\Domain\Query\GetStation;

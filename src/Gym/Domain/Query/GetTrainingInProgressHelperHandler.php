@@ -9,6 +9,7 @@ use Gym\Domain\Station\StationRepository;
 use Gym\Domain\Tag\TagRepository;
 use Gym\Domain\Training\TrainingInProgressHelper;
 use Gym\Domain\Training\TrainingRepository;
+use Gym\Infrastructure\LiftedWeight\LiftedWeightRepository;
 
 class GetTrainingInProgressHelperHandler
 {
@@ -16,17 +17,20 @@ class GetTrainingInProgressHelperHandler
     private TagRepository $tagRepository;
     private StationRepository $stationRepository;
     private ExerciseRepository $exerciseRepository;
+    private LiftedWeightRepository $liftedWeightRepository;
 
     public function __construct(
         TrainingRepository $trainingRepository,
         TagRepository $tagRepository,
         StationRepository $stationRepository,
-        ExerciseRepository $exerciseRepository
+        ExerciseRepository $exerciseRepository,
+        LiftedWeightRepository $liftedWeightRepository
     ) {
         $this->trainingRepository = $trainingRepository;
         $this->tagRepository = $tagRepository;
         $this->stationRepository = $stationRepository;
         $this->exerciseRepository = $exerciseRepository;
+        $this->liftedWeightRepository = $liftedWeightRepository;
     }
 
     public function __invoke(GetTrainingInProgressHelper $query): TrainingInProgressHelper
@@ -36,6 +40,7 @@ class GetTrainingInProgressHelperHandler
             $this->tagRepository,
             $this->stationRepository,
             $this->exerciseRepository,
+            $this->liftedWeightRepository,
             $query->getTrainingId()
         );
     }
