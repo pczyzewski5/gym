@@ -28,3 +28,8 @@ services:
     class: Gym\Infrastructure\Tag\TagRepository
     arguments:
       - '@doctrine.orm.entity_manager'
+
+  Gym\Infrastructure\LiftedWeight\LiftedWeightRepository:
+    class: Gym\Infrastructure\LiftedWeight\LiftedWeightRepository
+    arguments:
+      - '@doctrine.orm.entity_manager'

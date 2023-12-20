@@ -100,8 +100,18 @@
 
         <table class="table is-fullwidth is-striped mt-2 mb-6">
             <tbody>
-            <tr style="display: none;"></tr>
-            <tr style="display: none;"></tr>
+            {% if liftedWeights is not empty %}
+                {% for key, liftedWeight in liftedWeights %}
+                    <tr id="{{ liftedWeight.getId() }}">
+                        <td>#{{ key + 1 }}</td>
+                        <td>{{ liftedWeight.getRepetitionCount() }} x</td>
+                        <td>{{ liftedWeight.getKilogramCount() }} kg</td>
+                        <td>
+                            <button onclick="deleteExerciseProgress('{{ liftedWeight.getId() }}')" class="button is-danger is-small is-pulled-right">usuń</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
             </tbody>
         </table>
     </div>

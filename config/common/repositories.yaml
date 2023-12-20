@@ -16,3 +16,6 @@ services:
 
   Gym\Domain\Tag\TagRepository:
     alias: Gym\Infrastructure\Tag\TagRepository
+
+  Gym\Domain\LiftedWeight\LiftedWeightRepository:
+    alias: Gym\Infrastructure\LiftedWeight\LiftedWeightRepository

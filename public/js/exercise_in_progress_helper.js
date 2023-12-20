@@ -26,9 +26,12 @@ function saveExerciseProgress($trainingId, $stationId, $exerciseId) {
     });
 
     $request.done(function($liftedWeightId) {
-        $('.table tr:last-child').after(
-            '<tr id="' + $liftedWeightId + '"><td>#'+ ($('.table tr').length - 1) + '</td><td>' + $data['repetition_count'] + ' x</td><td>' + $data['kilogram_count'] + ' kg</td><td><button onclick="deleteExerciseProgress(\'' + $liftedWeightId + '\')" class="button is-danger is-small is-pulled-right">usuń</button></td></tr>'
-        );
+        let $lastRow = $('.table tr:last-child');
+        if ($lastRow.length) {
+           $lastRow.after('<tr id="' + $liftedWeightId + '"><td>#'+ ($('.table tr').length + 1) + '</td><td>' + $data['repetition_count'] + ' x</td><td>' + $data['kilogram_count'] + ' kg</td><td><button onclick="deleteExerciseProgress(\'' + $liftedWeightId + '\')" class="button is-danger is-small is-pulled-right">usuń</button></td></tr>');
+        } else {
+            $('.table tbody').append('<tr id="' + $liftedWeightId + '"><td>#1</td><td>' + $data['repetition_count'] + ' x</td><td>' + $data['kilogram_count'] + ' kg</td><td><button onclick="deleteExerciseProgress(\'' + $liftedWeightId + '\')" class="button is-danger is-small is-pulled-right">usuń</button></td></tr>');
+        }
     });
 }
 

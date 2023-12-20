@@ -10,6 +10,7 @@ use App\QueryBus\QueryBus;
 use Gym\Domain\Command\CreateExerciseToTraining;
 use Gym\Domain\Enum\StatusEnum;
 use Gym\Domain\Query\GetExercise;
+use Gym\Domain\Query\GetLiftedWeights;
 use Gym\Domain\Query\GetStation;
 use Gym\Domain\Query\GetTrainingInProgressHelper;
 use Gym\Domain\Training\TrainingInProgressHelper;
@@ -48,6 +49,13 @@ class TrainingInProgressController extends BaseController
         $stationId = $request->get('stationId');
         $exerciseId = $request->get('exerciseId');
 
+        $liftedWeights = $this->queryBus->handle(
+            new GetLiftedWeights(
+                $trainingId,
+                $stationId,
+                $exerciseId
+            )
+        );
         $exercise = $this->queryBus->handle(
             new GetExercise($exerciseId)
         );
@@ -59,6 +67,7 @@ class TrainingInProgressController extends BaseController
             'trainingId' => $trainingId,
             'exerciseId' => $exerciseId,
             'stationId' => $stationId,
+            'liftedWeights' => $liftedWeights,
             'exercise' => $exercise,
             'station' => $station,
         ]);
