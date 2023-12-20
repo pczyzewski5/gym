@@ -62,6 +62,12 @@
     </style>
 
     <div class="container is-max-desktop">
+        {% set actualStatus = helper.getTraining().getStatus() %}
+        {% set isInProgress = 'in_progress' == actualStatus %}
+        <button id="training-status-button" class="button is-fullwidth is-small mb-3 {{ isInProgress ? 'is-warning' : 'is-success' }}" data-training-id="{{ trainingId }}" data-actual-status="{{ actualStatus }}">
+            {{ isInProgress ? 'zakończ trening' : 'rozpocznij trening' }}
+        </button>
+
         {% for tag in helper.getTrainingTags() %}
             <div class="tag-container">
                 <div class="tag-name">
@@ -97,4 +103,5 @@
         {% endfor %}
     </div>
 
+    <script src="{{ asset('js/training_status_helper.js') }}"></script>
 {% endblock %}

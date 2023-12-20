@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\CommandBus\CommandBus;
 use App\Form\TrainingForm;
 use App\QueryBus\QueryBus;
+use Gym\Domain\Command\ChangeTrainingStatus;
 use Gym\Domain\Command\CreateTags;
 use Gym\Domain\Command\CreateTraining;
 use Gym\Domain\Command\DeleteTags;
@@ -19,6 +20,7 @@ use Gym\Domain\Query\GetTraining;
 use Gym\Domain\Query\GetTrainings;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Uid\Uuid;
 
 class TrainingController extends BaseController
 {
@@ -116,5 +118,24 @@ class TrainingController extends BaseController
         );
 
         return $this->redirectToRoute('training_list');
+    }
+
+    public function changeStatus(Request $request): Response
+    {
+        $payload = \json_decode($request->getContent(), true);
+
+        $actualStatus = StatusEnum::from($payload['actual_status']);
+        $status = $actualStatus->equals(StatusEnum::IN_PROGRESS())
+            ? StatusEnum::DONE()
+            : StatusEnum::IN_PROGRESS();
+
+        $this->commandBus->handle(
+            new ChangeTrainingStatus(
+                Uuid::fromRfc4122($payload['training_id']),
+                $status
+            )
+        );
+
+        return new Response($status->getValue(), Response::HTTP_OK);
     }
 }

@@ -23,6 +23,13 @@ services:
     tags:
       - { name: tactician.handler, command: Gym\Domain\Command\CreateTraining, bus: command }
 
+  Gym\Domain\Command\ChangeTrainingStatusHandler:
+    class: Gym\Domain\Command\ChangeTrainingStatusHandler
+    arguments:
+      - '@Gym\Domain\Training\TrainingPersister'
+    tags:
+      - { name: tactician.handler, command: Gym\Domain\Command\ChangeTrainingStatus, bus: command }
+
   Gym\Domain\Command\CreateExerciseHandler:
     class: Gym\Domain\Command\CreateExerciseHandler
     arguments:

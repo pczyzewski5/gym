@@ -28,9 +28,15 @@
             </thead>
             <tbody>
             {% for key, training in trainings %}
-                <tr class="table-item">
+
+                {% set href = path('training_in_progress_select_exercise', {'trainingId': training['id']}) %}
+                {% if 'done' == training['status'] %}
+                    {% set href = path('training_read', {'id': training['id']}) %}
+                {% endif %}
+
+                <tr class="table-item" href="{{ href }}">
                     <td>{{ key + 1 }}</td>
-                    <td> {{ training['date'].format('D') }} {{ training['date'].format('d') }} {{ training['date'].format('M') }}</td>
+                    <td>{{ training['date'].format('D') }} {{ training['date'].format('d') }} {{ training['date'].format('M') }}</td>
                     <td>{{ training['repeated'] ? 'tak' : 'nie' }}</td>
                     <td>{{ training['status'] }}</td>
                     <td>
@@ -39,9 +45,6 @@
                         {% endfor %}
                     </td>
                     <td>
-                        <a href="{{ path('training_read', {'id': training['id']}) }}" class="button is-small is-primary">odczyt</a>
-                        <a href="{{ path('training_in_progress_select_exercise', {'trainingId': training['id']}) }}" class="button is-small is-success">rozpocznij trening</a>
-                        <span class="button is-small is-warning">zakończ trening</span>
                         <span data-href="{{ path('training_delete', {'id': training['id']}) }}" class="button is-small is-danger modal-launch-button">usuń</span>
                     </td>
                 </tr>
@@ -64,4 +67,5 @@
     </div>
 
     <script src="{{ asset('js/modal_helper.js') }}"></script>
+    <script src="{{ asset('js/list_helper.js') }}"></script>
 {% endblock %}
