@@ -22,4 +22,8 @@ interface LiftedWeightRepository
      * @throws RepositoryException
      */
     public function getOneById(string $id): DomainEntity;
+
+    public function findForTrainingRead(string $trainingId): array;
+
+    public function getLiftedKilogramsCount(string $trainingId): int;
 }

@@ -13,6 +13,9 @@ use Gym\Domain\Command\DeleteTags;
 use Gym\Domain\Command\DeleteTraining;
 use Gym\Domain\Enum\StatusEnum;
 use Gym\Domain\Enum\TagOwnerEnum;
+use Gym\Domain\Query\GetLiftedKilogramsCount;
+use Gym\Domain\Query\GetLiftedWeightsForTrainingRead;
+use Gym\Domain\Query\GetTraining;
 use Gym\Domain\Query\GetTrainings;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -68,6 +71,31 @@ class TrainingController extends BaseController
 
         return $this->renderForm('training/create.html.twig', [
             'form' => $form
+        ]);
+    }
+
+    public function read(Request $request): Response
+    {
+        $training = $this->queryBus->handle(
+            new GetTraining(
+                $request->get('id')
+            )
+        );
+        $liftedWeights = $this->queryBus->handle(
+            new GetLiftedWeightsForTrainingRead(
+                $request->get('id')
+            )
+        );
+        $liftedKilograms = $this->queryBus->handle(
+            new GetLiftedKilogramsCount(
+                $request->get('id')
+            )
+        );
+
+        return $this->renderForm('training/read.html.twig', [
+            'training' => $training,
+            'liftedWeights' => $liftedWeights,
+            'liftedKilograms' => $liftedKilograms
         ]);
     }
 

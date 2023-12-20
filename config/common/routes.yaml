@@ -67,6 +67,11 @@ training_create:
     controller: App\Controller\TrainingController::create
     methods: [ GET, POST ]
 
+training_read:
+    path: /training/{id}/read
+    controller: App\Controller\TrainingController::read
+    methods: [ GET ]
+
 training_delete:
     path: /training/{id}/delete
     controller: App\Controller\TrainingController::delete

@@ -22,7 +22,7 @@ class TrainingRepository implements DomainRepository
 
     public function getOneById(string $id): DomainEntity
     {
-        $entity = $this->entityManager->getRepository(Training::class)->getOneById($id);
+        $entity = $this->entityManager->getRepository(Training::class)->find($id);
 
         if (null === $entity) {
             throw RepositoryException::notFound(Training::class, $id);

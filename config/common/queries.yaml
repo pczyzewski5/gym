@@ -41,6 +41,27 @@ services:
     tags:
       - { name: tactician.handler, command: Gym\Domain\Query\GetLiftedWeights, bus: query }
 
+  Gym\Domain\Query\GetLiftedWeightsForTrainingReadHandler:
+    class: Gym\Domain\Query\GetLiftedWeightsForTrainingReadHandler
+    arguments:
+      - '@Gym\Domain\LiftedWeight\LiftedWeightRepository'
+    tags:
+      - { name: tactician.handler, command: Gym\Domain\Query\GetLiftedWeightsForTrainingRead, bus: query }
+
+  Gym\Domain\Query\GetLiftedKilogramsCountHandler:
+    class: Gym\Domain\Query\GetLiftedKilogramsCountHandler
+    arguments:
+      - '@Gym\Domain\LiftedWeight\LiftedWeightRepository'
+    tags:
+      - { name: tactician.handler, command: Gym\Domain\Query\GetLiftedKilogramsCount, bus: query }
+
+  Gym\Domain\Query\GetTrainingHandler:
+    class: Gym\Domain\Query\GetTrainingHandler
+    arguments:
+      - '@Gym\Domain\Training\TrainingRepository'
+    tags:
+      - { name: tactician.handler, command: Gym\Domain\Query\GetTraining, bus: query }
+
   Gym\Domain\Query\GetTrainingsHandler:
     class: Gym\Domain\Query\GetTrainingsHandler
     arguments:
@@ -55,5 +76,6 @@ services:
       - '@Gym\Domain\Tag\TagRepository'
       - '@Gym\Domain\Station\StationRepository'
       - '@Gym\Domain\Exercise\ExerciseRepository'
+      - '@Gym\Domain\LiftedWeight\LiftedWeightRepository'
     tags:
       - { name: tactician.handler, command: Gym\Domain\Query\GetTrainingInProgressHelper, bus: query }
