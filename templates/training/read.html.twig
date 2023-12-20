@@ -5,6 +5,12 @@
             border-bottom: none !important;
             border-left: none !important;
         }
+        .title-container {
+            border: 1px solid rgb(219, 219, 219);
+            padding: 0.5em 0.75em;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
     </style>
 
     <div class="container is-max-desktop">
@@ -15,7 +21,12 @@
         <div class="columns">
             {% for tag, stations in liftedWeights %}
                 <div class="column">
-                    <p class="title is-4">{{ tag|capitalize }}</p>
+                    <div class="title-container">
+                         <span class="icon">
+                                <i class="fas fa-arrow-down"></i>
+                            </span>
+                        {{ tag|capitalize }}
+                    </div>
                     <div class="lifted-weights">
                         {% for station, series in stations %}
                             {% for exerciseName, exercises in series %}
