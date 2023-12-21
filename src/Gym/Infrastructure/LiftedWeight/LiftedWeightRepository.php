@@ -89,4 +89,25 @@ SQL;
 
         return \intval($stmt->fetchOne());
     }
+
+    public function findLastLiftedWeight(string $stationId, string $exerciseId): ?DomainEntity
+    {
+        $qb = $this->entityManager->getRepository(LiftedWeight::class)
+            ->createQueryBuilder('lw')
+            ->where('lw.stationId = :stationId')
+            ->andWhere('lw.exerciseId = :exerciseId')
+            ->addOrderBy('lw.createdAt', 'DESC')
+            ->addOrderBy('lw.repetitionCount', 'DESC')
+            ->setMaxResults(1)
+            ->setParameters([
+                'stationId' => $stationId,
+                'exerciseId' => $exerciseId
+            ]);
+
+        $result = $qb->getQuery()->getSingleResult();
+
+        return null === $result
+            ? null
+            : LiftedWeightMapper::toDomain($result);
+    }
 }

@@ -54,6 +54,13 @@
             {{ exercise.getName()|ucfirst }}
         </p>
 
+        {% set repetitionCount = 12 %}
+        {% set kilogramCount = 30 %}
+        {% if lastLiftedWeight is not null %}
+            {% set repetitionCount = lastLiftedWeight.getRepetitionCount() %}
+            {% set kilogramCount = lastLiftedWeight.getKilogramCount() %}
+        {% endif %}
+
         <div class="series-counter">
             <div class="button-container">
                 <button class="button-add" onclick="changeValue('repetition-counter', 'increase')">
@@ -65,7 +72,7 @@
             </div>
             <div class="digit-container">
                 <div class="digit repetition-counter">
-                    12
+                    {{ repetitionCount }}
                 </div>
             </div>
             <div class="desc-container">
@@ -86,7 +93,7 @@
             </div>
             <div class="digit-container">
                 <div class="digit kilogram-counter">
-                    30
+                    {{ kilogramCount }}
                 </div>
             </div>
             <div class="desc-container">

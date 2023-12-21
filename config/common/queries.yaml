@@ -48,6 +48,13 @@ services:
     tags:
       - { name: tactician.handler, command: Gym\Domain\Query\GetLiftedWeightsForTrainingRead, bus: query }
 
+  Gym\Domain\Query\GetLastLiftedWeightHandler:
+    class: Gym\Domain\Query\GetLastLiftedWeightHandler
+    arguments:
+      - '@Gym\Domain\LiftedWeight\LiftedWeightRepository'
+    tags:
+      - { name: tactician.handler, command: Gym\Domain\Query\GetLastLiftedWeight, bus: query }
+
   Gym\Domain\Query\GetLiftedKilogramsCountHandler:
     class: Gym\Domain\Query\GetLiftedKilogramsCountHandler
     arguments:
