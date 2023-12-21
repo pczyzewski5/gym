@@ -17,7 +17,7 @@ class TrainingFactory
         $dto = new TrainingDTO();
         $dto->id = Uuid::v1()->toRfc4122();
         $dto->status = $status;
-        $dto->date = $date;
+        $dto->trainingDate = $date;
         $dto->repeated = $repeated;
         $dto->createdAt = new \DateTimeImmutable();
 

@@ -36,7 +36,7 @@
 
                 <tr class="table-item" href="{{ href }}">
                     <td>{{ key + 1 }}</td>
-                    <td>{{ training['date'].format('D') }} {{ training['date'].format('d') }} {{ training['date'].format('M') }}</td>
+                    <td>{{ training['training_date'].format('D') }} {{ training['training_date'].format('d') }} {{ training['training_date'].format('M') }}</td>
                     <td>{{ training['repeated'] ? 'tak' : 'nie' }}</td>
                     <td>{{ training['status'] }}</td>
                     <td>

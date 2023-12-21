@@ -22,11 +22,13 @@ final class Version20231202301111 extends AbstractMigration
         $sql = <<<SQL
 CREATE TABLE trainings
 (
-    id         VARCHAR(36) NOT NULL,
-    status     VARCHAR(36) NOT NULL,
-    date       DATETIME NOT NULL,
-    repeated   BOOLEAN NOT NULL,
-    created_at DATETIME NOT NULL,
+    id                VARCHAR(36) NOT NULL,
+    status            VARCHAR(36) NOT NULL,
+    training_date     DATETIME NOT NULL,
+    training_started  DATETIME,
+    training_finished DATETIME,
+    repeated          BOOLEAN NOT NULL,
+    created_at        DATETIME NOT NULL,
     UNIQUE (id)
 ) DEFAULT CHARACTER SET UTF8
   COLLATE 'UTF8_unicode_ci';

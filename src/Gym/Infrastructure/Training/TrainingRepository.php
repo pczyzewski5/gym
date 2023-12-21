@@ -44,10 +44,10 @@ class TrainingRepository implements DomainRepository
     public function findAllForList(): array
     {
         $sql = <<<SQL
-SELECT tr.id as id, tr.date as date, tr.repeated as repeated, tr.status as status, GROUP_CONCAT(t.tag) as tags FROM trainings tr
+SELECT tr.id as id, tr.training_date as training_date, tr.repeated as repeated, tr.status as status, GROUP_CONCAT(t.tag) as tags FROM trainings tr
     LEFT JOIN tags t ON t.owner_id = tr.id AND t.owner = :owner
 GROUP BY tr.id
-ORDER BY tr.date DESC
+ORDER BY tr.training_date DESC
 SQL;
         $stmt = $this->entityManager->getConnection()->executeQuery(
             $sql,
@@ -66,7 +66,7 @@ SQL;
 
             return [
                 'id' => $item['id'],
-                'date' => \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $item['date']),
+                'training_date' => \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $item['training_date']),
                 'repeated' => (bool)$item['repeated'],
                 'status' => $item['status'],
                 'tags' => $countedTags

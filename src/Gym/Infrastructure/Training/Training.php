@@ -8,7 +8,9 @@ class Training
 {
     public ?string $id;
     public ?string $status;
-    public ?\DateTime $date;
+    public ?\DateTime $trainingDate;
+    public ?\DateTime $trainingStarted;
+    public ?\DateTime $trainingFinished;
     public ?bool $repeated;
     public ?\DateTime $createdAt;
 }

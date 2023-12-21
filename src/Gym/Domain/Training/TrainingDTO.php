@@ -10,7 +10,9 @@ class TrainingDTO
 {
     public ?string $id = null;
     public ?StatusEnum $status = null;
-    public ?\DateTimeImmutable $date = null;
+    public ?\DateTimeImmutable $trainingDate = null;
+    public ?\DateTimeImmutable $trainingStarted = null;
+    public ?\DateTimeImmutable $trainingFinished = null;
     public ?bool $repeated = null;
     public ?\DateTimeImmutable $createdAt = null;
 }

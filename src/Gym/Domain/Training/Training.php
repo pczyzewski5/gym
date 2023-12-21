@@ -15,7 +15,9 @@ class Training
 
     private string $id;
     private StatusEnum $status;
-    private \DateTimeImmutable $date;
+    private \DateTimeImmutable $trainingDate;
+    private ?\DateTimeImmutable $trainingStarted = null;
+    private ?\DateTimeImmutable $trainingFinished = null;
     private bool $repeated;
     private \DateTimeImmutable $createdAt;
 
@@ -40,8 +42,8 @@ class Training
             throw ValidationException::missingProperty('status');
         }
 
-        if (!isset($this->date)) {
-            throw ValidationException::missingProperty('date');
+        if (!isset($this->trainingDate)) {
+            throw ValidationException::missingProperty('trainingDate');
         }
 
         if (!isset($this->repeated)) {
@@ -63,9 +65,19 @@ class Training
         return $this->status;
     }
 
-    public function getDate(): \DateTimeImmutable
+    public function getTrainingDate(): \DateTimeImmutable
     {
-        return $this->date;
+        return $this->trainingDate;
+    }
+
+    public function getTrainingStarted(): ?\DateTimeImmutable
+    {
+        return $this->trainingStarted;
+    }
+
+    public function getTrainingFinished(): ?\DateTimeImmutable
+    {
+        return $this->trainingFinished;
     }
 
     public function isRepeated(): bool

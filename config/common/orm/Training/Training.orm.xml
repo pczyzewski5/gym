@@ -6,7 +6,9 @@
     <entity name="Gym\Infrastructure\Training\Training" table="trainings">
         <id name="id" type="string" column="id"/>
         <field name="status" type="string" column="status"/>
-        <field name="date" type="datetime" column="date"/>
+        <field name="trainingDate" type="datetime" column="training_date"/>
+        <field name="trainingStarted" type="datetime" column="training_started"/>
+        <field name="trainingFinished" type="datetime" column="training_finished"/>
         <field name="repeated" type="boolean" column="repeated"/>
         <field name="createdAt" type="datetime" column="created_at"/>
     </entity>
