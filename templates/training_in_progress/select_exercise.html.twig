@@ -59,6 +59,9 @@
         .exercise:last-child {
             margin-bottom: 0;
         }
+        .modal-launch-button {
+            cursor: pointer;
+        }
     </style>
 
     <div class="container is-max-desktop">
@@ -84,7 +87,10 @@
                             <span class="icon">
                                 <i class="fas fa-arrow-right"></i>
                             </span>
-                            {{ station.getName() }}
+                            <span class="modal-launch-button">
+                                {{ station.getName() }}
+                                {% include 'training_in_progress/station_image_modal.html.twig' with {'station': station} only %}
+                            </span>
                         </div>
                         <div class="exercise-container">
                             {% for exercise in helper.getExercisesForStationAndTag(station, tag) %}
@@ -104,4 +110,5 @@
     </div>
 
     <script src="{{ asset('js/training_status_helper.js') }}"></script>
+    <script src="{{ asset('js/img_modal_helper.js') }}"></script>
 {% endblock %}
