@@ -21,6 +21,10 @@ services:
             - '%photos_directory%'
         tags: [ 'twig.extension' ]
 
+    App\Twig\UcFirst:
+        class: App\Twig\UcFirst
+        tags: [ 'twig.extension' ]
+
     App\Security\UserProvider:
         class: App\Security\UserProvider
         arguments:

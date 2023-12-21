@@ -25,7 +25,7 @@
                          <span class="icon">
                                 <i class="fas fa-arrow-down"></i>
                             </span>
-                        {{ tag|capitalize }}
+                        {{ tag|ucfirst }}
                     </div>
                     <div class="lifted-weights">
                         {% for station, series in stations %}
@@ -33,7 +33,7 @@
                                 <table class="table is-striped is-bordered is-fullwidth">
                                     <tr>
                                         <td colspan="3" class="has-text-centered">
-                                            {{ station|capitalize }}
+                                            {{ station|ucfirst }}
                                         </td>
                                     </tr>
                                     <tr>
@@ -41,7 +41,7 @@
                                             <span class="icon">
                                                 <i class="fas fa-dumbbell"></i>
                                             </span>
-                                            {{ exerciseName|capitalize }}
+                                            {{ exerciseName|ucfirst }}
                                         </td>
                                     </tr>
                                     {% set exerciseKilogramsTotal = 0 %}

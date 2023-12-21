@@ -71,7 +71,7 @@
         {% for tag in helper.getTrainingTags() %}
             <div class="tag-container">
                 <div class="tag-name">
-                    <div>{{ tag.getValue()|capitalize }}</div>
+                    <div>{{ tag.getValue()|ucfirst }}</div>
                     <div class="ornament-container">
                         {% for i in 0..20 %}
                             <hr class="ornament">
