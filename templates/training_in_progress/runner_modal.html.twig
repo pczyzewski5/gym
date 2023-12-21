@@ -1,0 +1,31 @@
+<div class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <section class="modal-card-body">
+            <div class="runner-counter">
+                <div class="button-container">
+                    <button class="button-add" onclick="changeValue('seconds-counter', 'increase', 10)">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                    <button class="button-subtract" onclick="changeValue('seconds-counter', 'decrease', 10)">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+                <div class="digit-container">
+                    <div class="digit seconds-counter">
+                        60
+                    </div>
+                </div>
+                <div class="desc-container">
+                    <div class="desc">
+                        s
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<audio id="jingle">
+    <source src="{{ asset('jingles/countdown.mp3') }}" type="audio/mpeg">
+</audio>

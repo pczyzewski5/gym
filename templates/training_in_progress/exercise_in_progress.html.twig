@@ -5,6 +5,9 @@
             display: flex;
             margin: 0 0 1rem 0.5rem;
         }
+        .runner-counter {
+            display: flex;
+        }
         .button-container, .digit-container {
             width: 80px;
             height: 120px;
@@ -43,16 +46,27 @@
         .button-add:active, .button-subtract:active {
             background-color: #efefee;
         }
+        .subtitle {
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
     </style>
 
     <div class="container is-max-desktop">
         <p class="title is-4">{{ station['name']|ucfirst }}</p>
-        <p class="subtitle is-6">
+        <p class="subtitle is-6 modal-launch-button">
             <span class="icon">
                 <i class="fas fa-dumbbell"></i>
             </span>
             {{ exercise.getName()|ucfirst }}
+            <br>
+            <span class="icon">
+                <i class="fas fa-stopwatch"></i>
+            </span>
+            Timer: <span class="seconds-counter">60</span> s
         </p>
+
+        {{ include('training_in_progress/runner_modal.html.twig') }}
 
         {% set repetitionCount = 12 %}
         {% set kilogramCount = 30 %}
@@ -123,5 +137,7 @@
         </table>
     </div>
 
+    <script src="{{ asset('js/countdownTimer.min.js') }}"></script>
     <script src="{{ asset('js/exercise_in_progress_helper.js') }}"></script>
+    <script src="{{ asset('js/modal_helper.js') }}"></script>
 {% endblock %}
