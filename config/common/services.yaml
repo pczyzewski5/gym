@@ -9,6 +9,9 @@ services:
     App\CommandBus\CommandBus:
         alias: App\Tactician\CommandBus
 
+    App\ImageOptimizer:
+        class: App\ImageOptimizer
+
     App\Twig\QuillDeltaParser:
         class: App\Twig\QuillDeltaParser
         arguments:

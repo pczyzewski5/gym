@@ -4,20 +4,24 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use App\ImageOptimizer;
 use Symfony\Component\HttpFoundation\File\Exception\UploadException;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class UploadFileHandler
 {
+    private ImageOptimizer $imageOptimizer;
     private SluggerInterface $slugger;
     private array $itemCardImagesAllowedMime;
     private string $itemCardImagesDirectory;
 
     public function __construct(
+        ImageOptimizer $imageOptimizer,
         SluggerInterface $slugger,
-        array            $itemCardImagesAllowedMime,
+        array $itemCardImagesAllowedMime,
         string $itemCardImagesDirectory
     ) {
+        $this->imageOptimizer = $imageOptimizer;
         $this->slugger = $slugger;
         $this->itemCardImagesAllowedMime = $itemCardImagesAllowedMime;
         $this->itemCardImagesDirectory = $itemCardImagesDirectory;
@@ -43,6 +47,8 @@ class UploadFileHandler
             $uploadedFile->guessExtension()
         );
         $uploadedFile->move($this->itemCardImagesDirectory, $newFilename);
+
+        $this->imageOptimizer->resize($this->itemCardImagesDirectory . '/' . $newFilename);
 
         return $newFilename;
     }

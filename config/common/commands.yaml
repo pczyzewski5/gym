@@ -2,6 +2,7 @@ services:
   App\Command\UploadFileHandler:
     class: App\Command\UploadFileHandler
     arguments:
+      - '@App\ImageOptimizer'
       - '@slugger'
       - '%photo_allowed_mime%'
       - '%photos_directory%'
