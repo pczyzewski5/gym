@@ -23,7 +23,7 @@ final class Version20231202201111 extends AbstractMigration
 CREATE TABLE exercises
 (
     id          VARCHAR(36) NOT NULL,
-    name        VARCHAR(36) NOT NULL,
+    name        VARCHAR(72) NOT NULL,
     description TEXT,
     image       VARCHAR(72),
     UNIQUE (id)
