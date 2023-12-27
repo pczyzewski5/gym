@@ -7,7 +7,7 @@ namespace Gym\Domain\Query;
 use Gym\Domain\LiftedWeight\LiftedWeight;
 use Gym\Domain\LiftedWeight\LiftedWeightRepository;
 
-class GetLastLiftedWeightHandler
+class FindLastLiftedWeightHandler
 {
     private LiftedWeightRepository $repository;
 
@@ -16,7 +16,7 @@ class GetLastLiftedWeightHandler
         $this->repository = $repository;
     }
 
-    public function __invoke(GetLastLiftedWeight $query): LiftedWeight
+    public function __invoke(FindLastLiftedWeight $query): ?LiftedWeight
     {
         return $this->repository->findLastLiftedWeight(
             $query->getStationId(),

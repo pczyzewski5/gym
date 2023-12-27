@@ -104,10 +104,10 @@ SQL;
                 'exerciseId' => $exerciseId
             ]);
 
-        $result = $qb->getQuery()->getSingleResult();
-
-        return null === $result
-            ? null
-            : LiftedWeightMapper::toDomain($result);
+        try {
+            return $qb->getQuery()->getSingleResult();
+        } catch (\Throwable $e) {
+            return null;
+        }
     }
 }
