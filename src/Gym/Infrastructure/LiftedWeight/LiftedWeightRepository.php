@@ -97,7 +97,7 @@ SQL;
             ->where('lw.stationId = :stationId')
             ->andWhere('lw.exerciseId = :exerciseId')
             ->addOrderBy('lw.createdAt', 'DESC')
-            ->addOrderBy('lw.repetitionCount', 'DESC')
+            ->addOrderBy('lw.kilogramCount', 'DESC')
             ->setMaxResults(1)
             ->setParameters([
                 'stationId' => $stationId,
@@ -105,7 +105,9 @@ SQL;
             ]);
 
         try {
-            return $qb->getQuery()->getSingleResult();
+            return LiftedWeightMapper::toDomain(
+                $qb->getQuery()->getSingleResult()
+            );
         } catch (\Throwable $e) {
             return null;
         }
