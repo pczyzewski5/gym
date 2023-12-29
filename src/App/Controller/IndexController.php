@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\CommandBus\CommandBus;
 use App\QueryBus\QueryBus;
+use Gym\Domain\Query\GetMetricsHelper;
 use nadar\quill\Lexer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +24,13 @@ class IndexController extends BaseController
 
     public function index(): Response
     {
-        return $this->renderForm('index/index.html.twig');
+        $metricsHelper = $this->queryBus->handle(
+            new GetMetricsHelper()
+        );
+
+        return $this->renderForm('index/index.html.twig', [
+            'metricsHelper' => $metricsHelper,
+        ]);
     }
 
     public function quill(Request $request): Response

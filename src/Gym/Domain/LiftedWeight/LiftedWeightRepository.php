@@ -28,4 +28,6 @@ interface LiftedWeightRepository
     public function getLiftedKilogramsCount(string $trainingId): int;
 
     public function findLastLiftedWeight(string $stationId, string $exerciseId): ?DomainEntity;
+
+    public function getTotalLiftedWeightPerTraining(): array;
 }

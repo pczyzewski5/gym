@@ -112,4 +112,19 @@ SQL;
             return null;
         }
     }
+
+    public function getTotalLiftedWeightPerTraining(): array
+    {
+        $sql = <<<SQL
+SELECT t.training_date as training_date, SUM(lw.repetition_count * lw.kilogram_count) as kilograms_total FROM trainings t
+    LEFT JOIN lifted_weights lw ON lw.training_id = t.id                                                                                                                 
+WHERE t.status = 'done'
+GROUP BY lw.training_id
+ORDER BY t.training_date ASC
+SQL;
+
+        $stmt = $this->entityManager->getConnection()->executeQuery($sql);
+
+        return $stmt->fetchAllAssociative();
+    }
 }
