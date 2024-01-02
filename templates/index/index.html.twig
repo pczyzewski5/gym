@@ -6,6 +6,8 @@
         </div>
     </div>
 
+    {#    {{ metricsHelper.getTotalLiftedWeightPerTraining()|raw }}#}
+
     <script>
         const ctx = document.getElementById('myChart');
 
@@ -19,15 +21,15 @@
             ]
         };
 
-        function average(ctx) {
-            return Math.random() * 100
-        }
-
         const config = {
             type: 'line',
             data: data,
             options: {
                 responsive: true,
+                parsing: {
+                    xAxisKey: 'training_date',
+                    yAxisKey: 'kilograms_total'
+                },
                 plugins: {
                     legend: {
                         display: false,
@@ -42,7 +44,14 @@
                         align: 'top',
                         formatter: function(value, context) {
                             let $data = $.map(context.dataset.data, function(val) {return val;});
-                            return parseInt($data[context.dataIndex]);
+
+                            return parseInt($data[context.dataIndex]['kilograms_total']);
+                        },
+                        listeners: {
+                            click: function(context, event) {
+                                let $trainingId = context['dataset']['data'][context.dataIndex]['training_id'];
+                                window.location.href = '/training/' + $trainingId + '/read';
+                            }
                         }
                     },
                     annotation: {
@@ -58,12 +67,12 @@
                                     fontColor: 'rgb(54, 162, 235)',
                                     color: 'rgb(54, 162, 235)',
                                     backgroundColor: "#FFFFFF",
-                                },
+                                }
                             }
                         }
                     }
                 }
-            },
+            }
         };
 
         Chart.register(ChartDataLabels);

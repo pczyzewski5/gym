@@ -116,7 +116,7 @@ SQL;
     public function getTotalLiftedWeightPerTraining(): array
     {
         $sql = <<<SQL
-SELECT t.training_date as training_date, SUM(lw.repetition_count * lw.kilogram_count) as kilograms_total FROM trainings t
+SELECT t.id as id, t.training_date as training_date, SUM(lw.repetition_count * lw.kilogram_count) as kilograms_total FROM trainings t
     LEFT JOIN lifted_weights lw ON lw.training_id = t.id                                                                                                                 
 WHERE t.status = 'done'
 GROUP BY lw.training_id

@@ -29,8 +29,8 @@ class MetricsHelper
     {
         $liftedWeight = 0;
 
-        foreach (\json_decode($this->getTotalLiftedWeightPerTraining()) as $kilograms) {
-            $liftedWeight += \intval($kilograms);
+        foreach (\json_decode($this->getTotalLiftedWeightPerTraining(), true) as $data) {
+            $liftedWeight += \intval($data['kilograms_total']);
         }
 
         return $liftedWeight / \count($this->totalLiftedWeightPerTraining);
@@ -46,7 +46,11 @@ class MetricsHelper
                 'd-m-Y'
             );
 
-            $result[$date] = $item['kilograms_total'];
+            $result[] = [
+                'training_id' => $item['id'],
+                'training_date' => $date,
+                'kilograms_total' => $item['kilograms_total'],
+            ];
         }
 
         $this->totalLiftedWeightPerTraining = $result;
