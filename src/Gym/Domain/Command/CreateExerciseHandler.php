@@ -20,6 +20,8 @@ class CreateExerciseHandler
     {
         $entity = ExerciseFactory::create(
             $command->getName(),
+            $command->getDescription(),
+            $command->getImage()
         );
 
         $this->persister->save($entity);

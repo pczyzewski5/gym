@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Command\UploadFile;
 use App\CommandBus\CommandBus;
 use App\Form\ExerciseForm;
+use App\Form\StationForm;
 use App\QueryBus\QueryBus;
 use Gym\Domain\Command\CreateExercise;
 use Gym\Domain\Command\CreateTags;
@@ -45,9 +47,15 @@ class ExerciseController extends BaseController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
+            $image = $this->commandBus->handle(
+                new UploadFile($data[StationForm::IMAGE_FIELD])
+            );
+
             $id = $this->commandBus->handle(
                 new CreateExercise(
                     $data[ExerciseForm::NAME_FIELD],
+                    $data[ExerciseForm::DESCRIPTION_FIELD],
+                    $image,
                 )
             );
 
