@@ -73,6 +73,20 @@ services:
     tags:
       - { name: tactician.handler, command: Gym\Domain\Command\DeleteTraining, bus: command }
 
+  Gym\Domain\Command\DeleteExerciseHandler:
+    class: Gym\Domain\Command\DeleteExerciseHandler
+    arguments:
+      - '@Gym\Domain\Exercise\ExercisePersister'
+    tags:
+      - { name: tactician.handler, command: Gym\Domain\Command\DeleteExercise, bus: command }
+
+  Gym\Domain\Command\DeleteImageHandler:
+    class: Gym\Domain\Command\DeleteImageHandler
+    arguments:
+      - '%photos_directory%'
+    tags:
+      - { name: tactician.handler, command: Gym\Domain\Command\DeleteImage, bus: command }
+
   Gym\Domain\Command\DeleteTagsHandler:
     class: Gym\Domain\Command\DeleteTagsHandler
     arguments:

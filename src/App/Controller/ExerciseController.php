@@ -11,7 +11,11 @@ use App\Form\StationForm;
 use App\QueryBus\QueryBus;
 use Gym\Domain\Command\CreateExercise;
 use Gym\Domain\Command\CreateTags;
+use Gym\Domain\Command\DeleteExercise;
+use Gym\Domain\Command\DeleteImage;
+use Gym\Domain\Command\DeleteTags;
 use Gym\Domain\Enum\TagOwnerEnum;
+use Gym\Domain\Query\GetExercise;
 use Gym\Domain\Query\GetExerciseForRead;
 use Gym\Domain\Query\GetExercises;
 use Symfony\Component\HttpFoundation\Request;
@@ -93,6 +97,27 @@ class ExerciseController extends BaseController
 
     public function delete(Request $request): Response
     {
+        $exercise = $this->queryBus->handle(
+            new GetExercise($request->get('id'))
+        );
 
+        $this->commandBus->handle(
+            new DeleteTags(
+                $exercise->getId(),
+                TagOwnerEnum::EXERCISE()
+            )
+        );
+        $this->commandBus->handle(
+            new DeleteImage(
+                $exercise->getImage()
+            )
+        );
+        $this->commandBus->handle(
+            new DeleteExercise(
+                $exercise->getId()
+            )
+        );
+
+        return $this->redirectToRoute('exercise_list');
     }
 }

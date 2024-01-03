@@ -15,6 +15,14 @@
         .column .content {
             flex-grow: 1;
         }
+        .modal .button-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-around;
+        }
+        .modal .button-container .button {
+            width: 200px;
+        }
     </style>
 
     <div class="columns">
@@ -36,8 +44,23 @@
             </div>
             <div class="buttons">
                 <a class="button is-warning is-fullwidth" href="{{ path('exercise_update', {'id': exercise['id']}) }}">Edytuj</a>
-                <a class="button is-danger is-fullwidth" href="{{ path('exercise_delete', {'id': exercise['id']}) }}">Usuń</a>
+                <a class="button is-danger is-fullwidth modal-launch-button" data-href="{{ path('exercise_delete', {'id': exercise['id']}) }}">Usuń</a>
             </div>
         </div>
     </div>
+
+    <div class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <section class="modal-card-body">
+                Czy na pewno chcesz usunąć te ćwiczenie?
+                <div class="button-container">
+                    <span class="button modal-no-button">nie</span>
+                    <span class="button is-danger modal-yes-button">tak</span>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="{{ asset('js/modal_helper.js') }}"></script>
 {% endblock %}
