@@ -105,7 +105,7 @@ exercise_create:
     methods: [ GET, POST ]
 
 exercise_read:
-    path: /exercise/{id}/read
+    path: /exercise/{id}
     controller: App\Controller\ExerciseController::read
     methods: [ GET ]
 

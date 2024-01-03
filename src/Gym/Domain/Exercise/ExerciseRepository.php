@@ -16,6 +16,8 @@ interface ExerciseRepository
      */
     public function getOneById(string $id): DomainEntity;
 
+    public function getOneByIdForRead(string $id): array;
+
     /**
      * @return Exercise[]
      */

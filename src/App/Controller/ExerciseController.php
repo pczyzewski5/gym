@@ -6,12 +6,11 @@ namespace App\Controller;
 
 use App\CommandBus\CommandBus;
 use App\Form\ExerciseForm;
-use App\Form\StationForm;
 use App\QueryBus\QueryBus;
 use Gym\Domain\Command\CreateExercise;
 use Gym\Domain\Command\CreateTags;
-use Gym\Domain\Enum\StatusEnum;
 use Gym\Domain\Enum\TagOwnerEnum;
+use Gym\Domain\Query\GetExerciseForRead;
 use Gym\Domain\Query\GetExercises;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -70,10 +69,15 @@ class ExerciseController extends BaseController
 
     public function read(Request $request): Response
     {
-        return $this->renderForm('training/read.html.twig', [
-            'id' => $request->get('id')
+        $exercise = $this->queryBus->handle(
+            new GetExerciseForRead($request->get('id'))
+        );
+
+        return $this->renderForm('exercise/read.html.twig', [
+            'exercise' => $exercise
         ]);
     }
+
     public function update(Request $request): Response
     {
 

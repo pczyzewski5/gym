@@ -36,6 +36,22 @@ class ExerciseRepository implements DomainRepository
         return ExerciseMapper::toDomain($entity);
     }
 
+    public function getOneByIdForRead(string $id): array
+    {
+        $sql = <<<SQL
+SELECT e.*, t.tag as tag FROM exercises e
+    LEFT JOIN tags t ON e.id = t.owner_id AND t.owner = :owner
+WHERE e.id = :id
+SQL;
+        $stmt = $this->entityManager->getConnection()->executeQuery(
+            $sql,
+            ['id' => $id, 'owner' => TagOwnerEnum::EXERCISE],
+            ['id' => Types::STRING, 'owner' => Types::STRING]
+        );
+
+        return $stmt->fetchAssociative();
+    }
+
     /**
      * @return DomainEntity[]
      */

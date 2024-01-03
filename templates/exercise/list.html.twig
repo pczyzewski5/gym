@@ -16,7 +16,7 @@
             </thead>
             <tbody>
             {% for key, exercise in exercises %}
-                <tr class="table-item">
+                <tr class="table-item" href="{{ path('exercise_read', {'id': exercise['id']}) }}">
                     <td>{{ key + 1 }}</td>
                     <td>
                         {% for tag in exercise['tags'] %}
