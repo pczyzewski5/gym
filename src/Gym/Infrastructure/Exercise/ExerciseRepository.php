@@ -65,7 +65,7 @@ SQL;
     public function findAllForList(): array
     {
         $sql = <<<SQL
-SELECT e.id as id, e.name as name, GROUP_CONCAT(t.tag) as tags FROM exercises e
+SELECT e.id as id, e.name as name, t.tag as tag FROM exercises e
     LEFT JOIN tags t ON e.id = t.owner_id AND t.owner = :owner
 GROUP BY e.id
 ORDER BY t.tag ASC
@@ -76,14 +76,7 @@ SQL;
             ['owner' => Types::STRING]
         );
 
-        return \array_map(
-            fn (array $item) => [
-                'id' => $item['id'],
-                'name' => $item['name'],
-                'tags' => \explode(',', $item['tags']),
-            ],
-            $stmt->fetchAllAssociative()
-        );
+        return $stmt->fetchAllAssociative();
     }
 
     public function findAllByStationAndTag(Station $station, MuscleTagEnum $tagEnum): array

@@ -19,9 +19,7 @@
                 <tr class="table-item" href="{{ path('exercise_read', {'id': exercise['id']}) }}">
                     <td>{{ key + 1 }}</td>
                     <td>
-                        {% for tag in exercise['tags'] %}
-                            <span class="button is-small is-rounded is-outlined">{{ tag }}</span>
-                        {% endfor %}
+                        <span class="button is-small is-rounded is-outlined">{{ exercise['tag'] }}</span>
                     </td>
                     <td>{{ exercise['name'] }}</td>
                 </tr>

@@ -87,13 +87,13 @@ class StationForm extends AbstractType
 
     private function getExercises(): array
     {
-        $exercises = $this->exerciseRepository->findAll();
+        $exercises = $this->exerciseRepository->findAllForList();
 
         $result = [];
 
         /** @var Exercise $exercise */
         foreach ($exercises as $exercise) {
-            $result[$exercise->getName()] = $exercise->getId();
+            $result[$exercise['tag']][] = [$exercise['name'] => $exercise['id']];
         }
 
         return $result;
