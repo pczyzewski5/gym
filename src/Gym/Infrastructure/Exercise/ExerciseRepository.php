@@ -68,6 +68,7 @@ SQL;
 SELECT e.id as id, e.name as name, GROUP_CONCAT(t.tag) as tags FROM exercises e
     LEFT JOIN tags t ON e.id = t.owner_id AND t.owner = :owner
 GROUP BY e.id
+ORDER BY t.tag ASC
 SQL;
         $stmt = $this->entityManager->getConnection()->executeQuery(
             $sql,
