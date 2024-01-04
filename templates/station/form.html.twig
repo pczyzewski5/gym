@@ -4,7 +4,9 @@
     <div class="control">
         {{ form_widget(form.name) }}
     </div>
-    <p class="help is-danger">{{ form_errors(form.name) }}</p>
+    {% for error in form.name.vars.errors %}
+        <p class="help is-danger">{{ error.getMessage() }}</p>
+    {% endfor %}
 </div>
 
 <div class="field">
@@ -12,15 +14,17 @@
     <div class="control">
         {{ form_widget(form.exercises) }}
     </div>
-    <p class="help is-danger">{{ form_errors(form.exercises) }}</p>
+    {% for error in form.exercises.vars.errors %}
+        <p class="help is-danger">{{ error.getMessage() }}</p>
+    {% endfor %}
 </div>
 
-<div class="field">
-    <label class="label">{{ form_label(form.image) }}</label>
+<div class="field" style="flex-grow: 1;">
+    <label class="label">{{ form_label(form.image_upload) }}</label>
     <div class="control">
         <div class="file">
             <label class="file-label">
-                {{ form_widget(form.image) }}
+                {{ form_widget(form.image_upload) }}
                 <span class="file-cta">
                     <span class="file-icon">
                         <i class="fas fa-upload"></i>
@@ -32,10 +36,12 @@
             </label>
         </div>
     </div>
-    <p class="help is-danger">{{ form_errors(form.image) }}</p>
+    {% for error in form.image_upload.vars.errors %}
+        <p class="help is-danger">{{ error.getMessage() }}</p>
+    {% endfor %}
 </div>
 
-<div class="field">
+<div class="field" style="margin-bottom: 0;">
     <div class="control">
         {{ form_widget(form.zapisz) }}
     </div>

@@ -50,7 +50,7 @@ class StationController extends BaseController
             $data = $form->getData();
 
             $photo = $this->commandBus->handle(
-                new UploadFile($data[StationForm::IMAGE_FIELD])
+                new UploadFile($data[StationForm::IMAGE_UPLOAD_FIELD])
             );
 
             $stationId = $this->commandBus->handle(
@@ -67,7 +67,7 @@ class StationController extends BaseController
                 )
             );
 
-            return $this->redirectToRoute('station_list');
+            return $this->redirectToRoute('station_read', ['id' => $stationId]);
         }
 
         return $this->renderForm('station/create.html.twig', [
@@ -96,19 +96,20 @@ class StationController extends BaseController
         $form = $this->createForm(StationForm::class, [
             StationForm::NAME_FIELD => $station['name'],
             StationForm::EXERCISES_FIELD => $station['exercise_ids'],
+            StationForm::IMAGE_FIELD => $station['image'],
         ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
-            $image = $data[StationForm::IMAGE_FIELD];
-            if (null !== $image) {
+            $image = $station['image'];
+            if (null !== $data[StationForm::IMAGE_UPLOAD_FIELD]) {
                 $this->commandBus->handle(
-                    new DeleteImage($station['image'])
+                    new DeleteImage($image)
                 );
                 $image = $this->commandBus->handle(
-                    new UploadFile($image)
+                    new UploadFile($data[StationForm::IMAGE_UPLOAD_FIELD])
                 );
             }
 
@@ -127,11 +128,12 @@ class StationController extends BaseController
                 )
             );
 
-            return $this->redirectToRoute('station_list');
+            return $this->redirectToRoute('station_read', ['id' => $stationId]);
         }
 
         return $this->renderForm('station/create.html.twig', [
-            'form' => $form
+            'form' => $form,
+            'image' => $station['image']
         ]);
     }
 

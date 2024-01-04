@@ -8,12 +8,12 @@ class UpdateStation
 {
     private string $id;
     private string $name;
-    private ?string $image;
+    private string $image;
 
     public function __construct(
         string $id,
         string $name,
-        ?string $image = null,
+        string $image,
     ) {
         $this->id = $id;
         $this->name = $name;
@@ -30,7 +30,7 @@ class UpdateStation
         return $this->name;
     }
 
-    public function getImage(): ?string
+    public function getImage(): string
     {
         return $this->image;
     }
