@@ -37,16 +37,15 @@ class ExerciseToStationPersister implements DomainPersister
     /**
      * @throws PersisterException
      */
-    public function delete(string $id): void
+    public function deleteManyByStationId(string $stationId): void
     {
-        try {
-            $this->entityManager->getConnection()->executeQuery(
-                'DELETE FROM exercises_to_stations WHERE id = ?',
-                [$id],
-                [Types::STRING]
-            );
-        } catch (\Throwable $exception) {
-            throw PersisterException::fromThrowable($exception);
-        }
+        $sql = <<<SQL
+DELETE FROM exercises_to_stations WHERE station_id = :stationId
+SQL;
+        $this->entityManager->getConnection()->executeQuery(
+            $sql,
+            ['stationId' => $stationId],
+            ['stationId' => Types::STRING]
+        );
     }
 }

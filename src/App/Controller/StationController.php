@@ -10,6 +10,9 @@ use App\Form\StationForm;
 use App\QueryBus\QueryBus;
 use Gym\Domain\Command\CreateExerciseToStation;
 use Gym\Domain\Command\CreateStation;
+use Gym\Domain\Command\DeleteExerciseToStation;
+use Gym\Domain\Command\DeleteImage;
+use Gym\Domain\Command\DeleteStation;
 use Gym\Domain\Query\GetStation;
 use Gym\Domain\Query\GetStations;
 use Symfony\Component\HttpFoundation\Request;
@@ -92,6 +95,20 @@ class StationController extends BaseController
 
     public function delete(Request $request): Response
     {
+        $station = $this->queryBus->handle(
+            new GetStation($request->get('id'))
+        );
 
+        $this->commandBus->handle(
+            new DeleteImage($station['image'])
+        );
+        $this->commandBus->handle(
+            new DeleteStation($station['id'])
+        );
+        $this->commandBus->handle(
+            new DeleteExerciseToStation($station['id'])
+        );
+
+        return $this->redirectToRoute('station_list');
     }
 }
