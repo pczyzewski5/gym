@@ -44,28 +44,11 @@
                             <span class="button is-small is-rounded is-outlined">{{ tag }}</span>
                         {% endfor %}
                     </td>
-                    <td>
-                        <span data-href="{{ path('training_delete', {'id': training['id']}) }}" class="button is-small is-danger modal-launch-button">usuń</span>
-                    </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
 
-    <div class="modal">
-        <div class="modal-background"></div>
-        <div class="modal-card">
-            <section class="modal-card-body">
-                Czy na pewno chcesz usunąć ten trening?
-                <div class="button-container">
-                    <span class="button modal-no-button">nie</span>
-                    <span class="button is-danger modal-yes-button">tak</span>
-                </div>
-            </section>
-        </div>
-    </div>
-
-    <script src="{{ asset('js/modal_helper.js') }}"></script>
     <script src="{{ asset('js/list_helper.js') }}"></script>
 {% endblock %}

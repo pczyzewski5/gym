@@ -4,7 +4,7 @@ class ModalHelper {
     }
 
     execute() {
-        var $modal = $('.modal');
+        var $modal = $('.modal:not(.img-modal)');
         var $modalLaunchButton = $('.modal-launch-button');
         var $modalBackground = $('.modal-background');
         var $modalNoButton = $('.modal-no-button');

@@ -4,18 +4,18 @@ class ImgModalHelper {
     }
 
     execute() {
-        var $modalLaunchButton = $('.modal-launch-button');
+        var $modalLaunchButton = $('.img-modal-launch-button');
         var $modalBackground = $('.modal-background');
         var $modalImage = $('.modal-image');
 
         $modalLaunchButton.on('click', function(e) {
-            $(e.target).children('.modal').addClass('is-active');
+            $(e.target).children('.modal.img-modal').addClass('is-active');
         });
         $modalBackground.on('click', function(e) {
-            $(e.target).parent('.modal').removeClass('is-active');
+            $(e.target).parent('.modal.img-modal').removeClass('is-active');
         });
         $modalImage.on('click', function(e) {
-            $(e.target).parents('.modal').removeClass('is-active');
+            $(e.target).parents('.modal.img-modal').removeClass('is-active');
         });
     }
 }

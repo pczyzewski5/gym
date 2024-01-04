@@ -59,7 +59,7 @@
         .exercise:last-child {
             margin-bottom: 0;
         }
-        .modal-launch-button {
+        .img-modal-launch-button {
             cursor: pointer;
         }
     </style>
@@ -87,7 +87,7 @@
                             <span class="icon">
                                 <i class="fas fa-arrow-right"></i>
                             </span>
-                            <span class="modal-launch-button">
+                            <span class="img-modal-launch-button">
                                 {{ station.getName() }}
                                 {% include 'training_in_progress/station_image_modal.html.twig' with {'station': station} only %}
                             </span>
@@ -107,8 +107,23 @@
                 {% endfor %}
             </div>
         {% endfor %}
+        <button data-href="{{ path('training_delete', {'id': trainingId}) }}" class="button is-small is-danger modal-launch-button is-fullwidth">usuń</button>
+    </div>
+
+    <div class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <section class="modal-card-body">
+                Czy na pewno chcesz usunąć ten trening?
+                <div class="button-container">
+                    <span class="button modal-no-button">nie</span>
+                    <span class="button is-danger modal-yes-button">tak</span>
+                </div>
+            </section>
+        </div>
     </div>
 
     <script src="{{ asset('js/training_status_helper.js') }}"></script>
     <script src="{{ asset('js/img_modal_helper.js') }}"></script>
+    <script src="{{ asset('js/modal_helper.js') }}"></script>
 {% endblock %}
