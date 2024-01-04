@@ -107,15 +107,12 @@ class ExerciseController extends BaseController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
-            $image = $data[StationForm::IMAGE_FIELD];
-            if (null !== $image) {
-                $this->commandBus->handle(
-                    new DeleteImage($exercise['image'])
-                );
-                $image = $this->commandBus->handle(
-                    new UploadFile($image)
-                );
-            }
+            $this->commandBus->handle(
+                new DeleteImage($exercise['image'])
+            );
+            $image = $this->commandBus->handle(
+                new UploadFile($data[StationForm::IMAGE_FIELD])
+            );
 
             $id = $this->commandBus->handle(
                 new UpdateExercise(

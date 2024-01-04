@@ -36,7 +36,31 @@ class ExercisePersister implements DomainPersister
 
     public function update(DomainEntity $domainEntity): void
     {
+        try {
+            $sql = 'UPDATE exercises
+                  SET name = :name,
+                      description = :description,
+                      image = :image
+                  WHERE id = :id';
 
+            $this->entityManager->getConnection()->executeQuery(
+                $sql,
+                [
+                    'id' => $domainEntity->getId(),
+                    'name' => $domainEntity->getName(),
+                    'description' => $domainEntity->getDescription(),
+                    'image' => $domainEntity->getImage(),
+                ],
+                [
+                    'id' => Types::STRING,
+                    'name' => Types::STRING,
+                    'description' => Types::STRING,
+                    'image' => Types::STRING,
+                ]
+            );
+        } catch (\Throwable $exception) {
+            throw PersisterException::fromThrowable($exception);
+        }
     }
 
     /**

@@ -69,7 +69,7 @@ class ExerciseForm extends AbstractType
             FileType::class,
             [
                 'label' => 'Zdjęcie',
-                'required' => false,
+                'required' => true,
                 'constraints' => [
                     new File([
                         'maxSize' => '10240k',
