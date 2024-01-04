@@ -33,7 +33,9 @@ class MetricsHelper
             $liftedWeight += \intval($data['kilograms_total']);
         }
 
-        return $liftedWeight / \count($this->totalLiftedWeightPerTraining);
+        return \intval(
+            $liftedWeight / \count($this->totalLiftedWeightPerTraining)
+        );
     }
 
     public function setTotalLiftedWeightPerTraining(): void

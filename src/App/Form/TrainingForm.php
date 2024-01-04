@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace App\Form;
 
 use App\Form\ModelTransformer\TagModelTransformer;
-use App\Form\ModelTransformer\TagViewTransformer;
 use Gym\Domain\Enum\MuscleTagEnum;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -44,7 +42,7 @@ class TrainingForm extends AbstractType
         );
 
         $builder->add(
-            'tags_placeholder',
+            self::TAGS_FIELD,
             ChoiceType::class,
             [
                 'label' => 'Partie mięśniowe',
@@ -57,16 +55,8 @@ class TrainingForm extends AbstractType
                     'data-remove-free-input' => 'true',
                     'data-selectable' => 'false',
                     'data-close-dropdown-on-item-select' => 'false',
-                    'data-allow-duplicates' => 'true'
+                    'data-allow-duplicates' => 'false'
                 ],
-            ]
-        );
-
-        $builder->add(
-            self::TAGS_FIELD,
-            HiddenType::class,
-            [
-                'attr' => ['class' => 'input is-fullwidth']
             ]
         );
         $builder->get(self::TAGS_FIELD)->addModelTransformer(new TagModelTransformer());

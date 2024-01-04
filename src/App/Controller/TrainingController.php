@@ -8,10 +8,10 @@ use App\CommandBus\CommandBus;
 use App\Form\TrainingForm;
 use App\QueryBus\QueryBus;
 use Gym\Domain\Command\ChangeTrainingStatus;
-use Gym\Domain\Command\CreateTags;
 use Gym\Domain\Command\CreateTraining;
 use Gym\Domain\Command\DeleteTags;
 use Gym\Domain\Command\DeleteTraining;
+use Gym\Domain\Command\PutTags;
 use Gym\Domain\Enum\StatusEnum;
 use Gym\Domain\Enum\TagOwnerEnum;
 use Gym\Domain\Query\GetLiftedKilogramsCount;
@@ -61,7 +61,7 @@ class TrainingController extends BaseController
             );
 
             $this->commandBus->handle(
-                new CreateTags(
+                new PutTags(
                     $trainingId,
                     TagOwnerEnum::TRAINING(),
                     $data[TrainingForm::TAGS_FIELD]
