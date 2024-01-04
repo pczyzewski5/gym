@@ -33,7 +33,7 @@ services:
         arguments:
             - '@User\Domain\User\UserRepository'
 
-    App\Form\ModelTransformer\ExerciseIdDataTransformer:
+    App\Form\DataTransformer\ExerciseIdDataTransformer:
         class: App\Form\DataTransformer\ExerciseIdDataTransformer
         arguments:
             - '@Gym\Domain\Exercise\ExerciseRepository'
