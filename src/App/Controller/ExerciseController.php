@@ -10,10 +10,11 @@ use App\Form\ExerciseForm;
 use App\Form\StationForm;
 use App\QueryBus\QueryBus;
 use Gym\Domain\Command\CreateExercise;
-use Gym\Domain\Command\CreateTags;
 use Gym\Domain\Command\DeleteExercise;
 use Gym\Domain\Command\DeleteImage;
 use Gym\Domain\Command\DeleteTags;
+use Gym\Domain\Command\PutTags;
+use Gym\Domain\Command\UpdateExercise;
 use Gym\Domain\Enum\TagOwnerEnum;
 use Gym\Domain\Query\GetExercise;
 use Gym\Domain\Query\GetExerciseForRead;
@@ -64,10 +65,10 @@ class ExerciseController extends BaseController
             );
 
             $this->commandBus->handle(
-                new CreateTags(
+                new PutTags(
                     $id,
                     TagOwnerEnum::EXERCISE(),
-                    $data[ExerciseForm::TAG_FIELD]
+                    $data[ExerciseForm::TAGS_FIELD]
                 )
             );
 
@@ -92,7 +93,53 @@ class ExerciseController extends BaseController
 
     public function update(Request $request): Response
     {
+        $exercise = $this->queryBus->handle(
+            new GetExerciseForRead($request->get('id'))
+        );
 
+        $form = $this->createForm(ExerciseForm::class, [
+            ExerciseForm::NAME_FIELD => $exercise['name'],
+            ExerciseForm::TAGS_FIELD => $exercise['tag'],
+            ExerciseForm::DESCRIPTION_FIELD => $exercise['description'],
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+
+            $image = $data[StationForm::IMAGE_FIELD];
+            if (null !== $image) {
+                $this->commandBus->handle(
+                    new DeleteImage($exercise['image'])
+                );
+                $image = $this->commandBus->handle(
+                    new UploadFile($image)
+                );
+            }
+
+            $id = $this->commandBus->handle(
+                new UpdateExercise(
+                    $request->get('id'),
+                    $data[ExerciseForm::NAME_FIELD],
+                    $data[ExerciseForm::DESCRIPTION_FIELD],
+                    $image,
+                )
+            );
+
+            $this->commandBus->handle(
+                new PutTags(
+                    $id,
+                    TagOwnerEnum::EXERCISE(),
+                    $data[ExerciseForm::TAGS_FIELD]
+                )
+            );
+
+            return $this->redirectToRoute('exercise_list');
+        }
+
+        return $this->renderForm('exercise/create.html.twig', [
+            'form' => $form
+        ]);
     }
 
     public function delete(Request $request): Response

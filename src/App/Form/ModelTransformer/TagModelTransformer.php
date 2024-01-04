@@ -9,21 +9,9 @@ use Symfony\Component\Form\DataTransformerInterface;
 
 class TagModelTransformer implements DataTransformerInterface
 {
-    public function transform(mixed $value): ?array
+    public function transform(mixed $value)
     {
-        if (null === $value) {
-            return $value;
-        } else {
-            \var_dump($value);exit;
-        }
-        \var_dump($value);exit;
-        $result = [];
-
-        foreach ($value::toArray() as $data) {
-            $result[$data] = $data;
-        }
-
-        return $result;
+        return $value;
     }
 
     public function reverseTransform(mixed $value): MuscleTagEnum|array

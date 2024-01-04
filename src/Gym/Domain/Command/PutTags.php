@@ -7,7 +7,7 @@ namespace Gym\Domain\Command;
 use Gym\Domain\Enum\MuscleTagEnum;
 use Gym\Domain\Enum\TagOwnerEnum;
 
-class CreateTags
+class PutTags
 {
     private string $ownerId;
     private TagOwnerEnum $owner;

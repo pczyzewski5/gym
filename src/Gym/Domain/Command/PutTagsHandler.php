@@ -8,7 +8,7 @@ use Gym\Domain\Enum\MuscleTagEnum;
 use Gym\Domain\Tag\TagFactory;
 use Gym\Domain\Tag\TagPersister;
 
-class CreateTagsHandler
+class PutTagsHandler
 {
     private TagPersister $persister;
 
@@ -17,8 +17,13 @@ class CreateTagsHandler
         $this->persister = $persister;
     }
 
-    public function handle(CreateTags $command): void
+    public function handle(PutTags $command): void
     {
+        $this->persister->deleteMany(
+            $command->getOwnerId(),
+            $command->getOwner()
+        );
+
         /** @var MuscleTagEnum $tag */
         foreach ($command->getTags() as $tag) {
             $entity = TagFactory::create(

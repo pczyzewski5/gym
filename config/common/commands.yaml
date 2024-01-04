@@ -59,12 +59,12 @@ services:
     tags:
       - { name: tactician.handler, command: Gym\Domain\Command\CreateStation, bus: command }
 
-  Gym\Domain\Command\CreateTagsHandler:
-    class: Gym\Domain\Command\CreateTagsHandler
+  Gym\Domain\Command\PutTagsHandler:
+    class: Gym\Domain\Command\PutTagsHandler
     arguments:
       - '@Gym\Domain\Tag\TagPersister'
     tags:
-      - { name: tactician.handler, command: Gym\Domain\Command\CreateTags, bus: command }
+      - { name: tactician.handler, command: Gym\Domain\Command\PutTags, bus: command }
 
   Gym\Domain\Command\DeleteTrainingHandler:
     class: Gym\Domain\Command\DeleteTrainingHandler
@@ -72,6 +72,14 @@ services:
       - '@Gym\Domain\Training\TrainingPersister'
     tags:
       - { name: tactician.handler, command: Gym\Domain\Command\DeleteTraining, bus: command }
+
+  Gym\Domain\Command\UpdateExerciseHandler:
+    class: Gym\Domain\Command\UpdateExerciseHandler
+    arguments:
+      - '@Gym\Domain\Exercise\ExerciseRepository'
+      - '@Gym\Domain\Exercise\ExercisePersister'
+    tags:
+      - { name: tactician.handler, command: Gym\Domain\Command\UpdateExercise, bus: command }
 
   Gym\Domain\Command\DeleteExerciseHandler:
     class: Gym\Domain\Command\DeleteExerciseHandler

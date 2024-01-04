@@ -19,7 +19,7 @@ class ExerciseForm extends AbstractType
 {
     public const NAME_FIELD = 'name';
     public const DESCRIPTION_FIELD = 'description';
-    public const TAG_FIELD = 'tag';
+    public const TAGS_FIELD = 'tags';
     public const IMAGE_FIELD = 'image';
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -45,24 +45,31 @@ class ExerciseForm extends AbstractType
         );
 
         $builder->add(
-            self::TAG_FIELD,
+            self::TAGS_FIELD,
             ChoiceType::class,
             [
-                'label' => 'Partia mięśni',
-                'choices' => MuscleTagEnum::toArray(),
-                'block_prefix' => 'select_type',
+                'label' => 'Partia mięśniowa',
+                'choices' => \array_combine(MuscleTagEnum::toArray(), MuscleTagEnum::toArray()),
+                'multiple' => false,
+                'required' => false,
+                'attr' => [
+                    'data-type' => 'tags',
+                    'data-free-input' => 'false',
+                    'data-remove-free-input' => 'true',
+                    'data-selectable' => 'false',
+                    'data-close-dropdown-on-item-select' => 'false',
+                    'data-allow-duplicates' => 'false'
+                ],
             ]
         );
-        $builder->get(self::TAG_FIELD)->addModelTransformer(
-            new TagModelTransformer()
-        );
+        $builder->get(self::TAGS_FIELD)->addModelTransformer(new TagModelTransformer());
 
         $builder->add(
             self::IMAGE_FIELD,
             FileType::class,
             [
                 'label' => 'Zdjęcie',
-                'required' => true,
+                'required' => false,
                 'constraints' => [
                     new File([
                         'maxSize' => '10240k',
