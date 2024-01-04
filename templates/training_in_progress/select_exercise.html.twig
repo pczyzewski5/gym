@@ -87,8 +87,9 @@
                             <span class="icon">
                                 <i class="fas fa-arrow-right"></i>
                             </span>
-                            <span class="img-modal-launch-button">
-                                {{ station.getName() }}
+                            {{ station.getName() }}
+                            <span class="icon">
+                                <i class="fas fa-regular fa-image img-modal-launch-button"></i>
                                 {% include 'training_in_progress/station_image_modal.html.twig' with {'station': station} only %}
                             </span>
                         </div>

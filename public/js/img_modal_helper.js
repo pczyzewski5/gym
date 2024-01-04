@@ -9,7 +9,7 @@ class ImgModalHelper {
         var $modalImage = $('.modal-image');
 
         $modalLaunchButton.on('click', function(e) {
-            $(e.target).children('.modal.img-modal').addClass('is-active');
+            $(e.target).parent('.icon').children('.modal.img-modal').addClass('is-active');
         });
         $modalBackground.on('click', function(e) {
             $(e.target).parent('.modal.img-modal').removeClass('is-active');
