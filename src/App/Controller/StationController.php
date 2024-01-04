@@ -8,11 +8,12 @@ use App\Command\UploadFile;
 use App\CommandBus\CommandBus;
 use App\Form\StationForm;
 use App\QueryBus\QueryBus;
-use Gym\Domain\Command\CreateExerciseToStation;
+use Gym\Domain\Command\PutExercisesToStation;
 use Gym\Domain\Command\CreateStation;
 use Gym\Domain\Command\DeleteExerciseToStation;
 use Gym\Domain\Command\DeleteImage;
 use Gym\Domain\Command\DeleteStation;
+use Gym\Domain\Command\UpdateStation;
 use Gym\Domain\Query\GetStation;
 use Gym\Domain\Query\GetStations;
 use Symfony\Component\HttpFoundation\Request;
@@ -59,14 +60,12 @@ class StationController extends BaseController
                 )
             );
 
-            foreach ($data[StationForm::EXERCISES_FIELD] as $exerciseId) {
-                $this->commandBus->handle(
-                    new CreateExerciseToStation(
-                        $exerciseId,
-                        $stationId
-                    )
-                );
-            }
+            $this->commandBus->handle(
+                new PutExercisesToStation(
+                    $stationId,
+                    $data[StationForm::EXERCISES_FIELD]
+                )
+            );
 
             return $this->redirectToRoute('station_list');
         }
@@ -90,7 +89,50 @@ class StationController extends BaseController
 
     public function update(Request $request): Response
     {
+        $station = $this->queryBus->handle(
+            new GetStation($request->get('id'))
+        );
 
+        $form = $this->createForm(StationForm::class, [
+            StationForm::NAME_FIELD => $station['name'],
+            StationForm::EXERCISES_FIELD => $station['exercise_ids'],
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+
+            $image = $data[StationForm::IMAGE_FIELD];
+            if (null !== $image) {
+                $this->commandBus->handle(
+                    new DeleteImage($station['image'])
+                );
+                $image = $this->commandBus->handle(
+                    new UploadFile($image)
+                );
+            }
+
+            $stationId = $this->commandBus->handle(
+                new UpdateStation(
+                    $request->get('id'),
+                    $data[StationForm::NAME_FIELD],
+                    $image,
+                )
+            );
+
+            $this->commandBus->handle(
+                new PutExercisesToStation(
+                    $stationId,
+                    $data[StationForm::EXERCISES_FIELD]
+                )
+            );
+
+            return $this->redirectToRoute('station_list');
+        }
+
+        return $this->renderForm('station/create.html.twig', [
+            'form' => $form
+        ]);
     }
 
     public function delete(Request $request): Response

@@ -38,12 +38,12 @@ services:
     tags:
       - { name: tactician.handler, command: Gym\Domain\Command\CreateExercise, bus: command }
 
-  Gym\Domain\Command\CreateExerciseToStationHandler:
-    class: Gym\Domain\Command\CreateExerciseToStationHandler
+  Gym\Domain\Command\PutExercisesToStationHandler:
+    class: Gym\Domain\Command\PutExercisesToStationHandler
     arguments:
       - '@Gym\Domain\ExerciseToStation\ExerciseToStationPersister'
     tags:
-      - { name: tactician.handler, command: Gym\Domain\Command\CreateExerciseToStation, bus: command }
+      - { name: tactician.handler, command: Gym\Domain\Command\PutExercisesToStation, bus: command }
 
   Gym\Domain\Command\DeleteExerciseToStationHandler:
     class: Gym\Domain\Command\DeleteExerciseToStationHandler
@@ -51,13 +51,6 @@ services:
       - '@Gym\Domain\ExerciseToStation\ExerciseToStationPersister'
     tags:
       - { name: tactician.handler, command: Gym\Domain\Command\DeleteExerciseToStation, bus: command }
-
-  Gym\Domain\Command\CreateExerciseToTrainingHandler:
-    class: Gym\Domain\Command\CreateExerciseToTrainingHandler
-    arguments:
-      - '@Gym\Domain\ExerciseToTraining\ExerciseToTrainingPersister'
-    tags:
-      - { name: tactician.handler, command: Gym\Domain\Command\CreateExerciseToTraining, bus: command }
 
   Gym\Domain\Command\CreateStationHandler:
     class: Gym\Domain\Command\CreateStationHandler
@@ -94,6 +87,14 @@ services:
       - '@Gym\Domain\Exercise\ExercisePersister'
     tags:
       - { name: tactician.handler, command: Gym\Domain\Command\UpdateExercise, bus: command }
+
+  Gym\Domain\Command\UpdateStationHandler:
+    class: Gym\Domain\Command\UpdateStationHandler
+    arguments:
+      - '@Gym\Domain\Station\StationRepository'
+      - '@Gym\Domain\Station\StationPersister'
+    tags:
+      - { name: tactician.handler, command: Gym\Domain\Command\UpdateStation, bus: command }
 
   Gym\Domain\Command\DeleteExerciseHandler:
     class: Gym\Domain\Command\DeleteExerciseHandler

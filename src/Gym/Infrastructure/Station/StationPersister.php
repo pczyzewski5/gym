@@ -34,6 +34,32 @@ class StationPersister implements DomainPersister
         }
     }
 
+    public function update(DomainEntity $domainEntity): void
+    {
+        try {
+            $sql = 'UPDATE stations
+                  SET name = :name,
+                      image = :image
+                  WHERE id = :id';
+
+            $this->entityManager->getConnection()->executeQuery(
+                $sql,
+                [
+                    'id' => $domainEntity->getId(),
+                    'name' => $domainEntity->getName(),
+                    'image' => $domainEntity->getImage(),
+                ],
+                [
+                    'id' => Types::STRING,
+                    'name' => Types::STRING,
+                    'image' => Types::STRING,
+                ]
+            );
+        } catch (\Throwable $exception) {
+            throw PersisterException::fromThrowable($exception);
+        }
+    }
+
     /**
      * @throws PersisterException
      */

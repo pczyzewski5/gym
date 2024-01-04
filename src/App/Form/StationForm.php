@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Form;
 
-use App\Form\ModelTransformer\TagModelTransformer;
-use Gym\Domain\Enum\MuscleTagEnum;
 use Gym\Domain\Exercise\Exercise;
 use Gym\Domain\Exercise\ExerciseRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -22,10 +21,14 @@ class StationForm extends AbstractType
     public const IMAGE_FIELD = 'image';
     public const EXERCISES_FIELD = 'exercises';
 
+    private DataTransformerInterface $exerciseIdModelTransformer;
     private ExerciseRepository $exerciseRepository;
 
-    public function __construct(ExerciseRepository $exerciseRepository)
-    {
+    public function __construct(
+        DataTransformerInterface $exerciseIdDataTransformer,
+        ExerciseRepository        $exerciseRepository
+    ) {
+        $this->exerciseIdModelTransformer = $exerciseIdDataTransformer;
         $this->exerciseRepository = $exerciseRepository;
     }
 
@@ -75,6 +78,7 @@ class StationForm extends AbstractType
                 ],
             ]
         );
+        $builder->get(self::EXERCISES_FIELD)->addModelTransformer($this->exerciseIdModelTransformer);
 
         $builder->add(
             'zapisz',
@@ -93,7 +97,7 @@ class StationForm extends AbstractType
 
         /** @var Exercise $exercise */
         foreach ($exercises as $exercise) {
-            $result[$exercise['tag']][] = [$exercise['name'] => $exercise['id']];
+            $result[$exercise['name']] = $exercise['id'];
         }
 
         return $result;

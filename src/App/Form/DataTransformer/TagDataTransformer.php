@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Form\ModelTransformer;
+namespace App\Form\DataTransformer;
 
 use Gym\Domain\Enum\MuscleTagEnum;
 use Symfony\Component\Form\DataTransformerInterface;
 
-class TagModelTransformer implements DataTransformerInterface
+class TagDataTransformer implements DataTransformerInterface
 {
     public function transform(mixed $value)
     {

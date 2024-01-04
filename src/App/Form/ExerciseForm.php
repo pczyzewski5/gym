@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form;
 
-use App\Form\ModelTransformer\TagModelTransformer;
+use App\Form\DataTransformer\TagDataTransformer;
 use Gym\Domain\Enum\MuscleTagEnum;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -62,7 +62,7 @@ class ExerciseForm extends AbstractType
                 ],
             ]
         );
-        $builder->get(self::TAGS_FIELD)->addModelTransformer(new TagModelTransformer());
+        $builder->get(self::TAGS_FIELD)->addModelTransformer(new TagDataTransformer());
 
         $builder->add(
             self::IMAGE_FIELD,

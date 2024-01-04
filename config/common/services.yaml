@@ -33,6 +33,11 @@ services:
         arguments:
             - '@User\Domain\User\UserRepository'
 
+    App\Form\ModelTransformer\ExerciseIdDataTransformer:
+        class: App\Form\DataTransformer\ExerciseIdDataTransformer
+        arguments:
+            - '@Gym\Domain\Exercise\ExerciseRepository'
+
 imports:
     - { resource: 'infrastructure/services.yaml' }
     - { resource: 'repositories.yaml' }

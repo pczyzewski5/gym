@@ -33,12 +33,8 @@ class Station
             throw ValidationException::missingProperty('id');
         }
 
-        if (isset($this->name)) {
+        if (!isset($this->name)) {
             throw ValidationException::missingProperty('name');
-        }
-
-        if (isset($this->image)) {
-            throw ValidationException::missingProperty('image');
         }
     }
 

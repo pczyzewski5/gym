@@ -15,5 +15,10 @@ interface StationPersister
     /**
      * @throws PersisterException
      */
+    public function update(DomainEntity $domainEntity): void;
+
+    /**
+     * @throws PersisterException
+     */
     public function delete(string $id): void;
 }

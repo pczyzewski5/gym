@@ -2,5 +2,6 @@ services:
   App\Form\StationForm:
     class: App\Form\StationForm
     arguments:
+      - '@App\Form\ModelTransformer\ExerciseIdDataTransformer'
       - '@Gym\Domain\Exercise\ExerciseRepository'
     tags: [ 'form.type' ]
