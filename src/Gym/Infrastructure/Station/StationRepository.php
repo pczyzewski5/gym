@@ -29,6 +29,7 @@ SELECT s.id as id, s.name as name, GROUP_CONCAT(t.tag) as tags FROM stations s
     LEFT JOIN exercises_to_stations ets ON ets.station_id = s.id
     LEFT JOIN tags t ON t.owner_id = ets.exercise_id AND t.owner = :owner
 GROUP BY s.id
+ORDER BY s.name
 SQL;
         $stmt = $this->entityManager->getConnection()->executeQuery(
             $sql,
