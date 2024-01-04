@@ -50,16 +50,7 @@ SQL;
             ['owner' => Types::STRING]
         );
 
-        return \array_map(
-            fn (array $item) => [
-                'id' => $item['id'],
-                'name' => $item['name'],
-                'tags' => \array_unique(
-                    \explode(',', $item['tags'])
-                )
-            ],
-            $stmt->fetchAllAssociative()
-        );
+        return  $stmt->fetchAllAssociative();
     }
 
     public function findOneForRead(string $id): array

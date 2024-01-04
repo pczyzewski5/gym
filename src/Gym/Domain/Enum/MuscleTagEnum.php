@@ -10,6 +10,6 @@ class MuscleTagEnum extends Enum
     const TRICEPS = 'triceps';
     const BACK = 'plecy';
     const CHEST = 'klata';
-    const SHOULDERS = 'ramiona';
+    const SHOULDERS = 'barki';
     const BELLY = 'brzuch';
 }
