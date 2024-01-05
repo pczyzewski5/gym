@@ -36,9 +36,7 @@ class TrainingForm extends AbstractType
         $builder->add(
             self::REPEATED_FIELD,
             CheckboxType::class,
-            [
-                'label' => 'Powtarzaj co tydzień'
-            ],
+            ['label' => 'Powtarzaj co tydzień'],
         );
 
         $builder->add(

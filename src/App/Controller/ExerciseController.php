@@ -59,6 +59,7 @@ class ExerciseController extends BaseController
             $id = $this->commandBus->handle(
                 new CreateExercise(
                     $data[ExerciseForm::NAME_FIELD],
+                    $data[ExerciseForm::SEPARATE_LOAD_FIELD],
                     $data[ExerciseForm::DESCRIPTION_FIELD],
                     $image,
                 )
@@ -101,23 +102,29 @@ class ExerciseController extends BaseController
             ExerciseForm::NAME_FIELD => $exercise['name'],
             ExerciseForm::TAGS_FIELD => $exercise['tag'],
             ExerciseForm::DESCRIPTION_FIELD => $exercise['description'],
+            ExerciseForm::SEPARATE_LOAD_FIELD => $exercise['separate_load'],
+            ExerciseForm::IMAGE_FIELD => $exercise['image'],
         ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
-            $this->commandBus->handle(
-                new DeleteImage($exercise['image'])
-            );
-            $image = $this->commandBus->handle(
-                new UploadFile($data[StationForm::IMAGE_FIELD])
-            );
+            $image = $exercise['image'];
+            if (null !== $data[StationForm::IMAGE_UPLOAD_FIELD]) {
+                $this->commandBus->handle(
+                    new DeleteImage($exercise['image'])
+                );
+                $image = $this->commandBus->handle(
+                    new UploadFile($data[StationForm::IMAGE_UPLOAD_FIELD])
+                );
+            }
 
             $id = $this->commandBus->handle(
                 new UpdateExercise(
                     $request->get('id'),
                     $data[ExerciseForm::NAME_FIELD],
+                    $data[ExerciseForm::SEPARATE_LOAD_FIELD],
                     $data[ExerciseForm::DESCRIPTION_FIELD],
                     $image,
                 )
@@ -131,7 +138,7 @@ class ExerciseController extends BaseController
                 )
             );
 
-            return $this->redirectToRoute('exercise_list');
+            return $this->redirectToRoute('exercise_read', ['id' => $id]);
         }
 
         return $this->renderForm('exercise/create.html.twig', [

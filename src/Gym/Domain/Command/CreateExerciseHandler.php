@@ -21,6 +21,7 @@ class CreateExerciseHandler
         $entity = ExerciseFactory::create(
             $command->getName(),
             $command->getDescription(),
+            $command->getSeparateLoad(),
             $command->getImage()
         );
 

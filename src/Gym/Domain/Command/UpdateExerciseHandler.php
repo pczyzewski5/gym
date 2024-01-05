@@ -27,6 +27,7 @@ class UpdateExerciseHandler
 
         $dto = new ExerciseDTO();
         $dto->name = $command->getName();
+        $dto->separateLoad = $command->getSeparateLoad();
         $dto->description = $command->getDescription();
         $dto->image = $command->getImage();
 

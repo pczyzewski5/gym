@@ -30,7 +30,6 @@
             <figure class="image">
                 <img src="{{ '/photos/' ~ asset(exercise['image']) }}">
             </figure>
-
         </div>
         <div class="column">
             <div class="content">
@@ -39,6 +38,9 @@
                     <span>Tag:</span>
                     <span class="button is-small is-rounded is-outlined">{{ exercise['tag'] }}</span>
                 </div>
+                {% if exercise['separate_load'] %}
+                    Oddzielne obciążenie per ręka.
+                {% endif %}
                 <hr>
                 {{ exercise['description'] }}
             </div>
