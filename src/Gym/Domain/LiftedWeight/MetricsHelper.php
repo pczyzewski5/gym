@@ -18,16 +18,21 @@ class MetricsHelper
         return \json_encode($this->totalLiftedWeightPerTraining);
     }
 
-    public function getAverageLiftedWeight(): int
+    public function getLiftedKilogramsTotal(): int
     {
-        $liftedWeight = 0;
+        $result = 0;
 
         foreach ($this->totalLiftedWeightPerTraining as $data) {
-            $liftedWeight += \intval($data['kilograms_total']);
+            $result += \intval($data['kilograms_total']);
         }
 
+        return $result;
+    }
+
+    public function getAverageLiftedWeight(): int
+    {
         return \intval(
-            $liftedWeight / \count($this->totalLiftedWeightPerTraining)
+            $this->getLiftedKilogramsTotal() / \count($this->totalLiftedWeightPerTraining)
         );
     }
 

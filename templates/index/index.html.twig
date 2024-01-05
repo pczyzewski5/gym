@@ -1,12 +1,16 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <div class="container is-max-desktop">
+        <div class="box">
+            {% set actualPercent = (metricsHelper.getLiftedKilogramsTotal() / 66000 * 100)|number_format %}
+            Aktualny wagon węgla został rozładowany w {{ actualPercent }}%, {{ (metricsHelper.getLiftedKilogramsTotal() / 1000)|number_format }}/66 ton.
+            <progress class="progress is-info" value="{{ actualPercent }}" max="100">{{ actualPercent }}%</progress>
+        </div>
+
         <div>
             <canvas id="myChart"></canvas>
         </div>
     </div>
-
-    {#    {{ metricsHelper.getTotalLiftedWeightPerTraining()|raw }}#}
 
     <script>
         const ctx = document.getElementById('myChart');
