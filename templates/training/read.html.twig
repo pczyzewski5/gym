@@ -46,6 +46,11 @@
                                     </tr>
                                     {% set exerciseKilogramsTotal = 0 %}
                                     {% for key, exercise in exercises %}
+                                        {% set hasSeparateLoad = exercise['separate_load'] %}
+                                        {% set kilogramCount = exercise['kilogram_count'] %}
+                                        {% if hasSeparateLoad %}
+                                            {% set kilogramCount = kilogramCount * 2 %}
+                                        {% endif %}
                                         <tr>
                                             <td>
                                                 #{{ key + 1 }}
@@ -54,9 +59,13 @@
                                                 {{ exercise['repetition_count'] }} x
                                             </td>
                                             <td>
-                                                {{ exercise['kilogram_count'] }} kg
-                                                {% set exerciseKilogramsTotal = exerciseKilogramsTotal + (exercise['repetition_count'] * exercise['kilogram_count']) %}
+                                                {% if hasSeparateLoad %}
+                                                    ({{ exercise['kilogram_count'] }}) {{ kilogramCount }} kg
+                                                {% else %}
+                                                    {{ exercise['kilogram_count'] }} kg
+                                                {% endif %}
                                             </td>
+                                            {% set exerciseKilogramsTotal = exerciseKilogramsTotal + (exercise['repetition_count'] * kilogramCount) %}
                                         </tr>
                                     {% endfor %}
                                     <tr>

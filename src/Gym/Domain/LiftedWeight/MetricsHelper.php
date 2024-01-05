@@ -6,22 +6,15 @@ namespace Gym\Domain\LiftedWeight;
 
 class MetricsHelper
 {
-    private LiftedWeightRepository $repository;
+    private array $totalLiftedWeightPerTraining;
 
-    private ?array $totalLiftedWeightPerTraining = null;
-
-    public function __construct(
-        LiftedWeightRepository $repository
-    ) {
-        $this->repository = $repository;
+    public function __construct(LiftedWeightRepository $repository)
+    {
+        $this->totalLiftedWeightPerTraining = $this->getDecoratedTotalLiftedWeightPerTraining($repository);
     }
 
     public function getTotalLiftedWeightPerTraining(): string
     {
-        if (null === $this->totalLiftedWeightPerTraining) {
-            $this->setTotalLiftedWeightPerTraining();
-        }
-
         return \json_encode($this->totalLiftedWeightPerTraining);
     }
 
@@ -29,7 +22,7 @@ class MetricsHelper
     {
         $liftedWeight = 0;
 
-        foreach (\json_decode($this->getTotalLiftedWeightPerTraining(), true) as $data) {
+        foreach ($this->totalLiftedWeightPerTraining as $data) {
             $liftedWeight += \intval($data['kilograms_total']);
         }
 
@@ -38,23 +31,14 @@ class MetricsHelper
         );
     }
 
-    public function setTotalLiftedWeightPerTraining(): void
+    private function getDecoratedTotalLiftedWeightPerTraining(LiftedWeightRepository $repository): array
     {
-        $result = [];
+        return \array_map(function (array $item) {
+            $item['training_id'] = $item['id'];
+            $item['training_date'] = \date_format(\date_create($item['training_date']), 'd-m-Y');
+            unset($item['id']);
 
-        foreach ($this->repository->getTotalLiftedWeightPerTraining() as $item) {
-            $date = \date_format(
-                \date_create($item['training_date']),
-                'd-m-Y'
-            );
-
-            $result[] = [
-                'training_id' => $item['id'],
-                'training_date' => $date,
-                'kilograms_total' => $item['kilograms_total'],
-            ];
-        }
-
-        $this->totalLiftedWeightPerTraining = $result;
+            return $item;
+        }, $repository->getTotalLiftedWeightPerTraining());
     }
 }
