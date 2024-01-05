@@ -39,6 +39,7 @@ class ExercisePersister implements DomainPersister
         try {
             $sql = 'UPDATE exercises
                   SET name = :name,
+                      separate_load = :separateLoad,
                       description = :description,
                       image = :image
                   WHERE id = :id';
@@ -48,12 +49,14 @@ class ExercisePersister implements DomainPersister
                 [
                     'id' => $domainEntity->getId(),
                     'name' => $domainEntity->getName(),
+                    'separateLoad' => $domainEntity->isSeparateLoad(),
                     'description' => $domainEntity->getDescription(),
                     'image' => $domainEntity->getImage(),
                 ],
                 [
                     'id' => Types::STRING,
                     'name' => Types::STRING,
+                    'separateLoad' => Types::BOOLEAN,
                     'description' => Types::STRING,
                     'image' => Types::STRING,
                 ]

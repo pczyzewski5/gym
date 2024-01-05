@@ -14,8 +14,9 @@ class Exercise
 
     private string $id;
     private string $name;
-    private ?string $description = null;
-    private ?string $image = null;
+    private bool $separateLoad;
+    private string $description;
+    private string $image;
 
     public function __construct(ExerciseDTO $dto)
     {
@@ -38,6 +39,10 @@ class Exercise
             throw ValidationException::missingProperty('name');
         }
 
+        if (!isset($this->separateLoad)) {
+            throw ValidationException::missingProperty('separateLoad');
+        }
+
         if (isset($this->description) && empty($this->description)) {
             throw ValidationException::missingProperty('description');
         }
@@ -57,12 +62,17 @@ class Exercise
         return $this->name;
     }
 
-    public function getDescription(): ?string
+    public function isSeparateLoad(): bool
+    {
+        return $this->separateLoad;
+    }
+
+    public function getDescription(): string
     {
         return $this->description;
     }
 
-    public function getImage(): ?string
+    public function getImage(): string
     {
         return $this->image;
     }

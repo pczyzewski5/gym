@@ -8,6 +8,7 @@ class Exercise
 {
     public ?string $id;
     public ?string $name;
+    public ?bool $separateLoad;
     public ?string $description;
     public ?string $image;
 }

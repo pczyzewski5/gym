@@ -10,13 +10,15 @@ class ExerciseFactory
 {
     public static function create(
         string $name,
-        ?string $description = null,
-        ?string $image = null
+        string $description,
+        bool $separateLoad,
+        string $image
     ): Exercise {
         $dto = new ExerciseDTO();
         $dto->id = Uuid::v1()->toRfc4122();
         $dto->name = $name;
         $dto->description = $description;
+        $dto->separateLoad = $separateLoad;
         $dto->image = $image;
 
         return new Exercise($dto);

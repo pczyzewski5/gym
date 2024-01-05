@@ -6,6 +6,7 @@
 <entity name="Gym\Infrastructure\Exercise\Exercise" table="exercises">
     <id name="id" type="string" column="id"/>
     <field name="name" type="string" column="name"/>
+    <field name="separateLoad" type="boolean" column="separate_load"/>
     <field name="description" type="string" column="description"/>
     <field name="image" type="string" column="image"/>
 </entity>

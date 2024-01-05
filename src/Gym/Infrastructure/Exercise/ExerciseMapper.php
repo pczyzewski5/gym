@@ -14,6 +14,7 @@ class ExerciseMapper
         $dto = new ExerciseDTO();
         $dto->id = $entity->id;
         $dto->name = $entity->name;
+        $dto->separateLoad = $entity->separateLoad;
         $dto->description = $entity->description;
         $dto->image = $entity->image;
 
@@ -25,6 +26,7 @@ class ExerciseMapper
         $entity = new Exercise();
         $entity->id = $domainEntity->getId();
         $entity->name = $domainEntity->getName();
+        $entity->separateLoad = $domainEntity->isSeparateLoad();
         $entity->description = $domainEntity->getDescription();
         $entity->image = $domainEntity->getImage();
 

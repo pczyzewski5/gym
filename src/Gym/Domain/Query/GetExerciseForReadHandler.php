@@ -17,8 +17,9 @@ class GetExerciseForReadHandler
 
     public function __invoke(GetExerciseForRead $query): array
     {
-        return $this->repository->getOneByIdForRead(
-            $query->getId()
-        );
+        $result = $this->repository->getOneByIdForRead($query->getId());
+        $result['separate_load'] = (bool) $result['separate_load'];
+
+        return $result;
     }
 }
