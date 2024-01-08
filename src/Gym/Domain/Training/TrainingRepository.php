@@ -20,4 +20,6 @@ interface TrainingRepository
     public function findAll(): array;
 
     public function findAllForList(): array;
+
+    public function findTrainingInProgress(): ?DomainEntity;
 }

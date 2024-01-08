@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Gym\Infrastructure\Training;
 
 use Doctrine\DBAL\Types\Types;
+use Gym\Domain\Enum\StatusEnum;
 use Gym\Domain\Enum\TagOwnerEnum;
 use Gym\Domain\Exception\RepositoryException;
 use Doctrine\ORM\EntityManagerInterface;
@@ -72,5 +73,16 @@ SQL;
                 'tags' => $countedTags
             ];
         }, $stmt->fetchAllAssociative());
+    }
+
+    public function findTrainingInProgress(): ?DomainEntity
+    {
+        $entity = $this->entityManager->getRepository(Training::class)->findOneBy([
+            'status' => StatusEnum::IN_PROGRESS
+        ]);
+
+        return null === $entity
+            ? null
+            : TrainingMapper::toDomain($entity);
     }
 }

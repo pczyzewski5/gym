@@ -24,6 +24,12 @@ services:
             - '%photos_directory%'
         tags: [ 'twig.extension' ]
 
+    App\Twig\FindTrainingInProgress:
+        class: App\Twig\FindTrainingInProgress
+        arguments:
+            - '@Gym\Domain\Training\TrainingRepository'
+        tags: [ 'twig.extension' ]
+
     App\Twig\UcFirst:
         class: App\Twig\UcFirst
         tags: [ 'twig.extension' ]
