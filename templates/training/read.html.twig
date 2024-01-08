@@ -45,11 +45,14 @@
                                         </td>
                                     </tr>
                                     {% set exerciseKilogramsTotal = 0 %}
+                                    {% set separateExerciseKilogramsTotal = 0 %}
                                     {% for key, exercise in exercises %}
                                         {% set hasSeparateLoad = exercise['separate_load'] %}
                                         {% set kilogramCount = exercise['kilogram_count'] %}
+
+                                        {% set exerciseKilogramsTotal = exerciseKilogramsTotal + (exercise['repetition_count'] * kilogramCount) %}
                                         {% if hasSeparateLoad %}
-                                            {% set kilogramCount = kilogramCount * 2 %}
+                                            {% set separateExerciseKilogramsTotal = separateExerciseKilogramsTotal + (exercise['repetition_count'] * kilogramCount * 2) %}
                                         {% endif %}
                                         <tr>
                                             <td>
@@ -60,17 +63,20 @@
                                             </td>
                                             <td>
                                                 {% if hasSeparateLoad %}
-                                                    ({{ exercise['kilogram_count'] }}) {{ kilogramCount }} kg
+                                                    ({{ kilogramCount }}) {{ kilogramCount * 2 }} kg
                                                 {% else %}
-                                                    {{ exercise['kilogram_count'] }} kg
+                                                    {{ kilogramCount }} kg
                                                 {% endif %}
                                             </td>
-                                            {% set exerciseKilogramsTotal = exerciseKilogramsTotal + (exercise['repetition_count'] * kilogramCount) %}
                                         </tr>
                                     {% endfor %}
                                     <tr>
                                         <td colspan="2" class="no-borders"></td>
-                                        <td>{{ exerciseKilogramsTotal }} kg</td>
+                                        {% if separateExerciseKilogramsTotal > 0 %}
+                                            <td>({{ exerciseKilogramsTotal }}) {{ separateExerciseKilogramsTotal }} kg</td>
+                                        {% else %}
+                                            <td>{{ exerciseKilogramsTotal }} kg</td>
+                                        {% endif %}
                                     </tr>
                                 </table>
                             {% endfor %}
