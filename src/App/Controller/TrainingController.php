@@ -7,11 +7,11 @@ namespace App\Controller;
 use App\CommandBus\CommandBus;
 use App\Form\TrainingForm;
 use App\QueryBus\QueryBus;
-use Gym\Domain\Command\ChangeTrainingStatus;
 use Gym\Domain\Command\CreateTraining;
 use Gym\Domain\Command\DeleteTags;
 use Gym\Domain\Command\DeleteTraining;
 use Gym\Domain\Command\PutTags;
+use Gym\Domain\Command\UpdateTraining;
 use Gym\Domain\Enum\StatusEnum;
 use Gym\Domain\Enum\TagOwnerEnum;
 use Gym\Domain\Query\GetLiftedKilogramsCount;
@@ -123,17 +123,29 @@ class TrainingController extends BaseController
     {
         $payload = \json_decode($request->getContent(), true);
 
+        $id = Uuid::fromRfc4122($payload['training_id']);
         $actualStatus = StatusEnum::from($payload['actual_status']);
-        $status = $actualStatus->equals(StatusEnum::IN_PROGRESS())
-            ? StatusEnum::DONE()
-            : StatusEnum::IN_PROGRESS();
 
-        $this->commandBus->handle(
-            new ChangeTrainingStatus(
-                Uuid::fromRfc4122($payload['training_id']),
-                $status
-            )
-        );
+        if ($actualStatus->equals(StatusEnum::IN_PROGRESS())) {
+            $status = StatusEnum::DONE();
+            $command = new UpdateTraining(
+                $id->toRfc4122(),
+                $status,
+                null,
+                null,
+                new \DateTimeImmutable()
+            );
+        } else {
+            $status = StatusEnum::IN_PROGRESS();
+            $command = new UpdateTraining(
+                $id->toRfc4122(),
+                $status,
+                null,
+                new \DateTimeImmutable()
+            );
+        }
+
+        $this->commandBus->handle($command);
 
         return new Response($status->getValue(), Response::HTTP_OK);
     }
