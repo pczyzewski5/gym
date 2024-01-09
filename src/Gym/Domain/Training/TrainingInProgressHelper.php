@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Gym\Domain\Training;
 
 use Gym\Domain\Enum\MuscleTagEnum;
+use Gym\Domain\Enum\StatusEnum;
 use Gym\Domain\Exercise\Exercise;
 use Gym\Domain\Exercise\ExerciseRepository;
 use Gym\Domain\LiftedWeight\LiftedWeightRepository;
@@ -15,12 +16,11 @@ use Gym\Domain\Tag\TagRepository;
 
 class TrainingInProgressHelper
 {
-    private TrainingRepository $trainingRepository;
     private TagRepository $tagRepository;
     private StationRepository $stationRepository;
     private ExerciseRepository $exerciseRepository;
     private LiftedWeightRepository $liftedWeightRepository;
-    private string $trainingId;
+    private Training $training;
 
     public function __construct(
         TrainingRepository     $trainingRepository,
@@ -31,19 +31,29 @@ class TrainingInProgressHelper
         string                 $trainingId
     )
     {
-        $this->trainingRepository = $trainingRepository;
         $this->tagRepository = $tagRepository;
         $this->stationRepository = $stationRepository;
         $this->exerciseRepository = $exerciseRepository;
         $this->liftedWeightRepository = $liftedWeightRepository;
-        $this->trainingId = $trainingId;
+
+        $this->training = $trainingRepository->getOneById($trainingId);
     }
 
     public function getTraining(): Training
     {
-        return $this->trainingRepository->getOneById(
-            $this->trainingId
-        );
+        return $this->training;
+    }
+
+    public function getTrainingDurationInMinutes(): int
+    {
+        if (StatusEnum::IN_PROGRESS()->equals($this->training->getStatus())) {
+            $now = new \DateTimeImmutable();
+            $diff = $now->diff($this->training->getTrainingStarted());
+
+            return $diff->i;
+        }
+
+        return 0;
     }
 
     /**
@@ -52,7 +62,7 @@ class TrainingInProgressHelper
     public function getTrainingTags(): array
     {
         $result = $this->tagRepository->findAllForOwnerId(
-            $this->trainingId
+            $this->training->getId()
         );
 
         return \array_map(
@@ -85,7 +95,7 @@ class TrainingInProgressHelper
     public function getSeriesCount($stationId, $exerciseId): int
     {
         $result = $this->liftedWeightRepository->findAllBy(
-            $this->trainingId,
+            $this->training->getId(),
             $stationId,
             $exerciseId
         );

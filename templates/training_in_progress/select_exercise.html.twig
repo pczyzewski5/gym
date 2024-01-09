@@ -66,9 +66,11 @@
 
     <div class="container is-max-desktop">
         {% set actualStatus = helper.getTraining().getStatus() %}
+        {% set trainingDuration = helper.getTrainingDurationInMinutes() %}
+        {% set trainingDuration = trainingDuration < 10 ? '0' ~ trainingDuration : trainingDuration %}
         {% set isInProgress = 'in_progress' == actualStatus %}
         <button id="training-status-button" class="button is-fullwidth is-small mb-3 {{ isInProgress ? 'is-warning' : 'is-success' }}" data-training-id="{{ trainingId }}" data-actual-status="{{ actualStatus }}">
-            {{ isInProgress ? 'zakończ trening' : 'rozpocznij trening' }}
+            {{ isInProgress ? 'zakończ trening (' ~ trainingDuration ~ ' min)' : 'rozpocznij trening' }}
         </button>
 
         {% for tag in helper.getTrainingTags() %}
