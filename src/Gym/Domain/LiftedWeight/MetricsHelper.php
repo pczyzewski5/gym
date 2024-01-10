@@ -20,7 +20,7 @@ class MetricsHelper
     public function getTotalLiftedWeightPerTraining(): string
     {
         $trainings = \array_map(function (array $item) {
-            $item['training_date'] = $item['training_date']->format('Y-m-d');
+            $item['training_date'] = $item['training_date']->format('d M');
             $item['kilograms_total'] = \intval($item['kilograms_total']);
 
             return $item;
@@ -32,7 +32,7 @@ class MetricsHelper
     public function getTimeSpentOnGymPerTrainingInMinutes(): string
     {
         $trainings = \array_map(function (array $item) {
-            $item['training_date'] = $item['training_date']->format('Y-m-d');
+            $item['training_date'] = $item['training_date']->format('d M');
             $item['minutes_spent'] = TimeHelper::calculateDiffInMinutes(
                 $item['training_finished'],
                 $item['training_started']
