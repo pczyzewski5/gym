@@ -115,10 +115,10 @@ SQL;
         }
     }
 
-    public function getTotalLiftedWeightPerTraining(): array
+    public function getAllForMetrics(): array
     {
         $sql = <<<SQL
-SELECT t.id as id, t.training_date as training_date, SUM(IF(e.separate_load = 1, (2 * lw.repetition_count * lw.kilogram_count), (lw.repetition_count * lw.kilogram_count))) as kilograms_total FROM trainings t
+SELECT t.id as id, t.training_date as training_date, t.training_started as training_started, t.training_finished as training_finished, SUM(IF(e.separate_load = 1, (2 * lw.repetition_count * lw.kilogram_count), (lw.repetition_count * lw.kilogram_count))) as kilograms_total FROM trainings t
     LEFT JOIN lifted_weights lw ON lw.training_id = t.id                                                                                                                 
     LEFT JOIN exercises e ON e.id = lw.exercise_id                                                                                                                 
 WHERE t.status = 'done'

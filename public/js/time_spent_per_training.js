@@ -1,15 +1,15 @@
-class TotalLiftedWeightPerTrainingChart {
+class TimeSpentPerTraining {
     constructor() {
         this.execute()
     }
 
     execute() {
-        const ctx = document.getElementById('total-lifted-weight-per-training-chart');
+        const ctx = document.getElementById('time-spent-per-training');
 
         const data = {
             datasets: [
                 {
-                    data: JSON.parse(ctx.dataset.totalLiftedWeightPerTraining),
+                    data: JSON.parse(ctx.dataset.timeSpentOnGymPerTrainingInMinutes),
                     borderColor: 'rgb(54, 162, 235)',
                     backgroundColor: 'rgba(54, 162, 235, 0.5)',
                 }
@@ -20,10 +20,19 @@ class TotalLiftedWeightPerTrainingChart {
             type: 'line',
             data: data,
             options: {
+                scales: {
+                    y: {
+                        min: 30,
+                        max: 150,
+                        ticks: {
+                            stepSize: 10
+                        }
+                    }
+                },
                 responsive: true,
                 parsing: {
                     xAxisKey: 'training_date',
-                    yAxisKey: 'kilograms_total'
+                    yAxisKey: 'minutes_spent'
                 },
                 plugins: {
                     legend: {
@@ -31,7 +40,7 @@ class TotalLiftedWeightPerTrainingChart {
                     },
                     title: {
                         display: true,
-                        text: 'Suma podniesionych kilogramów per trening'
+                        text: 'Czas spędzony na treningu'
                     },
                     datalabels: {
                         color: 'rgb(54, 162, 235)',
@@ -40,7 +49,7 @@ class TotalLiftedWeightPerTrainingChart {
                         formatter: function(value, context) {
                             let $data = $.map(context.dataset.data, function(val) {return val;});
 
-                            return parseInt($data[context.dataIndex]['kilograms_total']);
+                            return parseInt($data[context.dataIndex]['minutes_spent']);
                         },
                         listeners: {
                             click: function(context, event) {
@@ -55,10 +64,10 @@ class TotalLiftedWeightPerTrainingChart {
                                 type: 'line',
                                 borderColor: 'rgba(54, 162, 235, 0.5)',
                                 scaleID: 'y',
-                                value: ctx.dataset.averageLiftedWeight,
+                                value: ctx.dataset.averageTimeSpentOnGymInMinutes,
                                 label: {
                                     display: true,
-                                    content: '~ ' + ctx.dataset.averageLiftedWeight,
+                                    content: '~ ' + ctx.dataset.averageTimeSpentOnGymInMinutes,
                                     fontColor: 'rgb(54, 162, 235)',
                                     color: 'rgb(54, 162, 235)',
                                     backgroundColor: "#FFFFFF",
@@ -76,4 +85,4 @@ class TotalLiftedWeightPerTrainingChart {
     }
 }
 
-new TotalLiftedWeightPerTrainingChart();
+new TimeSpentPerTraining();

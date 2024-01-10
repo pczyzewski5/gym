@@ -29,5 +29,5 @@ interface LiftedWeightRepository
 
     public function findLastLiftedWeight(string $stationId, string $exerciseId): ?DomainEntity;
 
-    public function getTotalLiftedWeightPerTraining(): array;
+    public function getAllForMetrics(): array;
 }

@@ -13,8 +13,14 @@
                     data-total-lifted-weight-per-training="{{ metricsHelper.getTotalLiftedWeightPerTraining() }}"
                     data-average-lifted-weight="{{ metricsHelper.getAverageLiftedWeight() }}">
             </canvas>
+            <canvas
+                    id="time-spent-per-training"
+                    data-time-spent-on-gym-per-training-in-minutes="{{ metricsHelper.getTimeSpentOnGymPerTrainingInMinutes() }}"
+                    data-average-time-spent-on-gym-in-minutes="{{ metricsHelper.getAverageTimeSpentOnGymInMinutes() }}">
+            </canvas>
         </div>
     </div>
 
     <script src="{{ asset('js/total_lifted_weight_per_training_chart.js') }}"></script>
+    <script src="{{ asset('js/time_spent_per_training.js') }}"></script>
 {% endblock %}
