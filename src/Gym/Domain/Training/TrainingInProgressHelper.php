@@ -47,10 +47,9 @@ class TrainingInProgressHelper
     public function getTrainingDurationInMinutes(): int
     {
         if (StatusEnum::IN_PROGRESS()->equals($this->training->getStatus())) {
-            $now = new \DateTimeImmutable();
-            $diff = $now->diff($this->training->getTrainingStarted());
+            $diff = time() - $this->training->getTrainingStarted()->format('U');
 
-            return $diff->i;
+            return \intval($diff / 60);
         }
 
         return 0;
