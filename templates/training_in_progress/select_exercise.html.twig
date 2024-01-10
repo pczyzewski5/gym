@@ -65,13 +65,15 @@
     </style>
 
     <div class="container is-max-desktop">
-        {% set actualStatus = helper.getTraining().getStatus() %}
+        {% set training = helper.getTraining() %}
+        {% set isInProgress = training.getStatus() == 'in_progress' %}
+        {% set targetStatus = isInProgress ? 'done' : 'in_progress' %}
         {% set trainingDuration = helper.getTrainingDurationInMinutes() %}
         {% set trainingDuration = trainingDuration < 10 ? '0' ~ trainingDuration : trainingDuration %}
-        {% set isInProgress = 'in_progress' == actualStatus %}
-        <button id="training-status-button" class="button is-fullwidth is-small mb-3 {{ isInProgress ? 'is-warning' : 'is-success' }}" data-training-id="{{ trainingId }}" data-actual-status="{{ actualStatus }}">
+
+        <a href="{{ path('training_update_status', {'id': training.getId(), 'status': targetStatus}) }}" class="button is-fullwidth is-small mb-3 {{ isInProgress ? 'is-warning' : 'is-success' }}">
             {{ isInProgress ? 'zakończ trening (' ~ trainingDuration ~ ' min)' : 'rozpocznij trening' }}
-        </button>
+        </a>
 
         {% for tag in helper.getTrainingTags() %}
             <div class="tag-container">
@@ -126,7 +128,6 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/training_status_helper.js') }}"></script>
     <script src="{{ asset('js/img_modal_helper.js') }}"></script>
     <script src="{{ asset('js/modal_helper.js') }}"></script>
 {% endblock %}

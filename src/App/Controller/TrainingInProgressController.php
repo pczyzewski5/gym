@@ -28,7 +28,7 @@ class TrainingInProgressController extends BaseController
 
     public function selectExercise(Request $request): Response
     {
-        $trainingId = $request->get('trainingId');
+        $trainingId = $request->get('id');
 
         /** @var TrainingInProgressHelper $trainingInProgressHelper */
         $trainingInProgressHelper = $this->queryBus->handle(

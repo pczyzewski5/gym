@@ -39,7 +39,7 @@
 {% if trainingInProgress is not null %}
     <div class="test" style="position: fixed; width: 100%; left:0;bottom:0;">
 
-        <a href="{{ path('training_in_progress_select_exercise', {'trainingId': trainingInProgress.getId()}) }}"
+        <a href="{{ path('training_in_progress_select_exercise', {'id': trainingInProgress.getId()}) }}"
            class="button is-fullwidth is-warning is-small"
            style="border-radius: 0">
             przejdź do aktywnego treningu

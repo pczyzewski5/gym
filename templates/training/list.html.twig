@@ -29,7 +29,7 @@
             <tbody>
             {% for key, training in trainings %}
 
-                {% set href = path('training_in_progress_select_exercise', {'trainingId': training['id']}) %}
+                {% set href = path('training_in_progress_select_exercise', {'id': training['id']}) %}
                 {% if 'done' == training['status'] %}
                     {% set href = path('training_read', {'id': training['id']}) %}
                 {% endif %}

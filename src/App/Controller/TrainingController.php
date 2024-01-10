@@ -119,34 +119,23 @@ class TrainingController extends BaseController
         return $this->redirectToRoute('training_list');
     }
 
-    public function changeStatus(Request $request): Response
+    public function updateStatus(Request $request): Response
     {
-        $payload = \json_decode($request->getContent(), true);
+        $id = $request->get('id');
+        $status = $request->get('status');
 
-        $id = Uuid::fromRfc4122($payload['training_id']);
-        $actualStatus = StatusEnum::from($payload['actual_status']);
-
-        if ($actualStatus->equals(StatusEnum::IN_PROGRESS())) {
-            $status = StatusEnum::DONE();
-            $command = new UpdateTraining(
-                $id->toRfc4122(),
-                $status,
+        $this->commandBus->handle(
+            new UpdateTraining(
+                $id,
+                StatusEnum::from($status),
                 null,
-                null,
-                new \DateTimeImmutable()
-            );
-        } else {
-            $status = StatusEnum::IN_PROGRESS();
-            $command = new UpdateTraining(
-                $id->toRfc4122(),
-                $status,
-                null,
-                new \DateTimeImmutable()
-            );
-        }
+                StatusEnum::IN_PROGRESS === $status ? new \DateTimeImmutable() : null,
+                StatusEnum::DONE === $status ? new \DateTimeImmutable() : null,
+            )
+        );
 
-        $this->commandBus->handle($command);
-
-        return new Response($status->getValue(), Response::HTTP_OK);
+        return StatusEnum::IN_PROGRESS === $status
+            ? $this->redirectToRoute('training_in_progress_select_exercise', ['id' => $id])
+            : $this->redirectToRoute('training_list');
     }
 }

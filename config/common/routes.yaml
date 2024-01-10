@@ -77,14 +77,14 @@ training_delete:
     controller: App\Controller\TrainingController::delete
     methods: [ GET ]
 
-training_change_status:
-    path: /training/change_status
-    controller: App\Controller\TrainingController::changeStatus
-    methods: [ POST ]
+training_update_status:
+    path: /training/{id}/update_status/{status}
+    controller: App\Controller\TrainingController::updateStatus
+    methods: [ GET ]
 
 # training_in_progress_controller
 training_in_progress_select_exercise:
-    path: /training/{trainingId}/select-exercise
+    path: /training/{id}/select-exercise
     controller: App\Controller\TrainingInProgressController::selectExercise
     methods: [ GET ]
 
