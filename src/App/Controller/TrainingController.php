@@ -20,7 +20,6 @@ use Gym\Domain\Query\GetTraining;
 use Gym\Domain\Query\GetTrainings;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Uid\Uuid;
 
 class TrainingController extends BaseController
 {

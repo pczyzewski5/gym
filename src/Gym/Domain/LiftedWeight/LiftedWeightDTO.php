@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Gym\Domain\LiftedWeight;
 
-use Gym\Domain\Enum\StatusEnum;
-
 class LiftedWeightDTO
 {
     public ?string $id = null;

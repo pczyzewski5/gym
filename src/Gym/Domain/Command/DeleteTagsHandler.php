@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Gym\Domain\Command;
 
 use Gym\Domain\Tag\TagPersister;
-use Gym\Domain\Training\TrainingPersister;
 
 class DeleteTagsHandler
 {

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Gym\Domain\ExerciseToTraining;
 
-use Gym\Domain\Enum\ExerciseToTrainingOwnerEnum;
 use Gym\Domain\Exception\PersisterException;
 use Gym\Domain\ExerciseToTraining\ExerciseToTraining as DomainEntity;
 

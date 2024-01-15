@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Gym\Domain\LiftedWeight;
 
-use Gym\Domain\Enum\StatusEnum;
 use Symfony\Component\Uid\Uuid;
 
 class LiftedWeightFactory

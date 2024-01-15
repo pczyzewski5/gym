@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Gym\Domain\Command;
 
-use Gym\Domain\Exercise\ExerciseFactory;
-use Gym\Domain\Exercise\ExercisePersister;
 use Gym\Domain\Station\StationFactory;
 use Gym\Domain\Station\StationPersister;
 

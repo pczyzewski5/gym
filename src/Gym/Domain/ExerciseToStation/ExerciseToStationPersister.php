@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Gym\Domain\ExerciseToStation;
 
-use Gym\Domain\Enum\TagOwnerEnum;
 use Gym\Domain\Exception\PersisterException;
 use Gym\Domain\ExerciseToStation\ExerciseToStation as DomainEntity;
 
