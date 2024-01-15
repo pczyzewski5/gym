@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\CliCommand;
 
 use Doctrine\DBAL\Connection;

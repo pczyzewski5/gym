@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Gym\Domain\Tag;
 
 use Gym\Domain\Enum\TagOwnerEnum;

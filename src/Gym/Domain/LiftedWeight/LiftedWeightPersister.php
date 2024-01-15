@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Gym\Domain\LiftedWeight;
 
 use Gym\Domain\Enum\LiftedWeightOwnerEnum;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Gym\Domain\ExerciseToStation;
 
 use Gym\Domain\Enum\TagOwnerEnum;
