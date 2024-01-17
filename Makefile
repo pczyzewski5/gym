@@ -5,7 +5,7 @@ MYSQL_LOG_FILE=/var/lib/mysql/general_log.log
 # MAIN
 ##################################################################################################################
 
-start: stop up init-db
+start: stop build up init-db
 
 stop:
 	docker-compose stop
