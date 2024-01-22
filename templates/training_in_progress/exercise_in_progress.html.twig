@@ -70,9 +70,9 @@
 
         {% set repetitionCount = 12 %}
         {% set kilogramCount = 30 %}
-        {% if lastLiftedWeight is not null %}
-            {% set repetitionCount = lastLiftedWeight.getRepetitionCount() %}
-            {% set kilogramCount = lastLiftedWeight.getKilogramCount() %}
+        {% if bestRepetition is not null %}
+            {% set repetitionCount = bestRepetition['repetition_count'] %}
+            {% set kilogramCount = bestRepetition['kilogram_count'] %}
         {% endif %}
 
         <div class="series-counter">

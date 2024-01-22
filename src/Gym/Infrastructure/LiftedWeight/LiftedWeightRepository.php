@@ -92,27 +92,23 @@ SQL;
         return \intval($stmt->fetchOne());
     }
 
-    public function findLastLiftedWeight(string $stationId, string $exerciseId): ?DomainEntity
+    public function findBestRepetition(string $stationId, string $exerciseId): ?array
     {
-        $qb = $this->entityManager->getRepository(LiftedWeight::class)
-            ->createQueryBuilder('lw')
-            ->where('lw.stationId = :stationId')
-            ->andWhere('lw.exerciseId = :exerciseId')
-            ->addOrderBy('lw.createdAt', 'DESC')
-            ->addOrderBy('lw.kilogramCount', 'DESC')
-            ->setMaxResults(1)
-            ->setParameters([
-                'stationId' => $stationId,
-                'exerciseId' => $exerciseId
-            ]);
+        $sql = <<<SQL
+SELECT repetition_count, kilogram_count, (repetition_count * kilogram_count) as total FROM lifted_weights
+      WHERE station_id = :stationId
+      AND exercise_id = :exerciseId 
+      ORDER BY (repetition_count * kilogram_count) DESC
+      LIMIT 1;
+SQL;
+        $stmt = $this->entityManager->getConnection()->executeQuery(
+            $sql,
+            ['stationId' => $stationId, 'exerciseId' => $exerciseId],
+            ['stationId' => Types::STRING, 'exerciseId' => Types::STRING]
+        );
+        $result = $stmt->fetchAssociative();
 
-        try {
-            return LiftedWeightMapper::toDomain(
-                $qb->getQuery()->getSingleResult()
-            );
-        } catch (\Throwable $e) {
-            return null;
-        }
+        return $result === false ? null : $result;
     }
 
     public function getAllForMetrics(): array

@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Gym\Domain\Query;
 
-use Gym\Domain\LiftedWeight\LiftedWeight;
 use Gym\Domain\LiftedWeight\LiftedWeightRepository;
 
-class FindLastLiftedWeightHandler
+class FindBestRepetitionHandler
 {
     private LiftedWeightRepository $repository;
 
@@ -16,9 +15,9 @@ class FindLastLiftedWeightHandler
         $this->repository = $repository;
     }
 
-    public function __invoke(FindLastLiftedWeight $query): ?LiftedWeight
+    public function __invoke(FindBestRepetition $query): ?array
     {
-        return $this->repository->findLastLiftedWeight(
+        return $this->repository->findBestRepetition(
             $query->getStationId(),
             $query->getExerciseId()
         );

@@ -7,7 +7,7 @@ namespace App\Controller;
 use App\CommandBus\CommandBus;
 use App\QueryBus\QueryBus;
 use Gym\Domain\Query\GetExercise;
-use Gym\Domain\Query\FindLastLiftedWeight;
+use Gym\Domain\Query\FindBestRepetition;
 use Gym\Domain\Query\GetLiftedWeights;
 use Gym\Domain\Query\GetStation;
 use Gym\Domain\Query\GetTrainingInProgressHelper;
@@ -54,8 +54,8 @@ class TrainingInProgressController extends BaseController
                 $exerciseId
             )
         );
-        $lastLiftedWeight = $this->queryBus->handle(
-            new FindLastLiftedWeight(
+        $bestRepetition = $this->queryBus->handle(
+            new FindBestRepetition(
                 $stationId,
                 $exerciseId,
             )
@@ -72,7 +72,7 @@ class TrainingInProgressController extends BaseController
             'exerciseId' => $exerciseId,
             'stationId' => $stationId,
             'liftedWeights' => $liftedWeights,
-            'lastLiftedWeight' => $lastLiftedWeight,
+            'bestRepetition' => $bestRepetition,
             'exercise' => $exercise,
             'station' => $station,
         ]);

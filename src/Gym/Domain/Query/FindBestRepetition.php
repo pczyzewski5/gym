@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Gym\Domain\Query;
 
-class FindLastLiftedWeight
+class FindBestRepetition
 {
     private string $stationId;
     private string $exerciseId;
