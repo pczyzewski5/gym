@@ -69,12 +69,12 @@ services:
     tags:
       - { name: tactician.handler, command: Gym\Domain\Query\GetTraining, bus: query }
 
-  Gym\Domain\Query\GetTrainingsHandler:
-    class: Gym\Domain\Query\GetTrainingsHandler
+  Gym\Domain\Query\FindTrainingsForListHandler:
+    class: Gym\Domain\Query\FindTrainingsForListHandler
     arguments:
       - '@Gym\Domain\Training\TrainingRepository'
     tags:
-      - { name: tactician.handler, command: Gym\Domain\Query\GetTrainings, bus: query }
+      - { name: tactician.handler, command: Gym\Domain\Query\FindTrainingsForList, bus: query }
 
   Gym\Domain\Query\GetMetricsHelperHandler:
     class: Gym\Domain\Query\GetMetricsHelperHandler

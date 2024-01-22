@@ -17,7 +17,7 @@ use Gym\Domain\Enum\TagOwnerEnum;
 use Gym\Domain\Query\GetLiftedKilogramsCount;
 use Gym\Domain\Query\GetLiftedWeightsForTrainingRead;
 use Gym\Domain\Query\GetTraining;
-use Gym\Domain\Query\GetTrainings;
+use Gym\Domain\Query\FindTrainingsForList;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -34,12 +34,12 @@ class TrainingController extends BaseController
 
     public function list(): Response
     {
-        $trainings = $this->queryBus->handle(
-            new GetTrainings()
+        $trainingsByMonth = $this->queryBus->handle(
+            new FindTrainingsForList()
         );
 
         return $this->renderForm('training/list.html.twig', [
-            'trainings' => $trainings
+            'trainingsByMonth' => $trainingsByMonth
         ]);
     }
 

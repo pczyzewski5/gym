@@ -12,42 +12,52 @@
         .modal .button-container .button {
             width: 200px;
         }
+        tr td:first-child {
+            width: 40px;
+        }
+        tr th {
+            font-weight: normal;
+        }
     </style>
 
     <div class="container is-max-desktop">
-        <table class="table is-striped is-hoverable is-fullwidth">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>data treningu</th>
-                <th>co tydzień</th>
-                <th>status</th>
-                <th>tagi</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for key, training in trainings %}
+    <div class="content">
+        {% for month, trainings in trainingsByMonth %}
+            <div class="box">
+                <h3 class="has-text-centered">{{ month|ucfirst }}</h3>
+                <table class="table is-striped is-hoverable is-fullwidth">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>status</th>
+                        <th>data treningu</th>
+                        <th>tagi</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for key, training in trainings %}
 
-                {% set href = path('training_in_progress_select_exercise', {'id': training['id']}) %}
-                {% if 'done' == training['status'] %}
-                    {% set href = path('training_read', {'id': training['id']}) %}
-                {% endif %}
+                        {% set href = path('training_in_progress_select_exercise', {'id': training['id']}) %}
+                        {% if 'done' == training['status'] %}
+                            {% set href = path('training_read', {'id': training['id']}) %}
+                        {% endif %}
 
-                <tr class="table-item" href="{{ href }}">
-                    <td>{{ key + 1 }}</td>
-                    <td>{{ training['training_date'].format('D') }} {{ training['training_date'].format('d') }} {{ training['training_date'].format('M') }}</td>
-                    <td>{{ training['repeated'] ? 'tak' : 'nie' }}</td>
-                    <td>{{ training['status'] }}</td>
-                    <td>
-                        {% for tag in training['tags'] %}
-                            <span class="button is-small is-rounded is-outlined">{{ tag }}</span>
-                        {% endfor %}
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                        <tr class="table-item" href="{{ href }}">
+                            <td>#{{ key + 1 }}</td>
+                            <td>{{ training['status'] }}</td>
+                            <td>{{ training['training_date'].format('d') }} {{ training['training_date'].format('D') }}</td>
+                            <td>
+                                {% for tag in training['tags'] %}
+                                    <span class="button is-small is-rounded is-outlined">{{ tag }}</span>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endfor %}
+    </div>
     </div>
 
     <script src="{{ asset('js/list_helper.js') }}"></script>
