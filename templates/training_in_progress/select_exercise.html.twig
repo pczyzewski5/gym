@@ -62,18 +62,24 @@
         .img-modal-launch-button {
             cursor: pointer;
         }
+        #training-started {
+            display: none;
+        }
     </style>
 
     <div class="container is-max-desktop">
         {% set training = helper.getTraining() %}
         {% set isInProgress = training.getStatus() == 'in_progress' %}
-        {% set targetStatus = isInProgress ? 'done' : 'in_progress' %}
-        {% set trainingDuration = helper.getTrainingDurationInMinutes() %}
-        {% set trainingDuration = trainingDuration < 10 ? '0' ~ trainingDuration : trainingDuration %}
 
-        <a href="{{ path('training_update_status', {'id': training.getId(), 'status': targetStatus}) }}" class="button is-fullwidth is-small mb-3 {{ isInProgress ? 'is-warning' : 'is-success' }}">
-            {{ isInProgress ? 'zakończ trening (' ~ trainingDuration ~ ' min)' : 'rozpocznij trening' }}
-        </a>
+        {% if isInProgress %}
+            <a href="{{ path('training_update_status', {'id': training.getId(), 'status': 'done'}) }}" class="button is-fullwidth is-small mb-3 is-warning">
+                zakończ trening (<span id="training-duration" data-training-started="{{ training.getTrainingStarted().format('U') }}">00</span>&nbsp;min)
+            </a>
+        {% else %}
+            <a href="{{ path('training_update_status', {'id': training.getId(), 'status': 'in_progress'}) }}" class="button is-fullwidth is-small mb-3 is-success">
+                rozpocznij trening
+            </a>
+        {% endif %}
 
         {% for tag in helper.getTrainingTags() %}
             <div class="tag-container">
@@ -130,4 +136,5 @@
 
     <script src="{{ asset('js/img_modal_helper.js') }}"></script>
     <script src="{{ asset('js/modal_helper.js') }}"></script>
+    <script src="{{ asset('js/update_training_time.js') }}"></script>
 {% endblock %}

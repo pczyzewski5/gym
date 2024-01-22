@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Gym\Domain\Training;
 
 use Gym\Domain\Enum\MuscleTagEnum;
-use Gym\Domain\Enum\StatusEnum;
 use Gym\Domain\Exercise\Exercise;
 use Gym\Domain\Exercise\ExerciseRepository;
 use Gym\Domain\LiftedWeight\LiftedWeightRepository;
@@ -42,17 +41,6 @@ class TrainingInProgressHelper
     public function getTraining(): Training
     {
         return $this->training;
-    }
-
-    public function getTrainingDurationInMinutes(): int
-    {
-        if (StatusEnum::IN_PROGRESS()->equals($this->training->getStatus())) {
-            $diff = time() - $this->training->getTrainingStarted()->format('U');
-
-            return \intval($diff / 60);
-        }
-
-        return 0;
     }
 
     /**
