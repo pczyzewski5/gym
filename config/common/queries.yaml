@@ -13,12 +13,12 @@ services:
     tags:
       - { name: tactician.handler, command: Gym\Domain\Query\GetStation, bus: query }
 
-  Gym\Domain\Query\GetExercisesHandler:
-    class: Gym\Domain\Query\GetExercisesHandler
+  Gym\Domain\Query\GetExercisesForListHandler:
+    class: Gym\Domain\Query\GetExercisesForListHandler
     arguments:
       - '@Gym\Domain\Exercise\ExerciseRepository'
     tags:
-      - { name: tactician.handler, command: Gym\Domain\Query\GetExercises, bus: query }
+      - { name: tactician.handler, command: Gym\Domain\Query\GetExercisesForList, bus: query }
 
   Gym\Domain\Query\GetExerciseHandler:
     class: Gym\Domain\Query\GetExerciseHandler

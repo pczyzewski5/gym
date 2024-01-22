@@ -18,7 +18,7 @@ use Gym\Domain\Command\UpdateExercise;
 use Gym\Domain\Enum\TagOwnerEnum;
 use Gym\Domain\Query\GetExercise;
 use Gym\Domain\Query\GetExerciseForRead;
-use Gym\Domain\Query\GetExercises;
+use Gym\Domain\Query\GetExercisesForList;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -33,14 +33,14 @@ class ExerciseController extends BaseController
         $this->commandBus = $commandBus;
     }
 
-    public function list(Request $request): Response
+    public function list(): Response
     {
-        $exercises = $this->queryBus->handle(
-            new GetExercises()
+        $exercisesByTags = $this->queryBus->handle(
+            new GetExercisesForList()
         );
 
         return $this->renderForm('exercise/list.html.twig', [
-            'exercises' => $exercises
+            'exercisesByTags' => $exercisesByTags
         ]);
     }
 

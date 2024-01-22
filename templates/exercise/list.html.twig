@@ -6,26 +6,23 @@
         }
     </style>
     <div class="container is-max-desktop">
-        <table class="table is-striped is-hoverable is-fullwidth">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>tagi</th>
-                <th>nazwa</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for key, exercise in exercises %}
-                <tr class="table-item" href="{{ path('exercise_read', {'id': exercise['id']}) }}">
-                    <td>{{ key + 1 }}</td>
-                    <td>
-                        <span class="button is-small is-rounded is-outlined">{{ exercise['tag'] }}</span>
-                    </td>
-                    <td>{{ exercise['name'] }}</td>
-                </tr>
+        <div class="content">
+            {% for tag, exercises in exercisesByTags %}
+            <div class="box">
+                <h3 class="has-text-centered">{{ tag|ucfirst }}</h3>
+                <table class="table is-striped is-hoverable is-fullwidth">
+                    <tbody>
+                    {% for key, exercise in exercises %}
+                        <tr class="table-item" href="{{ path('exercise_read', {'id': exercise['id']}) }}">
+                            <td>#{{ key + 1 }}</td>
+                            <td>{{ exercise['name']|ucfirst }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
             {% endfor %}
-            </tbody>
-        </table>
+        </div>
     </div>
 
     <script src="{{ asset('js/list_helper.js') }}"></script>
