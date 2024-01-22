@@ -12,7 +12,18 @@ class UcFirst extends AbstractExtension
     public function getFilters(): array
     {
         return [
-            new TwigFilter('ucfirst', 'ucfirst')
+            new TwigFilter('ucfirst',  [$this, 'ucfirst'])
         ];
+    }
+
+    public function ucfirst(string $string): string
+    {
+        $result = \mb_strtoupper(
+            \mb_substr($string, 0, 1)
+        );
+
+        return \trim(
+            $result . \mb_substr($string, 1)
+        );
     }
 }
