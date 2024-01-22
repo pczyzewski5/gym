@@ -5,29 +5,25 @@
             cursor: pointer;
         }
     </style>
+
     <div class="container is-max-desktop">
-        <table class="table is-striped is-hoverable is-fullwidth">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>nazwa</th>
-                <th>tagi</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for key, station in stations %}
-                <tr class="table-item" href="{{ path('station_read', {'id': station['id']}) }}">
-                    <td>{{ key + 1 }}</td>
-                    <td>{{ station['name'] }}</td>
-                    <td>
-                        {% for tag in station['tags'] %}
-                            <span class="button is-small is-rounded is-outlined">{{ tag }}</span>
+        <div class="content">
+            {% for tag, stations in stationsByTag %}
+                <div class="box">
+                    <h3 class="has-text-centered">{{ tag|ucfirst }}</h3>
+                    <table class="table is-striped is-hoverable is-fullwidth">
+                        <tbody>
+                        {% for key, station in stations %}
+                            <tr class="table-item" href="{{ path('station_read', {'id': station['id']}) }}">
+                                <td>#{{ key + 1 }}</td>
+                                <td>{{ station['name']|ucfirst }}</td>
+                            </tr>
                         {% endfor %}
-                    </td>
-                </tr>
+                        </tbody>
+                    </table>
+                </div>
             {% endfor %}
-            </tbody>
-        </table>
+        </div>
     </div>
 
     <script src="{{ asset('js/list_helper.js') }}"></script>

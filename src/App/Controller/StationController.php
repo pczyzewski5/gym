@@ -15,7 +15,7 @@ use Gym\Domain\Command\DeleteImage;
 use Gym\Domain\Command\DeleteStation;
 use Gym\Domain\Command\UpdateStation;
 use Gym\Domain\Query\GetStation;
-use Gym\Domain\Query\GetStationsForRead;
+use Gym\Domain\Query\GetStationsForList;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -32,12 +32,12 @@ class StationController extends BaseController
 
     public function list(Request $request): Response
     {
-        $stations = $this->queryBus->handle(
-            new GetStationsForRead()
+        $stationsByTag = $this->queryBus->handle(
+            new GetStationsForList()
         );
 
         return $this->renderForm('station/list.html.twig', [
-            'stations' => $stations
+            'stationsByTag' => $stationsByTag
         ]);
     }
 

@@ -28,6 +28,10 @@ class GetExercisesForListHandler
             $result[$exercise['tag']][] = $exercise;
         }
 
+        \uksort($result, function (string $tagA, string $tagB) {
+            return \strcmp($tagA, $tagB);
+        });
+
         return $result;
     }
 }

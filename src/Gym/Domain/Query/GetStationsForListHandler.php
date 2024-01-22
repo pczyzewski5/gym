@@ -6,7 +6,7 @@ namespace Gym\Domain\Query;
 
 use Gym\Domain\Station\StationRepository;
 
-class GetStationsForReadHandler
+class GetStationsForListHandler
 {
     private StationRepository $repository;
 
@@ -15,7 +15,7 @@ class GetStationsForReadHandler
         $this->repository = $repository;
     }
 
-    public function __invoke(GetStationsForRead $query): array
+    public function __invoke(GetStationsForList $query): array
     {
         $stations = \array_map(function (array $item) {
             $tags = \explode(',', $item['tags']);
@@ -28,9 +28,21 @@ class GetStationsForReadHandler
         }, $this->repository->findAllForList());
 
         \usort($stations, function (array $stationA, array $stationB) {
-            return \strcmp($stationA['tags'][0], $stationB['tags'][0]);
+            return \strcmp($stationA['name'], $stationB['name']);
         });
 
-        return $stations;
+        $result = [];
+
+        foreach ($stations as $station) {
+            foreach ($station['tags'] as $tag) {
+                $result[$tag][] = $station;
+            }
+        }
+
+        \uksort($result, function (string $tagA, string $tagB) {
+            return \strcmp($tagA, $tagB);
+        });
+
+        return $result;
     }
 }

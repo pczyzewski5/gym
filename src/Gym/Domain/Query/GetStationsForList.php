@@ -4,6 +4,6 @@ declare(strict_types=1);
 
 namespace Gym\Domain\Query;
 
-class GetStationsForRead
+class GetStationsForList
 {
 }
