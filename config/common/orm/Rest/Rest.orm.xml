@@ -1,0 +1,12 @@
+<doctrine-mapping xmlns="https://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+<entity name="Gym\Infrastructure\Rest\Rest" table="rests">
+    <field name="stationId" type="string" column="station_id"/>
+    <field name="exerciseId" type="string" column="exercise_id"/>
+    <field name="rest" type="string" column="rest"/>
+</entity>
+
+</doctrine-mapping>

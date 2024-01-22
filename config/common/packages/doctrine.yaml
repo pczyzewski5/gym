@@ -43,13 +43,6 @@ doctrine:
                 is_bundle: false
                 alias: ExerciseToStation
 
-            ExerciseToTraining:
-                type: xml
-                prefix: Gym\Infrastructure\ExerciseToTraining
-                dir: '%kernel.project_dir%/config/common/orm/ExerciseToTraining'
-                is_bundle: false
-                alias: ExerciseToTraining
-
             LiftedWeight:
                 type: xml
                 prefix: Gym\Infrastructure\LiftedWeight
@@ -70,3 +63,10 @@ doctrine:
                 dir: '%kernel.project_dir%/config/common/orm/Tag'
                 is_bundle: false
                 alias: Tag
+
+            Rest:
+                type: xml
+                prefix: Gym\Infrastructure\Rest
+                dir: '%kernel.project_dir%/config/common/orm/Rest'
+                is_bundle: false
+                alias: Rest
