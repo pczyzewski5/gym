@@ -34,12 +34,12 @@ class TrainingController extends BaseController
 
     public function list(): Response
     {
-        $trainingsByMonth = $this->queryBus->handle(
+        $trainingsByYear = $this->queryBus->handle(
             new FindTrainingsForList()
         );
 
         return $this->renderForm('training/list.html.twig', [
-            'trainingsByMonth' => $trainingsByMonth
+            'trainingsByYear' => $trainingsByYear
         ]);
     }
 

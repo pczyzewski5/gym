@@ -22,8 +22,9 @@ class FindTrainingsForListHandler
         $result = [];
 
         foreach ($trainings as $training) {
+            $year = $training['training_date']->format('Y');
             $month = $training['training_date']->format('F');
-            $result[$month][] = $training;
+            $result[$year][$month][] = $training;
         }
 
         return $result;
