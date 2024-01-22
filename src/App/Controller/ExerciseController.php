@@ -53,7 +53,7 @@ class ExerciseController extends BaseController
             $data = $form->getData();
 
             $image = $this->commandBus->handle(
-                new UploadFile($data[StationForm::IMAGE_FIELD])
+                new UploadFile($data[StationForm::IMAGE_UPLOAD_FIELD])
             );
 
             $id = $this->commandBus->handle(
