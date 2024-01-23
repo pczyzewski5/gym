@@ -22,8 +22,7 @@ class TimeSpentPerTraining {
             options: {
                 scales: {
                     y: {
-                        min: 30,
-                        max: 150,
+                        grace: 20,
                         ticks: {
                             stepSize: 10
                         }
