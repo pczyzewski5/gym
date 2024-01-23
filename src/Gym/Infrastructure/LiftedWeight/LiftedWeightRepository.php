@@ -114,7 +114,7 @@ SQL;
 SELECT repetition_count, kilogram_count, (repetition_count * kilogram_count) as total FROM lifted_weights
       WHERE station_id = :stationId
       AND exercise_id = :exerciseId 
-      ORDER BY (repetition_count * kilogram_count) DESC
+      ORDER BY kilogram_count DESC
       LIMIT 1;
 SQL;
         $stmt = $this->entityManager->getConnection()->executeQuery(
