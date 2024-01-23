@@ -60,6 +60,11 @@ class ExerciseToStationMetricsHelper {
             let $exerciseId = $option.data('exercise-id');
             let $stationId = $option.data('station-id');
 
+            if (typeof $exerciseId === 'undefined' && typeof $stationId === 'undefined') {
+                $exerciseId = $chart.data('exercise-id');
+                $stationId = $chart.data('station-id');
+            }
+
             let $request = $.ajax({
                 url: '/lifted-weight/exercise/' + $exerciseId + '/station/' + $stationId + '/metrics',
                 method: 'GET',
@@ -71,7 +76,10 @@ class ExerciseToStationMetricsHelper {
                     $lastChart.destroy();
                 }
 
-                new Chart($chart, getChartConfig((JSON.parse($data))))
+                $data = JSON.parse($data);
+                if ($data.length > 1) {
+                    new Chart($chart, getChartConfig($data))
+                }
             });
         }
 

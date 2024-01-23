@@ -135,9 +135,12 @@
             {% endif %}
             </tbody>
         </table>
+
+        <canvas id="exercise-to-station-chart" data-exercise-id="{{ exerciseId }}" data-station-id="{{ stationId }}"></canvas>
     </div>
 
     <script src="{{ asset('js/countdownTimer.min.js') }}"></script>
     <script src="{{ asset('js/exercise_in_progress_helper.js') }}"></script>
     <script src="{{ asset('js/modal_helper.js') }}"></script>
+    <script src="{{ asset('js/exercise_to_station_metrics_helper.js') }}"></script>
 {% endblock %}
