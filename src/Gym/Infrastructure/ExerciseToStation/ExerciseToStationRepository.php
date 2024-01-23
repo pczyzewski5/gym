@@ -19,9 +19,10 @@ class ExerciseToStationRepository implements DomainRepository
     public function findAllWithNames(): array
     {
         $sql = <<<SQL
-SELECT ets.exercise_id, e.name as exercise_name, ets.station_id, s.name as station_name  FROM exercises_to_stations ets
-JOIN exercises e ON e.id = ets.exercise_id
-JOIN stations s ON s.id = ets.station_id
+SELECT ets.exercise_id, e.name as exercise_name, ets.station_id, s.name as station_name, lw.training_id as training_id  FROM exercises_to_stations ets
+    JOIN exercises e ON e.id = ets.exercise_id
+    JOIN stations s ON s.id = ets.station_id
+    LEFT JOIN lifted_weights lw ON lw.exercise_id = ets.exercise_id AND lw.station_id = ets.station_id                                                                                     
 ORDER BY e.name ASC
 SQL;
         $stmt = $this->entityManager->getConnection()->executeQuery($sql);
