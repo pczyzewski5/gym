@@ -18,17 +18,18 @@ class GetDataForExerciseToStationMetricsHandler
 
     public function __invoke(GetDataForExerciseToStationMetrics $query): array
     {
-        $liftedWeights = $this->repository->findAllByExerciseIdAndStationId(
+        $data = $this->repository->findDataByExerciseIdAndStationId(
             $query->getExerciseId(),
             $query->getStationId()
         );
 
         $kilogramsToDate = [];
 
-        /** @var LiftedWeight $liftedWeight */
-        foreach ($liftedWeights as $liftedWeight) {
-            $kilogramsToDate[$liftedWeight->getCreatedAt()->format('d M')][]
-                = $liftedWeight->getKilogramCount();
+        /** @var LiftedWeight $datum */
+        foreach ($data as $datum) {
+            $date = \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $datum['training_date']);
+            $kilogramsToDate[$date->format('d M')][]
+                = $datum['kilogram_count'];
         }
 
         $result = [];

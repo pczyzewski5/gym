@@ -63,7 +63,6 @@ class ExerciseToStationMetricsHelper {
             let $request = $.ajax({
                 url: '/lifted-weight/exercise/' + $exerciseId + '/station/' + $stationId + '/metrics',
                 method: 'GET',
-                async: false
             });
 
             $request.done(function($data) {

@@ -31,5 +31,5 @@ interface LiftedWeightRepository
 
     public function getAllForMetrics(): array;
 
-    public function findAllByExerciseIdAndStationId(string $exerciseId, string $stationId): array;
+    public function findDataByExerciseIdAndStationId(string $exerciseId, string $stationId): array;
 }
