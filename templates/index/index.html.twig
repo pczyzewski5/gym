@@ -14,15 +14,32 @@
                     data-average-lifted-weight="{{ metricsHelper.getAverageLiftedWeight() }}">
             </canvas>
         </div>
-            <div class="box">
+
+        <div class="box">
             <canvas
                     id="time-spent-per-training"
                     data-time-spent-on-gym-per-training-in-minutes="{{ metricsHelper.getTimeSpentOnGymPerTrainingInMinutes() }}"
                     data-average-time-spent-on-gym-in-minutes="{{ metricsHelper.getAverageTimeSpentOnGymInMinutes() }}">
             </canvas>
         </div>
+
+        <div class="box">
+            <div class="select">
+                <select id="exercise-to-station-metrics-selector">
+                    {% for exerciseToStation in exercisesToStations %}
+                        <option data-exercise-id="{{ exerciseToStation['exercise_id'] }}"
+                                data-station-id="{{ exerciseToStation['station_id'] }}">
+                            {{ exerciseToStation['exercise_name']|ucfirst }} -> {{ exerciseToStation['station_name']|ucfirst }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <canvas id="exercise-to-station-chart"></canvas>
+        </div>
     </div>
 
     <script src="{{ asset('js/total_lifted_weight_per_training_chart.js') }}"></script>
     <script src="{{ asset('js/time_spent_per_training.js') }}"></script>
+    <script src="{{ asset('js/exercise_to_station_metrics_helper.js') }}"></script>
 {% endblock %}

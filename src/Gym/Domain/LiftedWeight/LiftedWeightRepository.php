@@ -30,4 +30,6 @@ interface LiftedWeightRepository
     public function findBestRepetition(string $stationId, string $exerciseId): ?array;
 
     public function getAllForMetrics(): array;
+
+    public function findAllByExerciseIdAndStationId(string $exerciseId, string $stationId): array;
 }

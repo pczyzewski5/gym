@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\CommandBus\CommandBus;
 use App\QueryBus\QueryBus;
 use Gym\Domain\Query\GetMetricsHelper;
+use Gym\Domain\Query\GetExerciseToStationInclNames;
 use nadar\quill\Lexer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,14 +23,18 @@ class IndexController extends BaseController
         $this->commandBus = $commandBus;
     }
 
-    public function index(): Response
+    public function index(Request $request): Response
     {
         $metricsHelper = $this->queryBus->handle(
             new GetMetricsHelper()
         );
+        $exercisesToStations = $this->queryBus->handle(
+            new GetExerciseToStationInclNames()
+        );
 
         return $this->renderForm('index/index.html.twig', [
             'metricsHelper' => $metricsHelper,
+            'exercisesToStations' => $exercisesToStations,
         ]);
     }
 

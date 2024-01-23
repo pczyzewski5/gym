@@ -14,8 +14,8 @@ services:
     arguments:
       - '@doctrine.orm.entity_manager'
 
-  Gym\Infrastructure\ExerciseToTraining\ExerciseToTrainingRepository:
-    class: Gym\Infrastructure\ExerciseToTraining\ExerciseToTrainingRepository
+  Gym\Infrastructure\ExerciseToStation\ExerciseToStationRepository:
+    class: Gym\Infrastructure\ExerciseToStation\ExerciseToStationRepository
     arguments:
       - '@doctrine.orm.entity_manager'
 

@@ -33,6 +33,16 @@ class LiftedWeightRepository implements DomainRepository
         );
     }
 
+    public function findAllByExerciseIdAndStationId(string $exerciseId, string $stationId): array
+    {
+        return LiftedWeightMapper::mapArrayToDomain(
+            $this->entityManager->getRepository(LiftedWeight::class)->findBy([
+                'exerciseId' => $exerciseId,
+                'stationId' => $stationId,
+            ])
+        );
+    }
+
     public function getOneById(string $id): DomainEntity
     {
         $entity = $this->entityManager->getRepository(LiftedWeight::class)->find($id);

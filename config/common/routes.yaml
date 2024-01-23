@@ -129,3 +129,8 @@ lifted_weight_delete:
     path: /lifted-weight/{id}/delete
     controller: App\Controller\LiftedWeightController::delete
     methods: [ GET ]
+
+lifted_weight_metrics:
+    path: /lifted-weight/exercise/{exercise_id}/station/{station_id}/metrics
+    controller: App\Controller\LiftedWeightController::metrics
+    methods: [ GET ]

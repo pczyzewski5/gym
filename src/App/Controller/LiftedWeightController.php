@@ -8,6 +8,7 @@ use App\CommandBus\CommandBus;
 use App\QueryBus\QueryBus;
 use Gym\Domain\Command\CreateLiftedWeight;
 use Gym\Domain\Command\DeleteLiftedWeight;
+use Gym\Domain\Query\GetDataForExerciseToStationMetrics;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Uid\Uuid;
@@ -49,5 +50,17 @@ class LiftedWeightController extends BaseController
         );
 
         return new Response(null,Response::HTTP_NO_CONTENT);
+    }
+
+    public function metrics(Request $request): Response
+    {
+        $data = $this->queryBus->handle(
+            new GetDataForExerciseToStationMetrics(
+                $request->get('exercise_id'),
+                $request->get('station_id')
+            )
+        );
+
+        return new Response(\json_encode($data));
     }
 }

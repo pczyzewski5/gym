@@ -83,6 +83,20 @@ services:
     tags:
       - { name: tactician.handler, command: Gym\Domain\Query\GetMetricsHelper, bus: query }
 
+  Gym\Domain\Query\GetDataForExerciseToStationMetricsHandler:
+    class: Gym\Domain\Query\GetDataForExerciseToStationMetricsHandler
+    arguments:
+      - '@Gym\Domain\LiftedWeight\LiftedWeightRepository'
+    tags:
+      - { name: tactician.handler, command: Gym\Domain\Query\GetDataForExerciseToStationMetrics, bus: query }
+
+  Gym\Domain\Query\GetExerciseToStationInclNamesHandler:
+    class: Gym\Domain\Query\GetExerciseToStationInclNamesHandler
+    arguments:
+      - '@Gym\Domain\ExerciseToStation\ExerciseToStationRepository'
+    tags:
+      - { name: tactician.handler, command: Gym\Domain\Query\GetExerciseToStationInclNames, bus: query }
+
   Gym\Domain\Query\GetTrainingInProgressHelperHandler:
     class: Gym\Domain\Query\GetTrainingInProgressHelperHandler
     arguments:
