@@ -42,9 +42,11 @@
         <a href="{{ path('training_in_progress_select_exercise', {'id': trainingInProgress.getId()}) }}"
            class="button is-fullwidth is-warning is-small"
            style="border-radius: 0">
-            przejdź do aktywnego treningu
+            przejdź do aktywnego treningu (<span id="training-duration" data-training-started="{{ trainingInProgress.getTrainingStarted().format('U') }}">00</span>&nbsp;min)
         </a>
     </div>
+
+    <script src="{{ asset('js/update_training_time.js') }}"></script>
 {% endif %}
 
 {% include('footer.html.twig') %}

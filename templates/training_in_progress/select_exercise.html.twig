@@ -73,7 +73,7 @@
 
         {% if isInProgress %}
             <a href="{{ path('training_update_status', {'id': training.getId(), 'status': 'done'}) }}" class="button is-fullwidth is-small mb-3 is-warning">
-                zakończ trening (<span id="training-duration" data-training-started="{{ training.getTrainingStarted().format('U') }}">00</span>&nbsp;min)
+                zakończ trening
             </a>
         {% else %}
             <a href="{{ path('training_update_status', {'id': training.getId(), 'status': 'in_progress'}) }}" class="button is-fullwidth is-small mb-3 is-success">
@@ -136,5 +136,4 @@
 
     <script src="{{ asset('js/img_modal_helper.js') }}"></script>
     <script src="{{ asset('js/modal_helper.js') }}"></script>
-    <script src="{{ asset('js/update_training_time.js') }}"></script>
 {% endblock %}
