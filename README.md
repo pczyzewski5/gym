@@ -6,9 +6,6 @@ This project is the MVP version. I've created this application to track my progr
 * create training
 * track training progress
 
-The application can be found at https://gym.vxm.pl, but I do not activate a new user account because I have not
-implemented data separation per user.
-
 The applications can be tested in the development environment, I also added sample data there.
 
 ## Local environment requirements
